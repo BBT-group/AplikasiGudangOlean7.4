@@ -1,4 +1,5 @@
                 <!-- Begin Page Content -->
+
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-2">
@@ -53,16 +54,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><?php $no = 0;
-                                            foreach ($barang as $item) : ?>
+                                        <?php $no = 0;
+                                        foreach ($barang as $item) : ?>
+                                            <tr>
                                                 <td class="p-1 pl-3"><?= $no += 1 ?></td>
                                                 <td class="p-1 pl-3"><?= $item['id_barang'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
-                                            <?php endforeach; ?>
 
-                                        </tr>
+
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
