@@ -51,7 +51,7 @@
                                 </div>
                             </div>
 
-                            <div class="container">                                
+                            <div class="container">
                                 <div class="row">
                                     <div class="col mb-1 p-0" style="text-align: left;">
                                         <a href="<?= base_url('barang_pinjam') ?>" class="btn btn-primary btn-sm">kembali</a>
@@ -78,15 +78,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><?php $no = 0;
-                                            foreach ($barang as $item) : ?>
+                                        <?php $no = 0;
+                                        foreach ($barang as $item) : ?>
+                                            <tr>
                                                 <td class="p-1 pl-3"><?= $no += 1 ?></td>
                                                 <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                            <?php endforeach; ?>
 
-                                        </tr>
+
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

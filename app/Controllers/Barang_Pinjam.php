@@ -180,7 +180,10 @@ class Barang_Pinjam extends BaseController
 
                 $namaPenerima = $this->request->getVar('nama_penerima');
                 if ($this->penerimaModel->where('nama', $namaPenerima)->first() == null) {
-                    $penerimaId = $this->penerimaModel->insert(['nama' => $namaPenerima]) ? $this->penerimaModel->getInsertID() : throw new DatabaseException('Failed to insert post:gagal menambah master' . implode(', ', $this->masterPeminjamanModel->errors()));
+                    if (!$this->penerimaModel->insert(['nama' => $namaPenerima])) {
+                        throw new DatabaseException('Failed to insert post:gagal menambah master' . implode(', ', $this->masterPeminjamanModel->errors()));
+                    }
+                    $penerimaId = $this->penerimaModel->getInsertID();
                 } else {
                     $penerima = $this->penerimaModel->where('nama', $namaPenerima)->first();
                     $penerimaId = $penerima['id_penerima'];
@@ -314,67 +317,64 @@ class Barang_Pinjam extends BaseController
 
     public function updateStatus()
     {
-        if ($this->request->getMethod() == 'POST') {
 
+        $db = \Config\Database::connect();
 
-            $db = \Config\Database::connect();
+        $id = $this->request->getVar('id_ms_peminjaman');
+        try {
+            // Set the isolation level if needed
+            $db->query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED"); // Change as required
 
-            $id = $this->request->getVar('id_ms_peminjaman');
-            try {
-                // Set the isolation level if needed
-                $db->query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED"); // Change as required
+            // Start the transaction
+            $db->transBegin();
 
-                // Start the transaction
-                $db->transBegin();
+            $data = $this->masterPeminjamanModel->where('id_ms_peminjaman', $id)->first();
 
-                $data = $this->masterPeminjamanModel->where('id_ms_peminjaman', $id)->first();
+            $currentDateTime =  date("Y-m-d H:i:s");
+            $newData = [
+                'tanggal_pinjam' => $data['tanggal_pinjam'],
+                'tanggal_kembali' => $currentDateTime,
+                'id_penerima' => $data['id_penerima'],
+                'status' => '0',
+                'bukti_peminjaman' => $data['bukti_peminjaman']
+            ];
+            if (!$this->masterPeminjamanModel->update($data['id_ms_peminjaman'], $newData)) {
+                throw new DatabaseException('Failed to insert post: gagal update data alat');
+            };
+            $barang = $this->peminjamanModel->getByMasterId($id);
 
-                $currentDateTime =  date("Y-m-d H:i:s");
-                $newData = [
-                    'tanggal_pinjam' => $data['tanggal_pinjam'],
-                    'tanggal_kembali' => $currentDateTime,
-                    'id_penerima' => $data['id_penerima'],
-                    'status' => '0',
-                    'bukti_peminjaman' => $data['bukti_peminjaman']
+            foreach ($barang as $b) {
+
+                $barang1 = $this->inventarisModel->where('id_inventaris', $b['id_inventaris'])->first();
+
+                $sisa = $barang1['stok'] + $b['jumlah'];
+                $data = [
+                    'nama_inventaris' => $barang1['nama_inventaris'],
+                    'foto' => $barang1['foto'],
+                    'stok' => $sisa,
                 ];
-                if (!$this->masterPeminjamanModel->update($data['id_ms_peminjaman'], $newData)) {
+
+                if (!$this->inventarisModel->update($barang1['id_inventaris'], $data)) {
                     throw new DatabaseException('Failed to insert post: gagal update data alat');
-                };
-                $barang = $this->peminjamanModel->getByMasterId($id);
-
-                foreach ($barang as $b) {
-
-                    $barang1 = $this->inventarisModel->where('id_inventaris', $b['id_inventaris'])->first();
-
-                    $sisa = $barang1['stok'] + $b['jumlah'];
-                    $data = [
-                        'nama_inventaris' => $barang1['nama_inventaris'],
-                        'foto' => $barang1['foto'],
-                        'stok' => $sisa,
-                    ];
-
-                    if (!$this->inventarisModel->update($barang1['id_inventaris'], $data)) {
-                        throw new DatabaseException('Failed to insert post: gagal update data alat');
-                    }
-                } // // Commit the transaction
-                if ($db->transStatus() === FALSE) {
-                    // If something went wrong, rollback transaction
-                    $db->transRollback();
-                    throw new DatabaseException('Transaction failed.');
-                } else {
-                    // Otherwise, commit the transaction
-                    $db->transCommit();
-
-                    session()->setFlashdata('message', 'Transaction successful.');
-                    // ganti url
-                    return redirect()->to(base_url('/barang_pinjam'))->withInput();
                 }
-            } catch (DatabaseException $e) {
-                // Rollback transaction on any exception
+            } // // Commit the transaction
+            if ($db->transStatus() === FALSE) {
+                // If something went wrong, rollback transaction
                 $db->transRollback();
-                session()->setFlashdata('error', 'Transaction failed: ' . $e->getMessage());
-                return redirect()->back()->withInput();
+                throw new DatabaseException('Transaction failed.');
+            } else {
+                // Otherwise, commit the transaction
+                $db->transCommit();
+
+                session()->setFlashdata('message', 'Transaction successful.');
+                // ganti url
+                return redirect()->to(base_url('/barang_pinjam'))->withInput();
             }
+        } catch (DatabaseException $e) {
+            // Rollback transaction on any exception
+            $db->transRollback();
+            session()->setFlashdata('error', 'Transaction failed: ' . $e->getMessage());
+            return redirect()->back()->withInput();
         }
     }
 }
