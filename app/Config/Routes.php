@@ -36,7 +36,7 @@ $routes->add('/barang_masuk/update2', 'Barang_Masuk::update');
 $routes->add('/barang_masuk/carii', 'Barang_Masuk::cariStok');
 $routes->add('/barang_masuk/hapusitem', 'Barang_Masuk::hapusBarangDatalistMasuk');
 
-$routes->add('/barang_keluar/index', 'Barang_keluar::index');
+$routes->add('/barang_keluar/index', 'Barang_Keluar::index');
 $routes->post('/barang_keluar/savedata', 'Barang_Keluar::saveData');
 $routes->add('/barang_keluar/cari', 'Barang_Keluar::index2');
 $routes->add('/barang_keluar/clearsession', 'Barang_Keluar::clearSession');
