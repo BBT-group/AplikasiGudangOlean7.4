@@ -1,4 +1,4 @@
-                <!-- Begin Page Content -->
+                <!-- Begin Page Content --><?php ($validation) ?>
                 <div class="container-fluid">
                     <!-- Content Row -->
                     <div class="row">
@@ -14,13 +14,18 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="id_barang">ID Barang</label>
-                                                    <input type="text" class="form-control" id="id_barang" name="id_barang" autofocus value="<?php if (old('id_barang') != null) {
-                                                                                                                                                    echo old('id_barang');
-                                                                                                                                                } elseif (session()->get('id_temp')) {
-                                                                                                                                                    echo session()->get('id_temp');
-                                                                                                                                                } else {
-                                                                                                                                                    '';
-                                                                                                                                                } ?>">
+                                                    <input type="text" class="form-control <?= (array_key_exists('id_barang', $validation)) ? 'is-invalid' : ''; ?>" id="id_barang" name="id_barang" autofocus value="<?php if (old('id_barang') != null) {
+                                                                                                                                                                                                                            echo old('id_barang');
+                                                                                                                                                                                                                        } elseif (session()->get('id_temp')) {
+                                                                                                                                                                                                                            echo session()->get('id_temp');
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                            '';
+                                                                                                                                                                                                                        } ?>">
+                                                    <?php if (array_key_exists('id_barang', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_barang'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama">Nama</label>
@@ -33,13 +38,13 @@
                                                         <?php foreach ($satuan as $sat) : ?>
                                                             <option value="<?= $sat['nama_satuan']; ?>"><?= $sat['nama_satuan']; ?></option>
                                                         <?php endforeach; ?>
-                                                    </select> 
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="id_kategori">Kategori</label>
                                                     <select class="form-control" id="id_kategori" name="id_kategori" required list="item-list" maxlength="15" value="<?= old('id_kategori') ?? '' ?>">
-                                                    <option value="">Pilih Kategori</option>
-                                                    <?php foreach ($kategori as $kat) : ?>
+                                                        <option value="">Pilih Kategori</option>
+                                                        <?php foreach ($kategori as $kat) : ?>
                                                             <option value="<?= $kat['nama_kategori']; ?>"><?= $kat['nama_kategori']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
@@ -58,53 +63,53 @@
                     </div>
                 </div>
                 <!-- /.container-fluid -->
-            </div>
-            <!-- End of Main Content -->
-        </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
+                </div>
+                <!-- End of Main Content -->
+                </div>
+                <!-- End of Content Wrapper -->
+                </div>
+                <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    
-    <!-- Bootstrap core JavaScript-->
-    <script src="/jquery/jquery.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/jquery-easing/jquery.easing.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="/jquery/jquery.js"></script>
+                <script src="/bootstrap/js/bootstrap.bundle.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/chart.js/Chart.js"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="/js/sb-admin-2.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/chart-area-demo.js"></script>
-    <script src="/js/demo/chart-pie-demo.js"></script>
+                <!-- Page level plugins -->
+                <script src="/chart.js/Chart.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+                <!-- Page level custom scripts -->
+                <script src="/js/demo/chart-area-demo.js"></script>
+                <script src="/js/demo/chart-pie-demo.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#id_satuan').select2({
-                placeholder: "Pilih Satuan",
-                allowClear: true
-            });
-        });
-        $(document).ready(function() {
-            $('#id_kategori').select2({
-                placeholder: "Pilih Kategori",
-                allowClear: true
-            });
-        });
-    </script>
+                <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
-</body>
+                <script>
+                    $(document).ready(function() {
+                        $('#id_satuan').select2({
+                            placeholder: "Pilih Satuan",
+                            allowClear: true
+                        });
+                    });
+                    $(document).ready(function() {
+                        $('#id_kategori').select2({
+                            placeholder: "Pilih Kategori",
+                            allowClear: true
+                        });
+                    });
+                </script>
 
-</html>
+                </body>
+
+                </html>

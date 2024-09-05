@@ -25,7 +25,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-1">
                                                 <label for="input2">Penerima</label>
-                                                <input type="text" class="form-control" id="penerima" name="penerima" value="<?= old('penerima') ?>">
+                                                <input type="text" class="form-control <?= (array_key_exists('penerima', $validation)) ? 'is-invalid' : ''; ?>" id="penerima" name="penerima" value="<?= old('penerima') ?>">
+                                                <?php if (array_key_exists('penerima', $validation)): ?>
+                                                    <div class="invalid-feedback">
+                                                        <?= $validation['penerima'] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col">

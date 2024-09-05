@@ -33,6 +33,7 @@ class Barang_Pinjam extends BaseController
 
         $data = [
             'pinjam' => session()->get('datalist_pinjam'),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_peminjaman', $data);

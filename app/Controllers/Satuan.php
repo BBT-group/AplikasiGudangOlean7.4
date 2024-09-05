@@ -32,9 +32,13 @@ class Satuan extends BaseController
 
     public function indexTambah()
     {
+        $data = [
+            'validation' => validation_errors()
+        ];
+
         echo view('v_header');
 
-        return view('admin/v_tambah_satuan');
+        return view('admin/v_tambah_satuan', $data);
     }
 
     public function tambahSatuan()
@@ -53,7 +57,8 @@ class Satuan extends BaseController
     public function indexUpdate($id)
     {
         $data = [
-            'satuan' => $this->satuanModel->where('id_satuan', $id)->first()
+            'satuan' => $this->satuanModel->where('id_satuan', $id)->first(),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_update_satuan', $data);

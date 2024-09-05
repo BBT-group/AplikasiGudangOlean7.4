@@ -1,5 +1,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -14,13 +15,18 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="id_barang">ID Barang</label>
-                                                    <input type="text" class="form-control barcode-input" id="id_barang" name="id_barang" autofocus value="<?php if (old('id_barang') != null) {
-                                                                                                                                                                echo old('id_barang');
-                                                                                                                                                            } elseif (session()->get('id_temp')) {
-                                                                                                                                                                echo session()->get('id_temp');
-                                                                                                                                                            } else {
-                                                                                                                                                                '';
-                                                                                                                                                            } ?>">
+                                                    <input type="text" class="form-control barcode-input <?= (array_key_exists('id_barang', $validation)) ? 'is-invalid' : ''; ?>" id="id_barang" name="id_barang" autofocus value="<?php if (old('id_barang') != null) {
+                                                                                                                                                                                                                                        echo old('id_barang');
+                                                                                                                                                                                                                                    } elseif (session()->get('id_temp')) {
+                                                                                                                                                                                                                                        echo session()->get('id_temp');
+                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                        '';
+                                                                                                                                                                                                                                    } ?>">
+                                                    <?php if (array_key_exists('id_barang', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_barang'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama">Nama</label>
@@ -31,7 +37,7 @@
                                                     <select class="form-control" id="id_satuan" name="id_satuan" style="display: block;" required list="item-list" maxlength="15" value="<?= old('id_satuan') ?? '' ?>">
                                                         <option value="">Pilih Satuan</option>
                                                         <?php foreach ($satuan as $sat) : ?>
-                                                            <option value="<?= $sat['nama_satuan']; ?>"><?= $sat['nama_satuan']; ?></option>
+                                                            <option value="<?= $sat['nama_satuan']; ?>" <?= set_select('id_satuan', $sat['nama_satuan']) ?>><?= $sat['nama_satuan']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -40,7 +46,7 @@
                                                     <select class="form-control" id="id_kategori" name="id_kategori" required list="item-list" maxlength="15" value="<?= old('id_kategori') ?? '' ?>">
                                                         <option value="">Pilih Kategori</option>
                                                         <?php foreach ($kategori as $kat) : ?>
-                                                            <option value="<?= $kat['nama_kategori']; ?>"><?= $kat['nama_kategori']; ?></option>
+                                                            <option value="<?= $kat['nama_kategori']; ?>" <?= set_select('id_kategori', $kat['nama_kategori']) ?>><?= $kat['nama_kategori']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>

@@ -61,9 +61,9 @@ $routes->get('/laporan_peminjaman', 'Laporan_Peminjaman::index');
 $routes->get('/laporan_peminjaman/exportp', 'Laporan_Peminjaman::exportp');
 $routes->get('/laporan_peminjaman/printp', 'Laporan_Peminjaman::printp');
 
-$routes->get('/laporan_inventaris', 'laporan_Inventaris::index');
-$routes->get('/laporan_inventaris/exporti', 'laporan_Inventaris::exporti');
-$routes->get('/laporan_inventaris/printi', 'laporan_Inventaris::printi');
+$routes->get('/laporan_inventaris', 'Laporan_Inventaris::index');
+$routes->get('/laporan_inventaris/exporti', 'Laporan_Inventaris::exporti');
+$routes->get('/laporan_inventaris/printi', 'Laporan_Inventaris::printi');
 
 $routes->get('/stok', 'Stok::index');
 $routes->get('/stok/tambahbarang', 'Stok::tambahBarang');
@@ -120,6 +120,6 @@ $routes->match(['get', 'post'], '/user/updatePassword/(:num)', 'User::updatePass
 $routes->get('/user/changePassword', 'UserController::changePasswordForm');
 $routes->post('/user/updatePassword', 'UserController::updatePassword');
 
-$routes->set404Override(function(){
+$routes->set404Override(function () {
     echo view('v_404');
 });

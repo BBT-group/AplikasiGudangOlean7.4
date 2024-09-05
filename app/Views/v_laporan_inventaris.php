@@ -20,26 +20,27 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered" id="dataTables" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Id Barang</th>
-                                        <th>Nama Alat</th>
-                                        <th>Stok</th>
-                                        <th>Harga Beli</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1; foreach ($inventaris as $item) : ?>
+                                    <thead>
                                         <tr>
-                                            <td class="p-1 pl-3"><?= $no++ ?></td>
-                                            <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
-                                            <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
-                                            <td class="p-1 pl-3"><?= $item['stok'] ?></td>
-                                            <td class="p-1 pl-3"><?= $item['harga_beli'] ?></td>
+                                            <th>No</th>
+                                            <th>Id Barang</th>
+                                            <th>Nama Alat</th>
+                                            <th>Stok</th>
+                                            <th>Harga Beli</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        foreach ($inventaris as $item) : ?>
+                                            <tr>
+                                                <td class="p-1 pl-3"><?= $no++ ?></td>
+                                                <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['stok'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['harga_beli'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -47,47 +48,47 @@
 
                 </div>
 
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Team IT PT. Olean</span>
                 </div>
-            </div>
-            </footer>
-            <!-- End of Footer -->
+                <!-- End of Main Content -->
 
-        </div>
-        <!-- End of Content Wrapper -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Team IT PT. Olean</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+                </div>
+                <!-- End of Content Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+                </div>
+                <!-- End of Page Wrapper -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/jquery/jquery.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/jquery-easing/jquery.easing.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="/jquery/jquery.js"></script>
+                <script src="/bootstrap/js/bootstrap.bundle.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/datatables/jquery.dataTables.js"></script>
-    <script src="/datatables/dataTables.bootstrap4.js"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="/js/sb-admin-2.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/datatables-demo.js"></script>
+                <!-- Page level plugins -->
+                <script src="/datatables/jquery.dataTables.js"></script>
+                <script src="/datatables/dataTables.bootstrap4.js"></script>
 
-</body>
+                <!-- Page level custom scripts -->
+                <script src="/js/demo/datatables-demo.js"></script>
 
-</html>
+                </body>
+
+                </html>

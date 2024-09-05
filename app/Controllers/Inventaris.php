@@ -26,7 +26,8 @@ class Inventaris extends BaseController
     {
         session()->set('id_temp', '');
         $dataAlat = [
-            'inventaris' => $this->inventarisModel->findAll()
+            'inventaris' => $this->inventarisModel->findAll(),
+            'validation' => validation_errors()
         ];
 
         echo view('v_header');
@@ -77,7 +78,8 @@ class Inventaris extends BaseController
     public function indexUpdate($id_inventaris = null)
     {
         $data = [
-            'alat' => $this->inventarisModel->getById($id_inventaris)->first()
+            'alat' => $this->inventarisModel->getById($id_inventaris)->first(),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_update_inventaris', $data);
@@ -90,7 +92,7 @@ class Inventaris extends BaseController
             'id_inventaris' => 'required|is_not_unique[inventaris.id_inventaris]',
             'nama_inventaris' => 'required',
         ])) {
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
         $file = $this->request->getFile('foto');
         $dataLama = $this->inventarisModel->getById($this->request->getVar('id_inventaris'))->first();

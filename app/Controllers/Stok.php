@@ -41,10 +41,13 @@ class Stok extends BaseController
 
     public function indexTambah()
     {
+
         session()->set('id_temp', '');
         $data = [
             'kategori' => $this->kategoriModel->findAll(),
-            'satuan' => $this->satuanModel->findAll()
+            'satuan' => $this->satuanModel->findAll(),
+            'validation' => validation_errors()
+
         ];
 
         echo view('v_header');
@@ -105,13 +108,25 @@ class Stok extends BaseController
         $data = [
             'data' => $this->barangModel->getBarangById($id_inventaris),
             'satuan' => $this->satuanModel->findAll(),
-            'kategori' => $this->kategoriModel->findAll()
+            'kategori' => $this->kategoriModel->findAll(),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_update_barang', $data);
     }
     public function updateBarang()
     {
+        if (!$this->validate([
+            'id_barang' => 'required',
+            'nama' => 'required',
+            'stok' => 'required',
+            'harga_beli' => 'required',
+            'id_kategori' => 'required',
+            'id_satuan' => 'required',
+            'foto' => 'uploaded[foto]',
+        ])) {
+            return redirect()->to(base_url('stok/indexupdate'))->withInput();
+        }
         $dataLama = $this->barangModel->getBarangById($this->request->getVar('id_barang'));
         $file = $this->request->getFile('foto');
         if ($file->isValid() && !$file->hasMoved()) {

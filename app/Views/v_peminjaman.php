@@ -27,9 +27,12 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="input2">Penerima</label>
-                                    <input type="text" class="form-control <?php if (isset($validate)) {
-                                                                                echo $validate->hasError('nama_penerima') ? 'is-invalid' : '';
-                                                                            }  ?>" id="nama_penerima" name="nama_penerima" value="<?= old('nama_penerima'); ?>">
+                                    <input type="text" class="form-control <?= (array_key_exists('nama_penerima', $validation)) ? 'is-invalid' : ''; ?>" id="nama_penerima" name="nama_penerima" value="<?= old('nama_penerima'); ?>">
+                                    <?php if (array_key_exists('nama_penerima', $validation)): ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation['nama_penerima'] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">

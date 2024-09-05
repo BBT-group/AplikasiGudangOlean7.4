@@ -34,7 +34,8 @@ class Barang_Keluar extends BaseController
     {
         $data = [
             'barang' => session()->get('datalist_keluar'),
-            'kategori' => $this->kategoriModel->findAll()
+            'kategori' => $this->kategoriModel->findAll(),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_barang_keluar', $data);
