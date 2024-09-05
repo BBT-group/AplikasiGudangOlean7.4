@@ -67,10 +67,8 @@
                                             <input type="text" class="form-control form-control-user" id="role" name="role" value="<?= $user['role'] ?>" hidden>
                                             <input type="text" class="form-control form-control-user" id="status" name="status" value="<?= $user['status'] ?>" hidden>
                                         <?php endif; ?>
-                                        <button class="btn btn-primary btn-user btn-block">
-                                            Update
-                                        </button>
-                                        <a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('beranda') ?>">Batal</a>
+                                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
+                                        <button class="btn btn-primary btn-user btn-block">Update</button>
                                     </form>
                                     <hr>
                                 </div>

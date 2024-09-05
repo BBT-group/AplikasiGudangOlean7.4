@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
-                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </form>
                                 </div>
                             </div>

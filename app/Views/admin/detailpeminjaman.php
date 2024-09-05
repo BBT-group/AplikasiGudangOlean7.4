@@ -55,7 +55,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col mb-1 p-0" style="text-align: left;">
-                                        <a href="<?= base_url('barang_pinjam') ?>" class="btn btn-primary btn-sm">kembali</a>
+                                        <a href="<?= base_url('barang_pinjam') ?>" class="btn btn-danger btn-sm">kembali</a>
                                     </div>
                                     <div class="col mb-1 p-0" style="text-align: right;">
                                         <?php if ($header['status'] == 1) : ?>

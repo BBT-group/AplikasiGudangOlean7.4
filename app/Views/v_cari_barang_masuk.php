@@ -15,9 +15,7 @@
                                         <tr>
                                             <th>ID Barang</th>
                                             <th>Nama</th>
-
                                             <th>Stok</th>
-
                                             <th>Kategori</th>
                                             <th>Detail</th>
                                         </tr>

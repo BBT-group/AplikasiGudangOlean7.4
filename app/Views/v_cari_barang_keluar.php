@@ -16,7 +16,6 @@
                                         <tr>
                                             <th>ID Barang</th>
                                             <th>Nama</th>
-
                                             <th>Stok</th>
                                             <th>Detail</th>
                                         </tr>
@@ -27,9 +26,7 @@
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $item['id_barang'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama'] ?></td>
-
                                                     <td class="p-1 pl-3"><?= $item['stok'] ?></td>
-
                                                     <td>
                                                         <form action=<?= base_url('/barang_keluar/savedata') ?> method="post">
                                                             <input type="text" name="id_barang" id="id_barang" value="<?= $item['id_barang'] ?>" hidden>
@@ -48,7 +45,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 </div>

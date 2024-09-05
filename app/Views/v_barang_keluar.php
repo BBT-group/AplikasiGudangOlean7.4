@@ -46,6 +46,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-6 mb-1">
+                                        <a class="btn btn-danger btn-sm" href="<?php echo base_url('barang_keluar')?>">Batal</a>
                                             <a href="<?= base_url('barang_keluar/cari') ?>" class="btn btn-primary btn-sm">Cari Barang</a>
                                         </div>
                                         <div class="col-6 mb-1" style="text-align: right;">

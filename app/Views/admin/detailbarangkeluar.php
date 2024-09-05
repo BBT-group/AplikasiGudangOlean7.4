@@ -37,9 +37,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col mb-1 p-0" style="text-align: left;">
-                                        <a href="<?= base_url('barang_keluar') ?>" class="btn btn-primary btn-sm">kembali</a>
+                                        <a href="<?= base_url('barang_keluar') ?>" class="btn btn-danger btn-sm">kembali</a>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="table-responsive">

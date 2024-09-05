@@ -59,14 +59,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-1"><a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('beranda') ?>">Batal</a></div>
-                                            <div class="col-md-11"><button type="submit" class="btn btn-primary">Submit</button></div>
-
-
-
-                                        </div>
-
+                                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
