@@ -25,6 +25,7 @@ class Peminjaman extends BaseController
     {
         $data = [
             'pinjam' => $this->masterPeminjamanModel->getAllWithNama(),
+
         ];
         echo view('v_header');
         return view('v_beranda_peminjaman', $data);

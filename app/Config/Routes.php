@@ -61,9 +61,9 @@ $routes->get('/laporan_peminjaman', 'Laporan_Peminjaman::index');
 $routes->get('/laporan_peminjaman/exportp', 'Laporan_Peminjaman::exportp');
 $routes->get('/laporan_peminjaman/printp', 'Laporan_Peminjaman::printp');
 
-$routes->get('/laporan_inventaris', 'laporan_Inventaris::index');
-$routes->get('/laporan_inventaris/exporti', 'laporan_Inventaris::exporti');
-$routes->get('/laporan_inventaris/printi', 'laporan_Inventaris::printi');
+$routes->get('/laporan_inventaris', 'Laporan_Inventaris::index');
+$routes->get('/laporan_inventaris/exporti', 'Laporan_Inventaris::exporti');
+$routes->get('/laporan_inventaris/printi', 'Laporan_Inventaris::printi');
 
 $routes->get('/stok', 'Stok::index');
 $routes->get('/stok/tambahbarang', 'Stok::tambahBarang');
@@ -87,23 +87,23 @@ $routes->add('/kategori/updatekategori', 'Kategori::updateKategori');
 
 $routes->get('/laporan_stok/exports', 'Laporan_Stok::exports');
 
-$routes->post('/barang_pinjam/savedata', 'Barang_pinjam::saveData');
-$routes->add('/barang_pinjam/cari', 'Barang_pinjam::index2');
-$routes->add('/barang_pinjam/updatestatus', 'Barang_pinjam::updateStatus');
-$routes->add('/barang_pinjam/index', 'Barang_pinjam::index');
-$routes->add('/barang_pinjam/clearsession', 'Barang_pinjam::clearSession');
-$routes->add('/barang_pinjam/update', 'Barang_pinjam::updateStok');
-$routes->add('/barang_pinjam/update2', 'Barang_pinjam::update');
-$routes->add('/barang_pinjam/carii', 'Barang_pinjam::cariStok');
-$routes->add('/barang_pinjam/hapusitem', 'Barang_pinjam::hapusBarangDatalistPinjam');
+$routes->post('/barang_pinjam/savedata', 'Barang_Pinjam::saveData');
+$routes->add('/barang_pinjam/cari', 'Barang_Pinjam::index2');
+$routes->add('/barang_pinjam/updatestatus', 'Barang_Pinjam::updateStatus');
+$routes->add('/barang_pinjam/index', 'Barang_Pinjam::index');
+$routes->add('/barang_pinjam/clearsession', 'Barang_Pinjam::clearSession');
+$routes->add('/barang_pinjam/update', 'Barang_Pinjam::updateStok');
+$routes->add('/barang_pinjam/update2', 'Barang_Pinjam::update');
+$routes->add('/barang_pinjam/carii', 'Barang_Pinjam::cariStok');
+$routes->add('/barang_pinjam/hapusitem', 'Barang_Pinjam::hapusBarangDatalistPinjam');
 
 $routes->add('/barang_masuk/indextambahbarang', 'Barang_Masuk::indexTambahBarang');
 $routes->add('/barang_masuk/indextambahalat', 'Barang_Masuk::indexTambahAlat');
-$routes->add('/barang_masuk/indexdetailmaster/(:num)', 'Barang_masuk::indexDetailMaster/$1');
+$routes->add('/barang_masuk/indexdetailmaster/(:num)', 'Barang_Masuk::indexDetailMaster/$1');
 $routes->add('/stok/index2', 'Stok::index2');
 $routes->add('/inventaris/index2', 'Inventaris::index2');
-$routes->add('/barang_keluar/indexdetailmaster/(:num)', 'Barang_keluar::indexDetailMaster/$1');
-$routes->add('/barang_pinjam/indexdetailmaster/(:num)', 'Barang_pinjam::indexDetailMaster/$1');
+$routes->add('/barang_keluar/indexdetailmaster/(:num)', 'Barang_Keluar::indexDetailMaster/$1');
+$routes->add('/barang_pinjam/indexdetailmaster/(:num)', 'Barang_Pinjam::indexDetailMaster/$1');
 
 $routes->add('/laporan_keluar/printk', 'Laporan_Keluar::printk');
 $routes->add('/laporan_masuk/printm', 'Laporan_Masuk::printm');
@@ -120,6 +120,6 @@ $routes->match(['get', 'post'], '/user/updatePassword/(:num)', 'User::updatePass
 $routes->get('/user/changePassword', 'UserController::changePasswordForm');
 $routes->post('/user/updatePassword', 'UserController::updatePassword');
 
-$routes->set404Override(function(){
+$routes->set404Override(function () {
     echo view('v_404');
 });

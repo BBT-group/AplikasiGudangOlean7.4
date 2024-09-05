@@ -20,25 +20,40 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama">Nama</label>
-                                                    <input type="text" class="form-control" id="nama" name="nama" required maxlength="45" value="<?= $data['nama'] ?>">
+                                                    <input type="text" class="form-control <?= (array_key_exists('nama', $validation)) ? 'is-invalid' : ''; ?>" id="nama" name="nama" required maxlength="45" value="<?= $data['nama'] ?>">
+                                                    <?php if (array_key_exists('nama', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['nama'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="id_satuan">Satuan</label>
-                                                    <select class="form-control" id="id_satuan" name="id_satuan" style="display: block;" required list="item-list" maxlength="15" value="<?= $data['nama_satuan'] ?>">
+                                                    <select class="form-control <?= (array_key_exists('id_satuan', $validation)) ? 'is-invalid' : ''; ?>" id="id_satuan" name="id_satuan" style="display: block;" required list="item-list" maxlength="15" value="<?= $data['nama_satuan'] ?>">
                                                         <option value="">Pilih Satuan</option>
                                                         <?php foreach ($satuan as $sat) : ?>
                                                             <option value="<?= $sat['nama_satuan']; ?>"><?= $sat['nama_satuan']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
+                                                    <?php if (array_key_exists('id_satuan', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_satuan'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="id_kategori">Kategori</label>
-                                                    <select class="form-control" id="id_kategori" name="id_kategori" required list="item-list" maxlength="15" value="<?= $data['nama_kategori'] ?>">
+                                                    <select class="form-control <?= (array_key_exists('id_kategori', $validation)) ? 'is-invalid' : ''; ?>" id="id_kategori" name="id_kategori" required list="item-list" maxlength="15" value="<?= $data['nama_kategori'] ?>">
                                                         <option value="">Pilih Kategori</option>
                                                         <?php foreach ($kategori as $kat) : ?>
                                                             <option value="<?= $kat['nama_kategori']; ?>"><?= $kat['nama_kategori']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
+                                                    <?php if (array_key_exists('id_kategori', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_kategori'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Foto</label>

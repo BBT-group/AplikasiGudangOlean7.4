@@ -25,7 +25,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group mb-1">
                                                     <label for="input2">Supplier</label>
-                                                    <input type="text" class="form-control" id="nama_supplier" name="nama_supplier" value="<?= old('nama_supplier'); ?>">
+                                                    <input type="text" class="form-control <?= (array_key_exists('nama_supplier', $validation)) ? 'is-invalid' : ''; ?>" id="nama_supplier" name="nama_supplier" value="<?= old('nama_supplier'); ?>">
+                                                    <?php if (array_key_exists('nama_supplier', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['nama_supplier'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

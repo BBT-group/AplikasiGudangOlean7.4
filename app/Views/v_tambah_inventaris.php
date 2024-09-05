@@ -1,6 +1,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Content Row -->
+
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card mb-4">
@@ -14,13 +15,18 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="id_inventaris">ID Alat</label>
-                                                    <input type="text" class="form-control" id="id_inventaris" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
-                                                                                                                                                            echo old('id_inventaris');
-                                                                                                                                                        } elseif (session()->get('id_temp') != null) {
-                                                                                                                                                            echo session()->get('id_temp');
-                                                                                                                                                        } else {
-                                                                                                                                                            '';
-                                                                                                                                                        } ?>">
+                                                    <input type="text" class="form-control <?= (array_key_exists('id_inventaris', $validation)) ? 'is-invalid' : ''; ?>" id="id_inventaris" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
+                                                                                                                                                                                                                                        echo old('id_inventaris');
+                                                                                                                                                                                                                                    } elseif (session()->get('id_temp') != null) {
+                                                                                                                                                                                                                                        echo session()->get('id_temp');
+                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                        '';
+                                                                                                                                                                                                                                    } ?>">
+                                                    <?php if (array_key_exists('id_inventaris', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_inventaris'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama_inventaris">Nama</label>

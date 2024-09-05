@@ -23,7 +23,8 @@ class Kategori extends BaseController
     public function index()
     {
         $data = [
-            'kategori' => $this->kategoriModel->findAll()
+            'kategori' => $this->kategoriModel->findAll(),
+
         ];
         echo view('v_header');
         return view('v_kategori', $data);
@@ -41,10 +42,11 @@ class Kategori extends BaseController
         return redirect()->to(base_url('kategori'));
     }
 
-    public function indexUpdate()
+    public function indexUpdate($id)
     {
         $data = [
-            'kategori' => $this->kategoriModel->where('id_kategori', $this->request->getVar('id_kategori'))->first()
+            'kategori' => $this->kategoriModel->where('id_kategori', $id)->first(),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_update_kategori', $data);
@@ -52,8 +54,9 @@ class Kategori extends BaseController
 
     public function indexTambah()
     {
+        $data = ['validation' => validation_errors()];
         echo view('v_header');
-        return view('v_tambah_kategori');
+        return view('v_tambah_kategori', $data);
     }
 
 

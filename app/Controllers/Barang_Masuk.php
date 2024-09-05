@@ -40,6 +40,7 @@ class Barang_Masuk extends BaseController
     {
         $data = [
             'barang' => session()->get('datalist'),
+            'validation' => validation_errors()
         ];
         echo view('v_header');
         return view('v_barang_masuk', $data);

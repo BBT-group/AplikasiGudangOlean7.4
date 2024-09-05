@@ -14,13 +14,18 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="id_inventaris">ID Alat</label>
-                                                    <input type="text" class="form-control" id="id_inventaris" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
-                                                                                                                                                            echo old('id_inventaris');
-                                                                                                                                                        } elseif (session()->get('id_temp') != null) {
-                                                                                                                                                            echo session()->get('id_temp');
-                                                                                                                                                        } else {
-                                                                                                                                                            '';
-                                                                                                                                                        } ?>">
+                                                    <input type="text" class="form-control" id="id_inventaris <?= (array_key_exists('id_inventaris', $validation)) ? 'is-invalid' : ''; ?>" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
+                                                                                                                                                                                                                                        echo old('id_inventaris');
+                                                                                                                                                                                                                                    } elseif (session()->get('id_temp') != null) {
+                                                                                                                                                                                                                                        echo session()->get('id_temp');
+                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                        '';
+                                                                                                                                                                                                                                    } ?>">
+                                                    <?php if (array_key_exists('id_inventaris', $validation)): ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation['id_inventaris'] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama_inventaris">Nama</label>
@@ -40,37 +45,37 @@
                     </div>
                 </div>
                 <!-- /.container-fluid -->
-            </div>
-            <!-- End of Main Content -->
-        </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
+                </div>
+                <!-- End of Main Content -->
+                </div>
+                <!-- End of Content Wrapper -->
+                </div>
+                <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
 
-    <!-- Logout Modal-->
+                <!-- Logout Modal-->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/jquery/jquery.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="/jquery/jquery.js"></script>
+                <script src="/bootstrap/js/bootstrap.bundle.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/jquery-easing/jquery.easing.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="/jquery-easing/jquery.easing.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.js"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="/js/sb-admin-2.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/chart.js/Chart.js"></script>
+                <!-- Page level plugins -->
+                <script src="/chart.js/Chart.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/chart-area-demo.js"></script>
-    <script src="/js/demo/chart-pie-demo.js"></script>
+                <!-- Page level custom scripts -->
+                <script src="/js/demo/chart-area-demo.js"></script>
+                <script src="/js/demo/chart-pie-demo.js"></script>
 
-</body>
+                </body>
 
-</html>
+                </html>
