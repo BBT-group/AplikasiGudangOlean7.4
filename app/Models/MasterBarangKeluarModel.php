@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class MasterBarangKeluarModel extends Model
 {
-    protected $table = 'ms_barang_Keluar';
-    protected $primaryKey = 'id_barang_keluar';
+    protected $table = 'ms_barang_keluar';
+    protected $primaryKey = 'id_ms_barang_keluar';
     protected $allowedFields = ['waktu', 'id_penerima', 'keterangan'];
 
     public function getAll()
@@ -24,7 +24,7 @@ class MasterBarangKeluarModel extends Model
     public function getBarangKeluarPerBulan()
     {
         return $this->select("MONTH(waktu) as bulan, COUNT(id_ms_barang_keluar) as total")
-                    ->groupBy("MONTH(waktu)")
-                    ->findAll();
+            ->groupBy("MONTH(waktu)")
+            ->findAll();
     }
 }
