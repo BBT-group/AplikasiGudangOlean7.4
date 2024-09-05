@@ -39,7 +39,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-1"><a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('inventaris') ?>">Batal</a></div>
+                                            <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
                                             <div class="col"><button type="submit" class="btn btn-primary">Submit</button></div>
                                         </div>
 
