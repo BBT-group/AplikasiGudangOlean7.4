@@ -30,7 +30,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        'password'     => '',
+        'password'     => '1',
         'database'     => 'databasegudangolean',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
