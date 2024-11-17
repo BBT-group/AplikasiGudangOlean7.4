@@ -32,10 +32,16 @@ class Barang_Keluar extends BaseController
 
     public function index()
     {
+        $keyword = $this->request->getVar('search');
+        if ($keyword) {
+            $barang = $this->barangModel->getBarangByName($keyword);
+        } else {
+            $barang = $this->barangModel->getBarangWithKategori();
+        }
         $data = [
             'barang' => session()->get('datalist_keluar'),
             'kategori' => $this->kategoriModel->findAll(),
-            'validation' => validation_errors()
+            'barangs' => $barang->findAll(),
         ];
         echo view('v_header');
         return view('v_barang_keluar', $data);
@@ -54,7 +60,7 @@ class Barang_Keluar extends BaseController
         ];
         echo view('v_header');
         // ganti url ke detail
-        return view('admin\detailbarangkeluar', $data);
+        return view('admin/detailbarangkeluar', $data);
     }
 
 

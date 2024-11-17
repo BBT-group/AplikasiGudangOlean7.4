@@ -38,9 +38,18 @@ class Barang_Masuk extends BaseController
 
     public function index()
     {
+        $keyword = $this->request->getVar('search');
+        if ($keyword) {
+            $barang = $this->barangModel->getBarangByName($keyword);
+            $inventaris = $this->inventarisModel->getByName($keyword);
+        } else {
+            $barang = $this->barangModel->getBarangWithKategori();
+            $inventaris = $this->inventarisModel;
+        }
         $data = [
             'barang' => session()->get('datalist'),
-            'validation' => validation_errors()
+            'barangs' => $barang->findAll(),
+            'inventaris' => $inventaris->findAll(),
         ];
         echo view('v_header');
         return view('v_barang_masuk', $data);
