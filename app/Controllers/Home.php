@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ModelLogin;
+use App\Models\UserSessionModel;
 
 class Home extends BaseController
 {
@@ -56,6 +57,7 @@ class Home extends BaseController
 
     public function logout()
     {
+
         $this->db->where('id_ms_user', session()->get('user_id'))->update(session()->get('user_id'), ['status' => '0']);
         session()->remove(['user_id', 'role', 'nama']);
         return redirect()->to(base_url('/login'));

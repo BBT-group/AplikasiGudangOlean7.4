@@ -27,7 +27,21 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="input2">Penerima</label>
-                                    <input type="text" class="form-control update-field" id="nama_penerima" name="nama_penerima" value="<?= (old('nama_penerima')) ? old('nama_penerima') : session()->get('penerima_pinjam'); ?>">
+
+                                    <input
+                                        type="text"
+                                        class="form-control  update-field <?= isset($validate) && $validate->hasError('nama_penerima') ? 'is-invalid' : '' ?>"
+                                        id="nama_penerima"
+                                        name="nama_penerima"
+                                        value="<?= (old('nama_penerima')) ? old('nama_penerima') : session()->get('penerima_pinjam') ?>"
+                                        list="penerima-options"
+                                        placeholder="Pilih atau masukkan nama penerima"
+                                        required>
+                                    <datalist id="penerima-options">
+                                        <?php foreach ($penerima as $p): ?>
+                                            <option value="<?= $p['nama'] ?>"></option>
+                                        <?php endforeach; ?>
+                                    </datalist>
 
                                 </div>
                             </div>

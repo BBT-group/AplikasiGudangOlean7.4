@@ -39,6 +39,8 @@ class Barang_Pinjam extends BaseController
         $data = [
             'barang' => $barang->findAll(),
             'pinjam' => session()->get('datalist_pinjam'),
+            'penerima' => $this->penerimaModel->findAll(),
+
         ];
         echo view('v_header');
         return view('v_peminjaman', $data);
