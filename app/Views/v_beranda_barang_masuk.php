@@ -55,7 +55,7 @@
                                             foreach ($masuk as $item) : ?>
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $no += 1 ?></td>
-                                                    <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_ms_barang_masuk']) ?></td>
+                                                    <td class="p-1 pl-3"><?= sprintf('MBM%06d', $item['id_ms_barang_masuk']) ?></td>
                                                     <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['waktu'])) ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                     <td class="p-1 pl-3" style="text-align: center;"> <a href="<?= base_url('barang_masuk/indexdetailmaster/' . $item['id_ms_barang_masuk']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a></td>

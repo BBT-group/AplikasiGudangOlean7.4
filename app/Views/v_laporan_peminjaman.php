@@ -57,7 +57,7 @@
                                             foreach ($peminjaman as $item) : ?>
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['id_peminjaman'] ?></td>
+                                                    <td class="p-1 pl-3"><?= sprintf('PA%06d', $item['id_peminjaman']) ?></td>
                                                     <td class="p-1 pl-3"><?= $item['tanggal_pinjam'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_pinjam'])) : '-' ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>

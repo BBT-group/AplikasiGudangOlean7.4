@@ -50,17 +50,14 @@
                                         </thead>
                                         <tbody>
                                             <?php
-
-
                                             if (!empty($pinjam)) : ?>
-
                                                 <?php
                                                 $no = 0;
                                                 foreach ($pinjam as $item) :
                                                 ?>
                                                     <tr>
                                                         <td class="p-1 pl-3"><?= $no += 1 ?></td>
-                                                        <td class="p-1 pl-3"><?= sprintf('PA%06d', $item['id_ms_peminjaman']) ?></td>
+                                                        <td class="p-1 pl-3"><?= sprintf('MPA%06d', $item['id_ms_peminjaman']) ?></td>
                                                         <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['tanggal_pinjam'])) ?></td>
                                                         <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                         <td class="p-1 pl-3"><?= ($item['status'] == 1) ? 'Dipinjam' : 'Dikembalikan' ?></td>

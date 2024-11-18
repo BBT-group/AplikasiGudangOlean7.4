@@ -60,7 +60,7 @@
                                                 <?php $stok_awal = $item['stok'] + $item['jumlah']; ?>
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['id_barang'] ?></td>
+                                                    <td class="p-1 pl-3"><?= sprintf('BK%06d', $item['id_barang_keluar'])  ?></td>
                                                     <td class="p-1 pl-3"><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_barang'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
