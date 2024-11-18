@@ -3,41 +3,37 @@
                         <!-- Page Heading -->
                         <!-- <h1 class="h3 mb-2 text-gray-800">Pinjam Alat</h1> -->
                         <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
-
-                        <div class="card mb-4">
-                            <div class="card-body p-2">
-                                <form method="get" action="<?= base_url('barang_pinjam/beranda') ?>">
-                                    <div class="form-group row mb-1">
-                                        <label for="start_date" class="col-sm-2 col-form-label">Start Date</label>
-                                        <div class="col-sm-4">
-                                            <input type="date" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>">
-                                        </div>
-                                        <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
-                                        <div class="col-sm-4">
-                                            <input type="date" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 mb-1 ">
-
-                                            <a href="<?= base_url('barang_pinjam/index') ?>" class="btn btn-primary btn-sm">Pinjam Alat</a>
-                                        </div>
-
-                                        <div class="col-6 mb-1 " style="text-align: right;">
-                                            <a href="<?= base_url('barang_pinjam/beranda') ?>" class="btn btn-secondary btn-sm">Reset</a>
-                                            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                                        </div>
-                                    </div>
-
-                                </form>
+                        <div class="row">
+                            <div class="col-6 mb-1 ">
+                                <a href="<?= base_url('barang_pinjam/index') ?>" class="btn btn-primary btn-sm">Pinjam Alat</a>
                             </div>
                         </div>
-
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-2">
                                 <h6 class="m-0 font-weight-bold text-primary">Data peminjaman</h6>
                             </div>
+                            <div class="card-body p-2">
+                                <form method="get" action="<?= base_url('barang_pinjam/beranda') ?>">
+                                    <div class="form-group row mb-1">
+                                        <label for="start_date" class="col-sm-1 col-form-label">Start Date</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>">
+                                        </div>
+                                        <label for="end_date" class="col-sm-1 col-form-label">End Date</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>">
+                                        </div>
+                                        <div class="col-sm-2 " style="text-align: right;">
+                                            <a href="<?= base_url('barang_masuk/beranda') ?>" class="btn btn-secondary btn-sm ">Reset</a>
+                                            <button type="submit" class="btn btn-primary btn-sm " style="text-align: right;">Filter</button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+
                             <div class="card-body pt-2">
 
                                 <div class="table-responsive">
@@ -64,7 +60,7 @@
                                                 ?>
                                                     <tr>
                                                         <td class="p-1 pl-3"><?= $no += 1 ?></td>
-                                                        <td class="p-1 pl-3"><?= $item['id_ms_peminjaman'] ?></td>
+                                                        <td class="p-1 pl-3"><?= sprintf('PA%06d', $item['id_ms_peminjaman']) ?></td>
                                                         <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['tanggal_pinjam'])) ?></td>
                                                         <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                         <td class="p-1 pl-3"><?= ($item['status'] == 1) ? 'Dipinjam' : 'Dikembalikan' ?></td>

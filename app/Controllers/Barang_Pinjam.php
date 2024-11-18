@@ -256,6 +256,11 @@ class Barang_Pinjam extends BaseController
         $index = $this->request->getPost('index');
         $column = $this->request->getPost('column');
         $value = $this->request->getPost('value');
+        $penerima = $this->request->getPost('penerima');
+        $ket = $this->request->getPost('ket');
+
+        $session->set('penerima_pinjam', $penerima);
+        $session->set('keterangan_pinjam', $ket);
 
         if (isset($datalist[$index])) {
             $datalist[$index][$column] = $value;
@@ -382,5 +387,13 @@ class Barang_Pinjam extends BaseController
                 return redirect()->back()->withInput();
             }
         }
+    }
+    public function printd($id)
+    {
+        $data = [
+            'peminjaman' => $this->masterPeminjamanModel->getById($id),
+            'pinjam' => $this->peminjamanModel->getByMasterId($id),
+        ];
+        echo view('v_print_detail_peminjaman', $data);
     }
 }

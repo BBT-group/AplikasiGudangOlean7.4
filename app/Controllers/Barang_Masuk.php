@@ -154,6 +154,8 @@ class Barang_Masuk extends BaseController
     public function clearSession()
     {
         session()->remove('datalist');
+        session()->remove('supplier');
+        session()->remove('keterangan_masuk');
         return redirect()->to(base_url('/barang_masuk'));
         // return json_encode($this->barangModel->findAll());
     }
@@ -272,6 +274,12 @@ class Barang_Masuk extends BaseController
         $index = $this->request->getPost('index');
         $column = $this->request->getPost('column');
         $value = $this->request->getPost('value');
+        $supp = $this->request->getPost('supp');
+        $ket = $this->request->getPost('ket');
+
+        $session->set('supplier', $supp);
+        $session->set('keterangan_masuk', $ket);
+
 
         if (isset($datalist[$index])) {
             $datalist[$index][$column] = $value;

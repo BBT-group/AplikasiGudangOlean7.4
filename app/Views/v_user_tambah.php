@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-color: #27468B;">
 
     <div class="container">
 
@@ -39,7 +39,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Tambah Akun</h1>
                                     </div>
-                                    <form class="user" action="/user/store" method="post">
+                                    <form class="user" action="<?= base_url('/user/store') ?>" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username">
                                         </div>
@@ -50,14 +50,9 @@
                                             <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <select class="form-control" id="status" name="status" required>
-                                                    <option value="aktif">Aktif</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm">
                                                 <select class="form-control" id="role" name="role" required>
-                                                    <option value="admin">Admin</option>
                                                     <option value="operator">Operator</option>
                                                 </select>
                                             </div>
@@ -65,7 +60,7 @@
                                         <button class="btn btn-primary btn-user btn-block">
                                             Submit
                                         </button>
-                                        <a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('beranda') ?>">Batal</a>
+                                        <a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('user') ?>">Batal</a>
                                     </form>
                                     <hr>
                                 </div>

@@ -32,6 +32,7 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'AdminFilter'   => \App\Filters\AdminFilter::class,
         'OperatorFilter' => \App\Filters\OperatorFilter::class,
+        'inactivity'    => \App\Filters\Inactivity::class,
     ];
 
     /**
@@ -68,25 +69,16 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
+            'inactivity'
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            // 'AdminFilter' => [
-            //     'except' => ['/','beranda','stok','barang_masuk', 'barang_masuk/*', 'laporan_stok', 'laporan_masuk', 'satuan','satuan/tambahsatuan','satuan/deletesatuan', 'laporan_keluar', 'peminjaman', 'stok/tambahbarang', 'stok/updatebarang', 'stok/indexdetail']
-            // ],
-            // 'OperatorFilter' => [
-            //     'except' => ['/','beranda','barang_keluar', 'laporan_keluar']
-            // ]
+
         ],
         'after' => [
             // 'honeypot',
             // 'secureheaders',
-            'AdminFilter' => [
-                'except' => ['laporan_peminjaman', 'laporan_peminjaman/*', 'laporan_inventaris', 'laporan_inventaris/*', 'beranda', 'stok', 'stok/*', 'barang_masuk', 'barang_masuk/*', 'laporan_stok', 'laporan_stok/*', 'laporan_masuk', 'laporan_masuk/*', 'satuan', 'satuan/*', 'laporan_keluar', 'laporan_keluar/*', 'peminjaman', 'peminjaman/*', 'kategori', 'kategori/*', 'inventaris', 'inventaris/*', 'user', 'user*', 'user/changepassword', 'user/changepassword*']
-            ],
-            'OperatorFilter' => [
-                'except' => ['laporan_keluar', 'laporan_peminjaman', 'beranda', 'stok', 'inventaris', 'stok/*', 'inventaris/*', 'barang_keluar', 'barang_keluar/*', 'barang_pinjam', 'barang_pinjam/*',]
-            ]
+
         ],
     ];
 

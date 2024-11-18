@@ -6,18 +6,18 @@
                         </div>
 
                         <div class="card-body pt-2">
-                            <div class="container">
+                            <div class="container p-0">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 pl-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Barang Masuk</label>
-                                            <input type="text" class="form-control" value="<?= $header['waktu'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['waktu'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 pr-0">
                                         <div class="form-group mb-1">
                                             <label for="input2">Penerima</label>
-                                            <input type="text" class="form-control" value="<?= $header['nama'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['nama'] ?>" readonly>
                                         </div>
                                     </div>
 
@@ -25,18 +25,18 @@
 
                             </div>
 
-                            <div class="container">
+                            <div class="container p-0">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col p-0">
                                         <div class="form-group mb-1">
                                             <label for="input2">Keterangan</label>
-                                            <input type="text" class="form-control" value="<?= $header['keterangan'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['keterangan'] ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-1 p-0" style="text-align: left;">
-                                        <a href="<?= base_url('barang_masuk') ?>" class="btn btn-sm btn-danger">kembali</a>
+                                        <a href="<?= base_url('barang_masuk') ?>" class="btn btn-sm btn-primary">kembali</a>
                                     </div>
 
                                 </div>

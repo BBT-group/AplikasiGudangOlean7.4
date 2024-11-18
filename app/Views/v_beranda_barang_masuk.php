@@ -1,6 +1,11 @@
                 <div class="container-fluid">
                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
+                    <div class="row">
+                        <div class="col-6 mb-1 ">
+                            <a href="<?= base_url('barang_masuk/index') ?>" class="btn btn-primary btn-sm">Masukan Barang</a>
+                        </div>
 
+                    </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-2">
@@ -9,25 +14,19 @@
                         <div class="card-body p-2">
                             <form method="get" action="<?= base_url('barang_masuk/beranda') ?>">
                                 <div class="form-group row mb-1">
-                                    <label for="start_date" class="col-sm-2 col-form-label">Start Date</label>
+                                    <label for="start_date" class="col-sm-1 col-form-label">Start Date</label>
                                     <div class="col-sm-4">
                                         <input type="date" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>">
                                     </div>
-                                    <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
+                                    <label for="end_date" class="col-sm-1 col-form-label">End Date</label>
                                     <div class="col-sm-4">
                                         <input type="date" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>">
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 mb-1 ">
-                                        <a href="<?= base_url('barang_masuk/index') ?>" class="btn btn-primary btn-sm">Masukan Barang</a>
-                                    </div>
-                                    <div class="col-6 mb-1 " style="text-align: right;">
-                                        <a href="<?= base_url('barang_masuk/beranda') ?>" class="btn btn-secondary btn-sm">Reset</a>
-                                        <button type="submit" class="btn btn-primary btn-sm" style="text-align: right;">Filter</button>
+                                    <div class="col-sm-2 " style="text-align: right;">
+                                        <a href="<?= base_url('barang_masuk/beranda') ?>" class="btn btn-secondary btn-sm ">Reset</a>
+                                        <button type="submit" class="btn btn-primary btn-sm " style="text-align: right;">Filter</button>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
 
@@ -38,7 +37,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Id Masuk</th>
+                                            <th>Id Transaksi</th>
                                             <th>Tanggal waktu</th>
                                             <th>supplier</th>
                                             <th>Detail</th>
@@ -56,7 +55,7 @@
                                             foreach ($masuk as $item) : ?>
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $no += 1 ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['id_ms_barang_masuk'] ?></td>
+                                                    <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_ms_barang_masuk']) ?></td>
                                                     <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['waktu'])) ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                     <td class="p-1 pl-3" style="text-align: center;"> <a href="<?= base_url('barang_masuk/indexdetailmaster/' . $item['id_ms_barang_masuk']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a></td>

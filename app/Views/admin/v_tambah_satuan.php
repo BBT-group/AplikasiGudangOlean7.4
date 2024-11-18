@@ -16,16 +16,11 @@
                                                 <input type="hidden" id="id_satuan">
                                                 <div class="form-group">
                                                     <label for="nama_satuan">Nama Satuan</label>
-                                                    <input type="text" class="form-control  <?= (array_key_exists('nama_satuan', $validation)) ? 'is-invalid' : ''; ?>" id="nama_satuan" name="nama_satuan">
-                                                    <?php if (array_key_exists('nama_satuan', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['nama_satuan'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <input type="text" class="form-control" id="nama_satuan" name="nama_satuan">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
+                                        <button class="btn btn-secondary" onclick="history.back()">Batal</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>

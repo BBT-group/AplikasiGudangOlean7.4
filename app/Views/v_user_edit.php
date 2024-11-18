@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-color: #27468B;">
 
     <div class="container">
 
@@ -39,7 +39,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Edit Akun</h1>
                                     </div>
-                                    <form action="/user/update/<?= $user['id_ms_user'] ?>" method="post">
+                                    <form action="<?= base_url('/user/update/') . $user['id_ms_user'] ?>" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="username" name="username" value="<?= $user['username'] ?>" placeholder="Username">
                                         </div>
@@ -51,13 +51,7 @@
                                         </div>
                                         <?php if ($user['role'] != 'admin'): ?>
                                             <div class="form-group row">
-                                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                                    <select class="form-control" id="status" name="status" required>
-                                                        <option value="aktif" <?= $user['status'] == 'aktif' ? 'selected' : '' ?>>Aktif</option>
-                                                        <option value="tidak aktif" <?= $user['status'] == 'tidak aktif' ? 'selected' : '' ?>>Tidak Aktif</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm">
                                                     <select class="form-control" id="role" name="role" required>
                                                         <option value="operator" <?= $user['role'] == 'operator' ? 'selected' : '' ?>>Operator</option>
                                                     </select>
@@ -67,8 +61,10 @@
                                             <input type="text" class="form-control form-control-user" id="role" name="role" value="<?= $user['role'] ?>" hidden>
                                             <input type="text" class="form-control form-control-user" id="status" name="status" value="<?= $user['status'] ?>" hidden>
                                         <?php endif; ?>
-                                        <button class="btn btn-primary btn-user btn-block">Update</button>
-                                        <a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('beranda') ?>">Batal</a>
+                                        <button class="btn btn-primary btn-user btn-block">
+                                            Update
+                                        </button>
+                                        <a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('user') ?>">Batal</a>
                                     </form>
                                     <hr>
                                 </div>

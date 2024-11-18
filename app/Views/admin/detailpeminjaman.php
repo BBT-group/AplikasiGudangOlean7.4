@@ -1,5 +1,4 @@
                 <!-- Begin Page Content -->
-
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-2">
@@ -7,64 +6,65 @@
                         </div>
 
                         <div class="card-body pt-2">
-                            <div class="container">
+                            <div class="container p-0">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 pl-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Peminjaman</label>
-                                            <input type="text" class="form-control" value="<?= $header['tanggal_pinjam'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['tanggal_pinjam'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-1">
-                                            <label for="input2">Penerima</label>
-                                            <input type="text" class="form-control" value="<?= $header['nama'] ?>" readonly>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 pr-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Pengembalian</label>
-                                            <input type="text" class="form-control" value="<?= $header['tanggal_kembali'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['tanggal_kembali'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pl-0">
+                                        <div class="form-group mb-1">
+                                            <label for="input2">Penerima</label>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['nama'] ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pr-0">
                                         <div class="form-group mb-1">
                                             <label for="input2">Status</label>
-                                            <input type="text" class="form-control" value="<?php if ($header['status'] == 1) {
+                                            <input type="text" class="form-control form-control-sm" value="<?php if ($header['status'] == 1) {
 
-                                                                                                echo "Sedang dipinjam";
-                                                                                            } else {
-                                                                                                echo "Sudah dikembalikan";
-                                                                                            } ?>" readonly>
+                                                                                                                echo "Sedang dipinjam";
+                                                                                                            } else {
+                                                                                                                echo "Sudah dikembalikan";
+                                                                                                            } ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 p-0">
                                         <div class="form-group">
-                                            <label for="input2">Keterangan</label>
-                                            <input type="text" class="form-control" value="<?= $header['keterangan'] ?>" readonly>
+                                            <label for="input2">Kebutuhan</label>
+                                            <input type="text" class="form-control form-control-sm" value="<?= $header['keterangan'] ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="container">
+                            <div class="container p-0">
                                 <div class="row">
-                                    <div class="col mb-1 p-0" style="text-align: left;">
-                                        <a href="<?= base_url('barang_pinjam') ?>" class="btn btn-danger btn-sm">kembali</a>
+                                    <div class="col-md-6 pl-0" style="text-align: left;">
+                                        <a href="<?= base_url('barang_pinjam') ?>" class="btn btn-secondary btn-sm">kembali</a>
                                     </div>
-                                    <div class="col mb-1 p-0" style="text-align: right;">
-                                        <?php if ($header['status'] == 1) : ?>
-                                            <form action="<?= base_url('barang_pinjam/updatestatus') ?>" method="post" enctype="multipart/form-data">
+                                    <div class="col-md-6 pr-0" style="text-align: right;">
+                                        <form action="<?= base_url('barang_pinjam/updatestatus') ?>" method="post" enctype="multipart/form-data">
+                                            <?php if ($header['status'] == 1) : ?>
                                                 <input type="hidden" name="id_ms_peminjaman" value="<?= $header['id_ms_peminjaman'] ?>" hidden>
                                                 <button type="submit" class="btn btn-primary btn-sm">update status</button>
-                                            </form>
-                                        <?php endif; ?>
+                                            <?php endif; ?>
+                                            <a href="<?= base_url('/barang_pinjam/printd/' . $header['id_ms_peminjaman']) ?>" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print"></i> Print</a>
 
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -73,23 +73,21 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Barang</th>
-                                            <th>Nama Barang</th>
+                                            <th>ID Alat</th>
+                                            <th>Nama Alat</th>
                                             <th>Jumlah</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $no = 0;
-                                        foreach ($barang as $item) : ?>
-                                            <tr>
+                                        <tr><?php $no = 0;
+                                            foreach ($barang as $item) : ?>
                                                 <td class="p-1 pl-3"><?= $no += 1 ?></td>
                                                 <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
+                                            <?php endforeach; ?>
 
-
-                                            </tr>
-                                        <?php endforeach; ?>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

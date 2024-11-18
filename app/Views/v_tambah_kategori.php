@@ -1,7 +1,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Content Row -->
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
@@ -16,16 +15,11 @@
                                                 <input type="hidden" id="id_kategori">
                                                 <div class="form-group">
                                                     <label for="nama_satuan">Nama Kategori</label>
-                                                    <input type="text" class="form-control <?= (array_key_exists('nama_kategori', $validation)) ? 'is-invalid' : ''; ?>" id="nama_kategori" name="nama_kategori">
-                                                    <?php if (array_key_exists('nama_kategori', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['nama_kategori'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <input type="text" class="form-control" id="nama_kategori" name="nama_kategori">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Batal</button>
+                                        <button type="reset" class="btn btn-secondary" onclick="history.back()">Batal</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>

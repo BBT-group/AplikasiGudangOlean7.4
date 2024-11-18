@@ -32,12 +32,12 @@ class User extends BaseController
     {
         $data = [
             'username' => $this->request->getPost('username'),
-            'password' => $this->request->getPost('password'), // Simpan langsung
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // Simpan langsung
             'role' => $this->request->getPost('role'),
             'nama' => $this->request->getPost('nama'),
-            'status' => $this->request->getPost('status')
+            'status' => '0'
         ];
-    
+
         $this->userModel->save($data);
         return redirect()->to('/user');
     }
@@ -59,12 +59,12 @@ class User extends BaseController
             'nama' => $this->request->getPost('nama'),
             'status' => $this->request->getPost('status')
         ];
-    
+
         // Update password jika diisi
         if ($this->request->getPost('password')) {
             $data['password'] = $this->request->getPost('password'); // Simpan langsung
         }
-    
+
         $this->userModel->save($data);
         return redirect()->to('/user');
     }
@@ -80,16 +80,16 @@ class User extends BaseController
     public function updatePassword($id)
     {
         $newPassword = $this->request->getPost('new_password');
-    
+
         if ($newPassword) {
             $data = [
                 'id_ms_user' => $id,
                 'password' => $newPassword // Simpan langsung
             ];
-    
+
             $this->userModel->save($data);
         }
-    
+
         return redirect()->to('/user');
     }
 }

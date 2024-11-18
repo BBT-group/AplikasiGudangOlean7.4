@@ -50,6 +50,10 @@ $routes->get('/barang_masuk', 'Barang_Masuk::beranda');
 $routes->get('/barang_masuk/beranda', 'Barang_Masuk::beranda');
 $routes->get('/barang_keluar', 'Barang_Keluar::beranda');
 $routes->get('/barang_pinjam', 'Barang_Pinjam::beranda');
+$routes->get('/barang_pinjam/printd/(:num)', 'Barang_Pinjam::printd/$1');
+
+
+
 $routes->get('/laporan_stok', 'Laporan_Stok::index');
 $routes->get('/laporan_stok/exports', 'Laporan_Stok::exports');
 $routes->get('/laporan_masuk', 'Laporan_Masuk::index');

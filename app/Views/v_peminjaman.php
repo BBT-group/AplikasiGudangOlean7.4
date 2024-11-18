@@ -27,20 +27,16 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="input2">Penerima</label>
-                                    <input type="text" class="form-control <?= (array_key_exists('nama_penerima', $validation)) ? 'is-invalid' : ''; ?>" id="nama_penerima" name="nama_penerima" value="<?= old('nama_penerima'); ?>">
-                                    <?php if (array_key_exists('nama_penerima', $validation)): ?>
-                                        <div class="invalid-feedback">
-                                            <?= $validation['nama_penerima'] ?>
-                                        </div>
-                                    <?php endif; ?>
+                                    <input type="text" class="form-control update-field" id="nama_penerima" name="nama_penerima" value="<?= (old('nama_penerima')) ? old('nama_penerima') : session()->get('penerima_pinjam'); ?>">
+
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="input2">Keterangan</label>
-                                    <input type="text" class="form-control <?php if (isset($validate)) {
-                                                                                echo $validate->hasError('nama_penerima') ? 'is-invalid' : '';
-                                                                            }  ?>" id="keterangan" name="keterangan" value="<?= old('keterangan'); ?>">
+                                    <input type="text" class="form-control update-field <?php if (isset($validate)) {
+                                                                                            echo $validate->hasError('keterangan') ? 'is-invalid' : '';
+                                                                                        }  ?>" id="keterangan" name="keterangan" value="<?= (old('keterangan')) ? old('keterangan') : session()->get('keterangan_pinjam'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -164,6 +160,8 @@
             var index = $(this).data('index');
             var column = $(this).data('column');
             var value = $(this).val();
+            var penerima = $('#nama_penerima').val();
+            var ket = $('#keterangan').val();
 
             $.ajax({
                 url: '<?= base_url('barang_pinjam/update2') ?>',
@@ -171,7 +169,9 @@
                 data: {
                     index: index,
                     column: column,
-                    value: value
+                    value: value,
+                    penerima: penerima,
+                    ket: ket,
                 },
                 success: function(response) {
 

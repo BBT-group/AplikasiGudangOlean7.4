@@ -46,11 +46,6 @@
             </div>
         </div>
     </div>
-    <div class="row p-3">
-        <div class="col mb-1 p-0" style="text-align: left;">
-            <a href="<?= base_url('stok') ?>" class="btn btn-danger btn-sm">kembali</a>
-        </div>
-    </div>
 </div>
 <!-- /.container-fluid -->
 </div>
@@ -102,4 +97,5 @@
 <script src="/js/demo/chart-pie-demo.js"></script>
 
 </body>
+
 </html>

@@ -86,7 +86,7 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                 class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Peminjaman</h6>                                
+                                <h6 class="m-0 font-weight-bold text-primary">Data Peminjaman</h6>
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
@@ -115,7 +115,7 @@
                                     </span>
                                     <span class="mr-2">
                                         <i class="fas fa-circle text-success"></i> Dikembalikan
-                                    </span>                                    
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -236,8 +236,7 @@
                     type: 'line',
                     data: {
                         labels: labels,
-                        datasets: [
-                            {
+                        datasets: [{
                                 label: "Barang Masuk",
                                 lineTension: 0.3,
                                 backgroundColor: "rgba(28, 200, 138, 0.05)",
@@ -337,6 +336,6 @@
                 });
             </script>
 
-        </body>
+            </body>
 
-        </html>
+            </html>

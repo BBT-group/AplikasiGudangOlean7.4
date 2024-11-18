@@ -40,8 +40,8 @@ class Barang_Keluar extends BaseController
         }
         $data = [
             'barang' => session()->get('datalist_keluar'),
-            'kategori' => $this->kategoriModel->findAll(),
-            'barangs' => $barang->findAll(),
+
+            'barangs' => $barang->where('stok > ', 1)->findAll(),
         ];
         echo view('v_header');
         return view('v_barang_keluar', $data);
@@ -142,6 +142,8 @@ class Barang_Keluar extends BaseController
     public function clearSession()
     {
         session()->remove('datalist_keluar');
+        session()->remove('penerima');
+        session()->remove('keterangan_keluar');
         return redirect()->to(base_url('/barang_keluar'));
     }
     public function updateStok()
@@ -241,6 +243,11 @@ class Barang_Keluar extends BaseController
         $index = $this->request->getPost('index');
         $column = $this->request->getPost('column');
         $value = $this->request->getPost('value');
+        $penerima = $this->request->getPost('penerima');
+        $ket = $this->request->getPost('ket');
+
+        $session->set('penerima_keluar', $penerima);
+        $session->set('keterangan_keluar', $ket);
 
         if (isset($datalist[$index])) {
             $datalist[$index][$column] = $value;

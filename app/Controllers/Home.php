@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\ModelLogin;
 
 class Home extends BaseController
@@ -19,8 +20,7 @@ class Home extends BaseController
 
     public function login()
     {
-        if(session('role'))
-        {
+        if (session('role')) {
             return redirect()->to('beranda');
         }
         return view('v_login');
@@ -31,16 +31,22 @@ class Home extends BaseController
         $post = $this->request->getPost();
         $query = $this->db->table('ms_user')->getWhere(['username' => $post['username']]);
         $user = $query->getRow();
-        if($user) {
-            if($post['password'] == $user->password) {
-                $params = ['role' => $user->role, 'nama' =>$user->nama];
+
+        if ($user) {
+            if ($user->status == 1) {
+                return redirect()->back()->with('error', 'User sedang login');
+            }
+            if ($post['password'] == $user->password) {
+                $params = ['user_id' => $user->id_ms_user, 'role' => $user->role, 'nama' => $user->nama];
+                $this->db->update($user->id_ms_user, ['last_login' => date('Y-m-d H:i:s'), 'status' => '1']);
                 session()->set($params);
                 return redirect()->to('/beranda')->with('login_suceess', 'Tambahkan Kategori dan Satuan terlebih dahulu sebelum menambahkan Barang baru');
-            } elseif(password_verify($post['password'], $user->password)) {
-                $params = ['role' => $user->role, 'nama' =>$user->nama];
+            } elseif (password_verify($post['password'], $user->password)) {
+                $params = ['user_id' => $user->id_ms_user, 'role' => $user->role, 'nama' => $user->nama];
+                $this->db->update($user->id_ms_user, ['last_login' => date('Y-m-d H:i:s'), 'status' => '1']);
                 session()->set($params);
                 return redirect()->to('/beranda');
-            }else {
+            } else {
                 return redirect()->back()->with('error', 'Password tidak sesuai');
             }
         } else {
@@ -50,8 +56,8 @@ class Home extends BaseController
 
     public function logout()
     {
-        session()->remove('role');
+        $this->db->where('id_ms_user', session()->get('user_id'))->update(session()->get('user_id'), ['status' => '0']);
+        session()->remove(['user_id', 'role', 'nama']);
         return redirect()->to(base_url('/login'));
     }
-
 }
