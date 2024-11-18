@@ -45,7 +45,6 @@ class Home extends BaseController
                     $usersession->where('id_user_session', $user1['id_user_session'])->delete();
                     $this->db->update($user->id_ms_user, ['last_login' => date('Y-m-d H:i:s'), 'status' => '0']);
                 } else {
-
                     return redirect()->back()->with('error', 'User sedang login');
                 }
             }
