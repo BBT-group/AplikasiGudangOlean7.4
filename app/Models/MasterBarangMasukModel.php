@@ -35,8 +35,10 @@ class MasterBarangMasukModel extends Model
     }
     public function getBarangMasukPerBulan()
     {
-        return $this->select("MONTH(waktu) as bulan, COUNT(id_ms_barang_masuk) as total")
-                    ->groupBy("MONTH(waktu)")
-                    ->findAll();
+        return $this->select("MONTH(waktu) as month, COUNT(*) as total")
+            ->groupBy("MONTH(waktu)")
+            ->orderBy("MONTH(waktu)", "ASC")
+            ->get()
+            ->getResultArray();
     }
 }
