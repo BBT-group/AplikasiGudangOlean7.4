@@ -327,8 +327,6 @@ class Barang_Pinjam extends BaseController
 
     public function updateStatus()
     {
-        if ($this->request->getMethod() == 'POST') {
-
 
             $db = \Config\Database::connect();
 
@@ -388,7 +386,6 @@ class Barang_Pinjam extends BaseController
                 session()->setFlashdata('error', 'Transaction failed: ' . $e->getMessage());
                 return redirect()->back()->withInput();
             }
-        }
     }
     public function printd($id)
     {

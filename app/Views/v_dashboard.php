@@ -11,7 +11,7 @@
                 <div class="row">
 
                     <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="col-xl-6 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -29,7 +29,7 @@
                     </div>
 
                     <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="col-xl-6 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -40,40 +40,6 @@
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-wrench fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Barang Masuk</div>
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $barang_masuk ?></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-sign-in-alt fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Jumlah Barang Keluar</div>
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $barang_keluar ?></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-sign-out-alt fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -90,6 +56,16 @@
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
+                                <form method="get" action="">
+                                    <label for="year">Pilih Tahun:</label>
+                                    <select name="year" id="year" onchange="this.form.submit()">
+                                        <?php foreach ($years as $year): ?>
+                                            <option value="<?= $year ?>" <?= $year == $selectedYear ? 'selected' : '' ?>>
+                                                <?= $year ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </form>
                                 <div class="chart-area">
                                     <canvas id="AreaChart"></canvas>
                                 </div>
@@ -157,6 +133,7 @@
 
             <!-- Custom scripts for all pages-->
             <script src="/js/sb-admin-2.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
             <!-- Page level plugins -->
             <script src="/chart.js/Chart.js"></script>
@@ -179,15 +156,39 @@
             <script>
                 var chartData = <?php echo json_encode($chart_data); ?>;
                 console.log(chartData); // Debug: periksa data
+
                 // Siapkan array untuk label dan data
                 var labels = [];
                 var data = [];
+                var backgroundColors = [];
+                var hoverBackgroundColors = [];
 
                 // Loop melalui data yang diambil dari database
                 chartData.forEach(function(item) {
                     labels.push(item.status == 0 ? "Dikembalikan" : "Belum Dikembalikan");
                     data.push(item.count);
+
+                    // Tentukan warna berdasarkan status
+                    if (item.status == 0) {
+                        backgroundColors.push('#1cc88a'); // Hijau jika sudah dikembalikan
+                        hoverBackgroundColors.push('#17a673'); // Hover hijau jika sudah dikembalikan
+                    } else {
+                        backgroundColors.push('#4e73df'); // Biru jika belum dikembalikan
+                        hoverBackgroundColors.push('#2e59d9'); // Hover biru jika belum dikembalikan
+                    }
                 });
+
+                // Periksa apakah semua barang sudah dikembalikan
+                var allReturned = chartData.every(function(item) {
+                    return item.status == 0;
+                });
+
+                // Jika semua barang sudah dikembalikan, set warna hijau untuk seluruh chart
+                if (allReturned) {
+                    backgroundColors = ['#1cc88a']; // Semua hijau jika sudah dikembalikan
+                    hoverBackgroundColors = ['#17a673']; // Hover hijau jika sudah dikembalikan
+                }
+
                 // Set default font dan warna seperti di Bootstrap
                 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
                 Chart.defaults.global.defaultFontColor = '#858796';
@@ -200,8 +201,8 @@
                         labels: labels,
                         datasets: [{
                             data: data,
-                            backgroundColor: ['#4e73df', '#1cc88a'],
-                            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                            backgroundColor: backgroundColors,
+                            hoverBackgroundColor: hoverBackgroundColors,
                             hoverBorderColor: "rgba(234, 236, 244, 1)",
                         }],
                     },
@@ -225,17 +226,15 @@
                 });
             </script>
             <script>
-                var barangMasuk = <?= json_encode(array_column($msbarang_masuk, 'total')); ?>;
-                var barangKeluar = <?= json_encode(array_column($msbarang_keluar, 'total')); ?>;
-                var currentMonth = new Date().getMonth();
+                var barangMasuk = <?= json_encode($msbarang_masuk) ?>;
+                var barangKeluar = <?= json_encode($msbarang_keluar) ?>;
                 var allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-                var labels = allMonths.slice(currentMonth).concat(allMonths.slice(0, currentMonth));
                 var ctx = document.getElementById("AreaChart").getContext('2d');
                 var inventoryChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: labels,
+                        labels: allMonths,
                         datasets: [{
                                 label: "Barang Masuk",
                                 lineTension: 0.3,
@@ -280,9 +279,6 @@
                         },
                         scales: {
                             xAxes: [{
-                                time: {
-                                    unit: 'date'
-                                },
                                 gridLines: {
                                     display: false,
                                     drawBorder: false
@@ -296,7 +292,7 @@
                                     maxTicksLimit: 10,
                                     padding: 10,
                                     callback: function(value) {
-                                        return number_format(value);
+                                        return value.toLocaleString();
                                     }
                                 },
                                 gridLines: {
@@ -328,7 +324,7 @@
                             callbacks: {
                                 label: function(tooltipItem, chart) {
                                     var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                                    return datasetLabel + ': ' + tooltipItem.yLabel.toLocaleString();
                                 }
                             }
                         }
