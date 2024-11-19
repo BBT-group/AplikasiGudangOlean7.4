@@ -56,6 +56,16 @@
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
+                                <form method="get" action="">
+                                    <label for="year">Pilih Tahun:</label>
+                                    <select name="year" id="year" onchange="this.form.submit()">
+                                        <?php foreach ($years as $year): ?>
+                                            <option value="<?= $year ?>" <?= $year == $selectedYear ? 'selected' : '' ?>>
+                                                <?= $year ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </form>
                                 <div class="chart-area">
                                     <canvas id="AreaChart"></canvas>
                                 </div>
@@ -123,6 +133,7 @@
 
             <!-- Custom scripts for all pages-->
             <script src="/js/sb-admin-2.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
             <!-- Page level plugins -->
             <script src="/chart.js/Chart.js"></script>
@@ -215,12 +226,10 @@
                 });
             </script>
             <script>
-                var barangMasuk = <?= json_encode(array_column($msbarang_masuk, 'total')); ?>;
-                var barangKeluar = <?= json_encode(array_column($msbarang_keluar, 'total')); ?>;
-                var allMonths = ["Nov", "Dec","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"];
+                var barangMasuk = <?= json_encode($msbarang_masuk) ?>;
+                var barangKeluar = <?= json_encode($msbarang_keluar) ?>;
+                var allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-                var orderedBarangMasuk = new Array(12).fill(0);
-                var orderedBarangKeluar = new Array(12).fill(0);
                 var ctx = document.getElementById("AreaChart").getContext('2d');
                 var inventoryChart = new Chart(ctx, {
                     type: 'line',
@@ -270,9 +279,6 @@
                         },
                         scales: {
                             xAxes: [{
-                                time: {
-                                    unit: 'date'
-                                },
                                 gridLines: {
                                     display: false,
                                     drawBorder: false
@@ -286,7 +292,7 @@
                                     maxTicksLimit: 10,
                                     padding: 10,
                                     callback: function(value) {
-                                        return number_format(value);
+                                        return value.toLocaleString();
                                     }
                                 },
                                 gridLines: {
@@ -318,7 +324,7 @@
                             callbacks: {
                                 label: function(tooltipItem, chart) {
                                     var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                                    return datasetLabel + ': ' + tooltipItem.yLabel.toLocaleString();
                                 }
                             }
                         }
