@@ -16,7 +16,7 @@
                                     </div>
                                     <div class="col-md-6 pr-0">
                                         <div class="form-group mb-1">
-                                            <label for="input2">Penerima</label>
+                                            <label for="input2">Supplier</label>
                                             <input type="text" class="form-control form-control-sm" value="<?= $header['nama'] ?>" readonly>
                                         </div>
                                     </div>
@@ -50,6 +50,7 @@
                                             <th>Nama Barang</th>
                                             <th>Stok Masuk</th>
                                             <th>Satuan</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>

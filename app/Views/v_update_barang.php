@@ -27,36 +27,23 @@
                                                         </div>
                                                     <?php endif; ?>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="id_satuan">Satuan</label>
-                                                    <select class="form-control <?= (array_key_exists('id_satuan', $validation)) ? 'is-invalid' : ''; ?>" id="id_satuan" name="id_satuan" style="display: block;" required list="item-list" maxlength="15" value="<?= $data['nama_satuan'] ?>">
-                                                        <option value="">Pilih Satuan</option>
-                                                        <?php foreach ($satuan as $sat) : ?>
-                                                            <option value="<?= $sat['nama_satuan']; ?>"><?= $sat['nama_satuan']; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <?php if (array_key_exists('id_satuan', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['id_satuan'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                <div class="form-group position-relative">
+                                                    <label for="satuan-input">Satuan</label>
+                                                    <input type="text" id="satuan-input" name="id_satuan" required class="form-control dropdown-input"
+                                                        data-target="satuan-results" data-field="nama_satuan"
+                                                        placeholder="Search Satuan..." autocomplete="off" value="<?= $data['nama_satuan']; ?>">
+                                                    <div id="satuan-results" class="dropdown-menu"></div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="id_kategori">Kategori</label>
-                                                    <select class="form-control <?= (array_key_exists('id_kategori', $validation)) ? 'is-invalid' : ''; ?>" id="id_kategori" name="id_kategori" required list="item-list" maxlength="15" value="<?= $data['nama_kategori'] ?>">
-                                                        <option value="">Pilih Kategori</option>
-                                                        <?php foreach ($kategori as $kat) : ?>
-                                                            <option value="<?= $kat['nama_kategori']; ?>"><?= $kat['nama_kategori']; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <?php if (array_key_exists('id_kategori', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['id_kategori'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                <div class="form-group position-relative mt-3">
+                                                    <label for="kategori-input">Kategori</label>
+                                                    <input type="text" id="kategori-input" name="id_kategori" required class="form-control dropdown-input"
+                                                        data-target="kategori-results" data-field="nama_kategori"
+                                                        placeholder="Search Kategori..." autocomplete="off" value="<?= $data['nama_kategori']; ?>">
+                                                    <div id="kategori-results" class="dropdown-menu"></div>
                                                 </div>
+
                                                 <div class="form-group">
-                                                    <label for="foto">Foto</label>
+                                                    <label for="foto">Foto (kosongkan jika foto sama)</label>
                                                     <input type="file" class="form-control" id="foto" name="foto" maxlength="255">
                                                 </div>
                                             </div>
@@ -101,7 +88,52 @@
 
                 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
                 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+                <script>
+                    // Example data for satuan and kategori
+                    const satuanData = <?= json_encode($satuan) ?>;
+                    const kategoriData = <?= json_encode($kategori) ?>;
+                    $(document).click(function(e) {
+                        $(".dropdown-menu").hide();
+                    });
+                    $(document).ready(function() {
+                        $('.dropdown-input').on('keyup', function() {
+                            const input = $(this); // Current input field
+                            const target = $('#' + input.data('target')); // Corresponding dropdown
+                            const field = input.data('field'); // Field to filter on (e.g., nama_satuan, nama_kategori)
+                            const query = input.val().toLowerCase();
+                            const data = input.attr('id') === 'satuan-input' ? satuanData : kategoriData; // Select dataset
 
+                            target.empty();
+
+                            if (query.length > 0) {
+                                let results = data.filter(item =>
+                                    item[field] && item[field].toLowerCase().includes(query)
+                                );
+
+                                if (results.length > 0) {
+                                    results.forEach(item => {
+                                        target.append(`<a href="#" class="dropdown-item">${item[field]}</a>`);
+                                    });
+                                    target.show();
+                                } else {
+                                    target.append('<span class="dropdown-item disabled">No results found</span>');
+                                    target.show();
+                                }
+                            } else {
+                                target.hide();
+                            }
+                        });
+
+                        // Event delegation for dropdown items
+                        $('.dropdown-menu').on('click', '.dropdown-item', function(e) {
+                            e.preventDefault();
+                            const selectedValue = $(this).text(); // Get the clicked item's text
+                            const targetInput = $(this).closest('.form-group').find('.dropdown-input');
+                            targetInput.val(selectedValue); // Set the input value
+                            $(this).closest('.dropdown-menu').hide(); // Hide the dropdown
+                        });
+                    });
+                </script>
                 <script>
                     $(document).ready(function() {
                         $('#id_satuan').select2({

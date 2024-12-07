@@ -1,6 +1,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <?php
+                    if (isset($validation)) {
+                        echo $validation;
+                    }
 
+                    ?>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -17,12 +22,7 @@
                                                 <input type="text" class="form-control" id="id_satuan" name="id_satuan" hidden value="<?= $satuan['id_satuan'] ?>">
                                                 <div class="form-group">
                                                     <label for="nama_satuan">Nama Satuan</label>
-                                                    <input type="text" class="form-control  <?= (array_key_exists('nama_satuan', $validation)) ? 'is-invalid' : ''; ?>" id="nama_satuan" name="nama_satuan" value="<?= (old('nama_satuan')) ? old('nama_satuan') : $satuan['nama_satuan']; ?>">
-                                                    <?php if (array_key_exists('nama_satuan', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['nama_satuan'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <input type="text" class="form-control  " id="nama_satuan" name="nama_satuan" value="<?= (old('nama_satuan')) ? old('nama_satuan') : $satuan['nama_satuan']; ?>">
                                                 </div>
                                             </div>
                                         </div>

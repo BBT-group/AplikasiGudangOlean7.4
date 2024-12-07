@@ -33,7 +33,12 @@ class Kategori extends BaseController
     public function tambahKategori()
     {
         if (!$this->validate([
-            'nama_kategori' => 'required|is_unique[kategori.nama_kategori]'
+            'nama_kategori' => [
+                'rules'  => 'required|is_unique[kategori.nama_kategori]',
+                'errors' => [
+                    'is_unique' => 'Nama Kategori telah terdaftar',
+                ],
+            ]
         ])) {
             return redirect()->to(base_url('kategori/indextambah'))->withInput();
         }
@@ -46,7 +51,7 @@ class Kategori extends BaseController
     {
         $data = [
             'kategori' => $this->kategoriModel->where('id_kategori', $id)->first(),
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
         echo view('v_header');
         return view('v_update_kategori', $data);
@@ -54,7 +59,7 @@ class Kategori extends BaseController
 
     public function indexTambah()
     {
-        $data = ['validation' => validation_errors()];
+        $data = ['validation' => validation_list_errors()];
         echo view('v_header');
         return view('v_tambah_kategori', $data);
     }
@@ -64,7 +69,12 @@ class Kategori extends BaseController
     {
         if (!$this->validate([
             'id_kategori' => 'required|is_not_unique[kategori.id_kategori]',
-            'nama_kategori' => 'required'
+            'nama_kategori' => [
+                'rules'  => 'required|is_unique[kategori.nama_kategori]',
+                'errors' => [
+                    'is_unique' => 'Nama Kategori telah terdaftar',
+                ],
+            ]
         ])) {
             return redirect()->back()->withInput();
         }

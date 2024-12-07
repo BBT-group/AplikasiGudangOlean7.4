@@ -13,7 +13,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="id_inventaris">ID Alat</label>
+                                                    <label for="id_inventaris">ID Alat (ketik atau scan barcode)</label>
                                                     <input type="text" class="form-control" id="id_inventaris" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
                                                                                                                                                             echo old('id_inventaris');
                                                                                                                                                         } elseif (session()->get('id_temp') != null) {

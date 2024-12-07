@@ -41,12 +41,15 @@
                                     </div>
                                     <form action="<?= base_url('/user/update/') . $user['id_ms_user'] ?>" method="post">
                                         <div class="form-group">
+                                            <label for="username">Username</label>
                                             <input type="text" class="form-control form-control-user" id="username" name="username" value="<?= $user['username'] ?>" placeholder="Username">
                                         </div>
                                         <div class="form-group">
+                                            <label for="nama">Nama</label>
                                             <input type="text" class="form-control form-control-user" id="nama" name="nama" value="<?= $user['nama'] ?>" placeholder="Nama Akun">
                                         </div>
                                         <div class="form-group">
+                                            <label for="password">Password</label>
                                             <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password (Kosongkan jika tidak ingin mengubah)">
                                         </div>
                                         <?php if ($user['role'] != 'admin'): ?>

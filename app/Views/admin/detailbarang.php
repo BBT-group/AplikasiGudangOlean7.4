@@ -44,7 +44,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <button class="btn btn-secondary" onclick="history.back()">Kembali</button>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-4">

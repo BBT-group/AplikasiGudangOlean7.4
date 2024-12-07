@@ -40,8 +40,9 @@ class Barang_Keluar extends BaseController
         }
         $data = [
             'barang' => session()->get('datalist_keluar'),
-
-            'barangs' => $barang->where('stok > ', 1)->findAll(),
+            'penerima' => $this->penerimaModel->findAll(),
+            'barangs' => $barang->where('stok >= ', 1)->findAll(),
+            'validation' => validation_list_errors()
         ];
         echo view('v_header');
         return view('v_barang_keluar', $data);
@@ -142,7 +143,7 @@ class Barang_Keluar extends BaseController
     public function clearSession()
     {
         session()->remove('datalist_keluar');
-        session()->remove('penerima');
+        session()->remove('penerima_keluar');
         session()->remove('keterangan_keluar');
         return redirect()->to(base_url('/barang_keluar'));
     }
@@ -187,7 +188,7 @@ class Barang_Keluar extends BaseController
                     $sisa = $barang1['stok'] - $b['stok'];
                     if ($sisa < 0 || $b <= 0) {
                         // If the post insert fails, rollback transaction
-                        throw new DatabaseException('Failed to insert post: kurang dari 0');
+                        throw new DatabaseException('jumlah barang keluar tidak boleh melebihi jumlah stok');
                     }
                     $data = [
                         'nama' => $barang1['nama'],

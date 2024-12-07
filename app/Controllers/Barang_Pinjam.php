@@ -38,6 +38,7 @@ class Barang_Pinjam extends BaseController
         }
         $data = [
             'barang' => $barang->findAll(),
+            'inventaris' => $this->inventarisModel->where('stok >=', 1)->findAll(),
             'pinjam' => session()->get('datalist_pinjam'),
             'penerima' => $this->penerimaModel->findAll(),
 
@@ -128,6 +129,8 @@ class Barang_Pinjam extends BaseController
     public function clearSession()
     {
         session()->remove('datalist_pinjam');
+        session()->remove('keterangan_pinjam');
+        session()->remove('penerima_pinjam');
         // ganti link
         return redirect()->to(base_url('/barang_pinjam'));
         // return json_encode($this->inventarisModel->findAll());
@@ -166,7 +169,7 @@ class Barang_Pinjam extends BaseController
     public function updateStok()
     {
         if (!$this->validate([
-            'nama_penerima' => 'required'
+            'penerima' => 'required'
         ])) {
             // ganti url
             return redirect()->to(base_url('/barang_pinjam/index'))->withInput();
@@ -186,7 +189,7 @@ class Barang_Pinjam extends BaseController
                 $db->transBegin();
 
 
-                $namaPenerima = $this->request->getVar('nama_penerima');
+                $namaPenerima = $this->request->getVar('penerima');
                 if ($this->penerimaModel->where('nama', $namaPenerima)->first() == null) {
                     if (!$this->penerimaModel->insert(['nama' => $namaPenerima])) {
                         throw new DatabaseException('Failed to insert post:gagal menambah master' . implode(', ', $this->masterPeminjamanModel->errors()));
@@ -213,7 +216,7 @@ class Barang_Pinjam extends BaseController
                     $sisa = $barang1['stok'] - $b['stok'];
                     if ($sisa < 0 || $b['stok'] <= 0) {
                         // If the post insert fails, rollback transaction
-                        throw new DatabaseException('Failed to insert post: kurang dari 0');
+                        throw new DatabaseException('Jumlah barang dipinjam tidak boleh dari jumlah stok tersedia');
                     }
                     $data = [
                         'nama_inventaris' => $barang1['nama_inventaris'],

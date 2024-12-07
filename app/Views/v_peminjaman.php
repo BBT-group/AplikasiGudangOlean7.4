@@ -25,24 +25,12 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-1">
-                                    <label for="input2">Penerima</label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control  update-field <?= isset($validate) && $validate->hasError('nama_penerima') ? 'is-invalid' : '' ?>"
-                                        id="nama_penerima"
-                                        name="nama_penerima"
-                                        value="<?= (old('nama_penerima')) ? old('nama_penerima') : session()->get('penerima_pinjam') ?>"
-                                        list="penerima-options"
-                                        placeholder="Pilih atau masukkan nama penerima"
-                                        required>
-                                    <datalist id="penerima-options">
-                                        <?php foreach ($penerima as $p): ?>
-                                            <option value="<?= $p['nama'] ?>"></option>
-                                        <?php endforeach; ?>
-                                    </datalist>
-
+                                <div class="form-group position-relative">
+                                    <label for="penerima-input">Penerima</label>
+                                    <input type="text" id="penerima" name="penerima" required class="form-control dropdown-input update-field"
+                                        data-target="penerima-results" data-field="nama"
+                                        placeholder="Search penerima..." autocomplete="off" value="<?= (old('penerima')) ? old('penerima') : session()->get('penerima_pinjam');   ?>">
+                                    <div id="penerima-results" class="dropdown-menu"></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -54,18 +42,19 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6 mb-1">
-                                <a href="<?= base_url('barang_pinjam/cari') ?>" class="btn btn-primary btn-sm">Cari Barang</a>
-                            </div>
-                            <div class="col-6 mb-1" style="text-align: right;">
-                                <button id="clear-session-btn" class="btn btn-secondary btn-sm">Clear Session</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 mb-1">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Cari Barang</button>
+
+                                    (tambah barang dengan scan barcode atau klik cari barang)
+                                </div>
+                                <div class="col-6 mb-1" style="text-align: right;">
+                                    <button id="clear-session-btn" class="btn btn-secondary btn-sm">Bersihkan Data</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </form>
 
                 <div class="table-responsive">
@@ -100,6 +89,53 @@
 
     </div>
 
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cari Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID Barang</th>
+                            <th>Nama</th>
+                            <th>Stok</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+
+                        if (!empty($inventaris)) : ?>
+                            <?php foreach ($inventaris as $item) : ?>
+                                <tr>
+
+                                    <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
+                                    <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
+                                    <td class="p-1 pl-3"><?= $item['stok'] ?></td>
+                                    <td class="p-1 pl-3">
+                                        <form action=<?= base_url('barang_pinjam/savedata') ?> method="post">
+                                            <input type="text" name="id_inventaris" id="id_inventaris" value="<?= $item['id_inventaris'] ?>" hidden>
+                                            <input type="text" name="nama_inventaris" id="nama_inventaris" value="<?= $item['nama_inventaris'] ?>" hidden>
+                                            <input type="text" name="stok" id="stok" value="<?= $item['stok'] ?>" hidden>
+                                            <button type="submit" class="btn btn-primary btn-sm" style="display: flexbox;">Submit</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- End of Main Content -->
 
@@ -139,7 +175,52 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+<script>
+    // Example data for satuan and kategori
+    const penerimaData = <?= json_encode($penerima) ?>;
 
+    $(document).click(function(e) {
+        $(".dropdown-menu").hide();
+    });
+    $(document).ready(function() {
+        $('.dropdown-input').on('keyup', function() {
+            const input = $(this); // Current input field
+            const target = $('#' + input.data('target')); // Corresponding dropdown
+            const field = input.data('field'); // Field to filter on (e.g., nama_satuan, nama_kategori)
+            const query = input.val().toLowerCase();
+            const data = penerimaData; // Select dataset
+
+            target.empty();
+
+            if (query.length > 0) {
+                let results = data.filter(item =>
+                    item[field] && item[field].toLowerCase().includes(query)
+                );
+
+                if (results.length > 0) {
+                    results.forEach(item => {
+                        target.append(`<a href="#" class="dropdown-item">${item[field]}</a>`);
+                    });
+                    target.show();
+                } else {
+                    target.append('<span class="dropdown-item disabled">No results found</span>');
+                    target.show();
+                }
+            } else {
+                target.hide();
+            }
+        });
+
+        // Event delegation for dropdown items
+        $('.dropdown-menu').on('click', '.dropdown-item', function(e) {
+            e.preventDefault();
+            const selectedValue = $(this).text(); // Get the clicked item's text
+            const targetInput = $(this).closest('.form-group').find('.dropdown-input');
+            targetInput.val(selectedValue); // Set the input value
+            $(this).closest('.dropdown-menu').hide(); // Hide the dropdown
+        });
+    });
+</script>
 <script>
     window.onload = function() {
         <?php if (session()->has('error')) : ?>
@@ -174,7 +255,7 @@
             var index = $(this).data('index');
             var column = $(this).data('column');
             var value = $(this).val();
-            var penerima = $('#nama_penerima').val();
+            var penerima = $('#penerima').val();
             var ket = $('#keterangan').val();
 
             $.ajax({

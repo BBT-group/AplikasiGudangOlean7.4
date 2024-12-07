@@ -26,7 +26,7 @@ class Barang extends BaseController
             'barang' => session()->get('datalist'),
             'kategori' => $this->kategoriModel->findAll()
         ];
-        return view('admin\percobaan', $data);
+        return view('admin/percobaan', $data);
     }
 
 

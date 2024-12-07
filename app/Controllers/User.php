@@ -32,7 +32,7 @@ class User extends BaseController
     {
         $data = [
             'username' => $this->request->getPost('username'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // Simpan langsung
+            'password' => $this->request->getPost('password'), // Simpan langsung
             'role' => $this->request->getPost('role'),
             'nama' => $this->request->getPost('nama'),
             'status' => '0'

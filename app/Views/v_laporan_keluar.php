@@ -57,7 +57,6 @@
                                         <?php if (!empty($barangkeluar)) : ?>
                                             <?php $no = 1;
                                             foreach ($barangkeluar as $item) : ?>
-                                                <?php $stok_awal = $item['stok'] + $item['jumlah']; ?>
                                                 <tr>
                                                     <td class="p-1 pl-3"><?= $no++ ?></td>
                                                     <td class="p-1 pl-3"><?= sprintf('BK%06d', $item['id_barang_keluar'])  ?></td>
@@ -65,9 +64,9 @@
                                                     <td class="p-1 pl-3"><?= $item['nama_barang'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_penerima'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $stok_awal ?></td> <!-- Mengisi stok awal -->
+                                                    <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                                                     <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['stok'] ?></td>
+                                                    <td class="p-1 pl-3"><?= $item['stok_awal'] - $item['jumlah'] ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>

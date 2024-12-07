@@ -79,15 +79,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><?php $no = 0;
-                                            foreach ($barang as $item) : ?>
+                                        <?php $no = 0;
+                                        foreach ($barang as $item) : ?>
+                                            <tr>
                                                 <td class="p-1 pl-3"><?= $no += 1 ?></td>
                                                 <td class="p-1 pl-3"><?= $item['id_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                            <?php endforeach; ?>
 
-                                        </tr>
+
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -50,6 +50,7 @@ class Barang_Masuk extends BaseController
             'barang' => session()->get('datalist'),
             'barangs' => $barang->findAll(),
             'inventaris' => $inventaris->findAll(),
+            'supplier' => $this->supplierModel->findAll()
         ];
         echo view('v_header');
         return view('v_barang_masuk', $data);
@@ -201,15 +202,14 @@ class Barang_Masuk extends BaseController
                         throw new DatabaseException('Failed to insert post: kurang dari 0');
                     }
                     if ($b['jenis'] == 'barang') {
-                        if ($b['harga_beli'] < 1000) {
-                            throw new DatabaseException('harga beli minimal 1000');
+                        if ($b['harga_beli'] < 100) {
+                            throw new DatabaseException('harga beli minimal 100');
                         }
                         $barang1 = $this->barangModel->where('id_barang', $b['id_barang'])->first();
                         $data = [
                             'nama' => $barang1['nama'],
                             'id_satuan' => $barang1['id_satuan'],
                             'foto' => $barang1['foto'],
-
                             'stok' => $barang1['stok'] + $b['stok'],
                             'harga_beli' => $b['harga_beli'],
                             'id_kategori' => $barang1['id_kategori'],
@@ -223,8 +223,8 @@ class Barang_Masuk extends BaseController
                             throw new DatabaseException('Failed to  barang masuk 1 insert post: ' . implode(', ', $this->barangMasukModel->errors()));
                         }
                     } elseif ($b['jenis'] == 'alat') {
-                        if ($b['harga_beli'] < 1000) {
-                            throw new DatabaseException('harga beli minimal 1000');
+                        if ($b['harga_beli'] < 100) {
+                            throw new DatabaseException('harga beli minimal 100');
                         }
                         $barang1 = $this->inventarisModel->where('id_inventaris', $b['id_barang'])->first();
                         $data = [

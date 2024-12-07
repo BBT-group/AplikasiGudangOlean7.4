@@ -1,20 +1,21 @@
                 <div class="container-fluid">
                     <!-- DataTales Example -->
+                    <div class="flex-box pb-1">
+                        <div class="col-12 mb-1 p-0">
+                            <?php if (session()->role == 'admin') : ?>
+                                <div class="col-12 mb-1 p-0">
+                                    <a href="<?= base_url('stok/indextambah') ?>" method="post" class="btn btn-primary btn-sm">Tambah Barang</a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-2">
                             <h6 class="m-0 font-weight-bold text-primary">Data Stok Barang</h6>
                         </div>
                         <div class="card-body pt-2">
                             <div class="table-responsive">
-                                <div class="flex-box pb-1">
-                                    <div class="col-12 mb-1 p-0">
-                                    <?php if (session()->role == 'admin') : ?>
-                                            <div class="col-12 mb-1 p-0">
-                                                <a href="<?= base_url('stok/indextambah') ?>" method="post" class="btn btn-primary btn-sm">Tambah Barang</a>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
+
                                 <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -131,7 +132,7 @@
                                 cancelButtonText: "Batal"
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                        window.location.href = url;
+                                    window.location.href = url;
                                 }
                             });
                         });

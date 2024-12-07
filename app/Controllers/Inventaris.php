@@ -27,7 +27,7 @@ class Inventaris extends BaseController
         session()->set('id_temp', '');
         $dataAlat = [
             'inventaris' => $this->inventarisModel->findAll(),
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
 
         echo view('v_header');
@@ -37,9 +37,14 @@ class Inventaris extends BaseController
     public function simpanAlat()
     {
         if (!$this->validate([
-            'id_inventaris' => 'required|is_unique[inventaris.id_inventaris]',
+            'id_inventaris' => [
+                'rules'  => 'required|is_unique[inventaris.id_inventaris]',
+                'errors' => [
+                    'is_unique' => 'ID inventaris telah terdaftar',
+                ],
+            ],
             'nama_inventaris' => 'required',
-            'foto' => 'uploaded[foto]',
+            'foto' => 'uploaded[foto]|is_image[foto]',
         ])) {
             return redirect()->to(base_url('inventaris/indextambah'))->withInput();
         }
@@ -47,7 +52,6 @@ class Inventaris extends BaseController
         $file = $this->request->getFile('foto');
         if ($file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName);
             $foto_path = 'uploads/' . $newName;
             $dataAlat = [
                 'id_inventaris' => $this->request->getVar('id_inventaris'),
@@ -57,6 +61,7 @@ class Inventaris extends BaseController
                 'harga_beli' => 0
             ];
             if (!$this->inventarisModel->insert($dataAlat)) {
+                $file->move(ROOTPATH . 'public/uploads', $newName);
                 return redirect()->to('/inventaris')->with('success', 'Alat berhasil ditambahkan');
             } else {
                 return redirect()->back()->with('error', 'Gagal menambahkan barang');
@@ -72,14 +77,14 @@ class Inventaris extends BaseController
             'alat' => $this->inventarisModel->getById($id_inventaris)->first()
         ];
         echo view('v_header');
-        return view('admin\detailalat', $data);
+        return view('admin/detailalat', $data);
     }
 
     public function indexUpdate($id_inventaris = null)
     {
         $data = [
             'alat' => $this->inventarisModel->getById($id_inventaris)->first(),
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
         echo view('v_header');
         return view('v_update_inventaris', $data);
@@ -89,8 +94,18 @@ class Inventaris extends BaseController
     public function updateAlat()
     {
         if (!$this->validate([
-            'id_inventaris' => 'required|is_not_unique[inventaris.id_inventaris]',
-            'nama_inventaris' => 'required',
+            'id_inventaris' => [
+                'rules'  => 'required|is_not_unique[inventaris.id_inventaris]',
+                'errors' => [
+                    'is_unique' => 'ID inventaris telah terdaftar',
+                ],
+            ],
+            'nama_inventaris' => [
+                'rules'  => 'required|is_unique[inventaris.nama_inventaris]',
+                'errors' => [
+                    'is_unique' => 'Nama inventaris telah terdaftar',
+                ],
+            ],
         ])) {
             return redirect()->back()->withInput();
         }

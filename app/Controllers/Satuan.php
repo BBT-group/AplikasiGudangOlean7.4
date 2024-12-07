@@ -33,7 +33,7 @@ class Satuan extends BaseController
     public function indexTambah()
     {
         $data = [
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
 
         echo view('v_header');
@@ -44,9 +44,13 @@ class Satuan extends BaseController
     public function tambahSatuan()
     {
         if (!$this->validate([
-            'nama_satuan' => 'required|is_unique[satuan.nama_satuan]'
+            'nama_satuan' => [
+                'rules'  => 'required|is_unique[satuan.nama_satuan]',
+                'errors' => [
+                    'is_unique' => 'Nama satuan telah terdaftar',
+                ],
+            ],
         ])) {
-            session()->setFlashdata('warning', 'Satuan sudah ada');
             return redirect()->to(base_url('/satuan/indextambah'))->withInput();
         }
         $this->satuanModel->insert(['nama_satuan' => $this->request->getVar('nama_satuan')]);
@@ -58,7 +62,7 @@ class Satuan extends BaseController
     {
         $data = [
             'satuan' => $this->satuanModel->where('id_satuan', $id)->first(),
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
         echo view('v_header');
         return view('v_update_satuan', $data);
@@ -68,7 +72,12 @@ class Satuan extends BaseController
     {
         if (!$this->validate([
             'id_satuan' => 'required|is_not_unique[satuan.id_satuan]',
-            'nama_satuan' => 'required'
+            'nama_satuan' => [
+                'rules'  => 'required|is_unique[satuan.nama_satuan]',
+                'errors' => [
+                    'is_unique' => 'Nama satuan telah terdaftar',
+                ],
+            ],
         ])) {
             return redirect()->back()->withInput();
         }

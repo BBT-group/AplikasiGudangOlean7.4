@@ -23,10 +23,14 @@
                                                                                                                     ?>" disabled>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
-                                <div class="form-group mb-1">
-                                    <label for="nama_supplier">Supplier</label>
-                                    <input type="text" class="form-control update-field" id="nama_supplier" name="nama_supplier" value="<?= (old('nama_supplier')) ? old('nama_supplier') : session()->get('supplier'); ?>">
+                                <div class="form-group position-relative">
+                                    <label for="supplier-input">Supplier</label>
+                                    <input type="text" id="nama_supplier" name="nama_supplier" required class="form-control dropdown-input update-field"
+                                        data-target="supplier-results" data-field="nama"
+                                        placeholder="Search Supplier..." autocomplete="off" value="<?= (old('supplier')) ? old('supplier') : session()->get('supplier');   ?>">
+                                    <div id="supplier-results" class="dropdown-menu"></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -43,9 +47,10 @@
                         <div class="row">
                             <div class="col-6 mb-1">
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Cari Barang</button>
+                                (tambah barang dengan scan barcode atau klik cari barang)
                             </div>
                             <div class="col-6 mb-1" style="text-align: right;">
-                                <button id="clear-session-btn" class="btn btn-secondary btn-sm">Clear Session</button>
+                                <button id="clear-session-btn" class="btn btn-secondary btn-sm">Bersihkan Data</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                             </div>
                         </div>
@@ -197,7 +202,52 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+<script>
+    // Example data for satuan and kategori
+    const supplierData = <?= json_encode($supplier) ?>;
 
+    $(document).click(function(e) {
+        $(".dropdown-menu").hide();
+    });
+    $(document).ready(function() {
+        $('.dropdown-input').on('keyup', function() {
+            const input = $(this); // Current input field
+            const target = $('#' + input.data('target')); // Corresponding dropdown
+            const field = input.data('field'); // Field to filter on (e.g., nama_satuan, nama_kategori)
+            const query = input.val().toLowerCase();
+            const data = supplierData; // Select dataset
+
+            target.empty();
+
+            if (query.length > 0) {
+                let results = data.filter(item =>
+                    item[field] && item[field].toLowerCase().includes(query)
+                );
+
+                if (results.length > 0) {
+                    results.forEach(item => {
+                        target.append(`<a href="#" class="dropdown-item">${item[field]}</a>`);
+                    });
+                    target.show();
+                } else {
+                    target.append('<span class="dropdown-item disabled">No results found</span>');
+                    target.show();
+                }
+            } else {
+                target.hide();
+            }
+        });
+
+        // Event delegation for dropdown items
+        $('.dropdown-menu').on('click', '.dropdown-item', function(e) {
+            e.preventDefault();
+            const selectedValue = $(this).text(); // Get the clicked item's text
+            const targetInput = $(this).closest('.form-group').find('.dropdown-input');
+            targetInput.val(selectedValue); // Set the input value
+            $(this).closest('.dropdown-menu').hide(); // Hide the dropdown
+        });
+    });
+</script>
 <!-- Page level custom scripts -->
 <script>
     window.onload = function() {

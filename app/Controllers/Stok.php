@@ -41,13 +41,11 @@ class Stok extends BaseController
 
     public function indexTambah()
     {
-
         session()->set('id_temp', '');
         $data = [
             'kategori' => $this->kategoriModel->findAll(),
             'satuan' => $this->satuanModel->findAll(),
-            'validation' => validation_errors()
-
+            'validation' => validation_list_errors()
         ];
 
         echo view('v_header');
@@ -57,14 +55,21 @@ class Stok extends BaseController
     public function tambahBarang()
     {
         if (!$this->validate([
-            'id_barang' => 'required|is_unique[barang.id_barang]',
+            'id_barang' => [
+                'label'  => 'id_barang',
+                'rules'  => 'required|is_unique[barang.id_barang]',
+                'errors' => [
+                    'is_unique' => 'ID Barang telah terdaftar',
+                ],
+            ],
+            'foto' => 'uploaded[foto]|is_image[foto]',
         ])) {
             return redirect()->to(base_url('stok/indextambah'))->withInput();
         }
         $file = $this->request->getFile('foto');
         if ($file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName);
+
             $foto_path = 'uploads/' . $newName;
 
             $newID = $this->kategoriModel->where('nama_kategori', $this->request->getPost('id_kategori'))->first();
@@ -81,6 +86,7 @@ class Stok extends BaseController
             ];
 
             if (!$this->barangModel->insert($data)) {
+                $file->move(ROOTPATH . 'public/uploads', $newName);
                 return redirect()->to('/stok')->with('success', 'Barang berhasil ditambahkan');
             } else {
                 return redirect()->back()->with('error', 'Gagal menambahkan barang');
@@ -98,7 +104,7 @@ class Stok extends BaseController
             'data' => $barang,
         ];
         echo view('v_header');
-        return view('admin\detailbarang', $data);
+        return view('admin/detailbarang', $data);
     }
 
     // fungsi update barang
@@ -131,9 +137,9 @@ class Stok extends BaseController
         $file = $this->request->getFile('foto');
         if ($file->isValid() && !$file->hasMoved()) {
             $fotoLama = $dataLama['foto'];
-            unlink($fotoLama);
+
             $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName);
+
             $foto_path = 'uploads/' . $newName;
             $newID = $this->kategoriModel->where('nama_kategori', $this->request->getVar('id_kategori'))->first();
             $idSat = $this->satuanModel->where('nama_satuan', $this->request->getVar('id_satuan'))->first();
@@ -146,9 +152,16 @@ class Stok extends BaseController
                 'id_kategori' => $newID['id_kategori'],
                 'id_satuan' => $idSat['id_satuan'],
             ];
-            $this->barangModel->update($this->request->getVar('id_barang'), $data);
-            session()->setFlashdata('update', 'Barang berhasil diupdate');
-            return redirect()->to(base_url('/stok'));
+            if (!$this->barangModel->update($this->request->getVar('id_barang'), $data)) {
+                if (file_exists(ROOTPATH . 'public/uploads/' . $fotoLama)) {
+                    unlink($fotoLama);
+                }
+                $file->move(ROOTPATH . 'public/uploads', $newName);
+                session()->setFlashdata('update', 'Barang berhasil diupdate');
+                return redirect()->to(base_url('/stok'));
+            } else {
+                return redirect()->to(base_url('stok/indexupdate'))->withInput();
+            }
         } else {
             $newID = $this->kategoriModel->where('nama_kategori', $this->request->getVar('id_kategori'))->first();
             $idSat = $this->satuanModel->where('nama_satuan', $this->request->getVar('id_satuan'))->first();
