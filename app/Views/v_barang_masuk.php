@@ -60,7 +60,7 @@
                     <thead>
                         <tr>
                             <th>ID Barang</th>
-                            <th>Nama</th>
+                            <th>Nama Barang</th>
                             <th>Satuan</th>
                             <th>jumlah</th>
                             <th>Harga Beli</th>

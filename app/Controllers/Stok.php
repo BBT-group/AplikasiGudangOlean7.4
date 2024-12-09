@@ -142,9 +142,7 @@ class Stok extends BaseController
         $file = $this->request->getFile('foto');
         if ($file->isValid() && !$file->hasMoved()) {
             $fotoLama = $dataLama['foto'];
-
             $newName = $file->getRandomName();
-
             $foto_path = 'uploads/' . $newName;
             $newID = $this->kategoriModel->where('nama_kategori', $this->request->getVar('id_kategori'))->first();
             $idSat = $this->satuanModel->where('nama_satuan', $this->request->getVar('id_satuan'))->first();
@@ -190,7 +188,9 @@ class Stok extends BaseController
     public function deleteBarang($id_barang)
     {
         $data = $this->barangModel->getBarangById($id_barang);
-        unlink($data['foto']);
+        if (file_exists($data['foto'])) {
+            unlink($data['foto']);
+        }
         $this->barangModel->delete($id_barang);
         session()->setFlashdata('delete', 'Barang berhasil dihapus');
         return redirect()->to('/stok');

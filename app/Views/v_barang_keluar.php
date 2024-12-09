@@ -1,9 +1,7 @@
 <div class="container-fluid">
     <?php
     echo $validation;
-    ?><?php
-        var_dump(session()->get('penerima_keluar'));
-        ?>
+    ?>
     <!-- Page Heading -->
     <!-- <h1 class="h3 mb-2 text-gray-800">Inventory Management</h1> -->
     <!-- DataTales Example -->
@@ -63,7 +61,7 @@
                     <thead>
                         <tr>
                             <th>ID Barang</th>
-                            <th>Nama</th>
+                            <th>Nama Barang</th>
                             <th>Stok Awal</th>
                             <th>Satuan</th>
                             <th>jumlah</th>

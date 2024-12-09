@@ -17,7 +17,7 @@ $routes->add('/inventaris/simpanalat', 'Inventaris::simpanAlat');
 $routes->add('/inventaris/indexdetail/(:any)', 'Inventaris::indexDetail/$1');
 $routes->add('/inventaris/indexupdate/(:any)', 'Inventaris::indexUpdate/$1');
 $routes->add('/inventaris/updatealat', 'Inventaris::updateAlat');
-$routes->get('/inventaris/deletealat/(:num)', 'Inventaris::deleteAlat/$1');
+$routes->get('/inventaris/deletealat/(:any)', 'Inventaris::deleteAlat/$1');
 $routes->post('/barang/simpan', 'Barang::simpan');
 $routes->add('/barang/index', 'Barang::index');
 $routes->add('/barang/barangsesi', 'Barang::barangSesi');
@@ -50,7 +50,7 @@ $routes->get('/barang_masuk', 'Barang_Masuk::beranda');
 $routes->get('/barang_masuk/beranda', 'Barang_Masuk::beranda');
 $routes->get('/barang_keluar', 'Barang_Keluar::beranda');
 $routes->get('/barang_pinjam', 'Barang_Pinjam::beranda');
-$routes->get('/barang_pinjam/printd/(:num)', 'Barang_Pinjam::printd/$1');
+$routes->get('/barang_pinjam/printd/(:any)', 'Barang_Pinjam::printd/$1');
 
 
 
@@ -72,19 +72,19 @@ $routes->get('/laporan_inventaris/printi', 'Laporan_Inventaris::printi');
 $routes->get('/stok', 'Stok::index');
 $routes->get('/stok/tambahbarang', 'Stok::tambahBarang');
 $routes->add('/stok/updatebarang', 'Stok::updateBarang');
-$routes->get('/stok/deletebarang/(:num)', 'Stok::deleteBarang/$1');
+$routes->get('/stok/deletebarang/(:any)', 'Stok::deleteBarang/$1');
 
-$routes->get('/satuan/deletesatuan/(:num)', 'Satuan::deleteSatuan/$1');
+$routes->get('/satuan/deletesatuan/(:any)', 'Satuan::deleteSatuan/$1');
 $routes->get('/satuan', 'Satuan::index');
 $routes->add('/satuan/indextambah', 'Satuan::indexTambah');
-$routes->add('/satuan/indexupdate/(:num)', 'Satuan::indexUpdate/$1');
+$routes->add('/satuan/indexupdate/(:any)', 'Satuan::indexUpdate/$1');
 $routes->add('/satuan/tambahsatuan', 'Satuan::tambahSatuan');
 $routes->add('/satuan/updatesatuan', 'Satuan::updateSatuan');
 
-$routes->get('/kategori/deletekategori/(:num)', 'Kategori::deleteKategori/$1');
+$routes->get('/kategori/deletekategori/(:any)', 'Kategori::deleteKategori/$1');
 $routes->get('/kategori', 'Kategori::index');
 $routes->add('/kategori/indextambah', 'Kategori::indexTambah');
-$routes->add('/kategori/indexupdate/(:num)', 'Kategori::indexUpdate/$1');
+$routes->add('/kategori/indexupdate/(:any)', 'Kategori::indexUpdate/$1');
 $routes->add('/kategori/tambahkategori', 'Kategori::tambahKategori');
 $routes->add('/kategori/updatekategori', 'Kategori::updateKategori');
 
@@ -103,11 +103,11 @@ $routes->add('/barang_pinjam/hapusitem', 'Barang_Pinjam::hapusBarangDatalistPinj
 
 $routes->add('/barang_masuk/indextambahbarang', 'Barang_Masuk::indexTambahBarang');
 $routes->add('/barang_masuk/indextambahalat', 'Barang_Masuk::indexTambahAlat');
-$routes->add('/barang_masuk/indexdetailmaster/(:num)', 'Barang_Masuk::indexDetailMaster/$1');
+$routes->add('/barang_masuk/indexdetailmaster/(:any)', 'Barang_Masuk::indexDetailMaster/$1');
 $routes->add('/stok/index2', 'Stok::index2');
 $routes->add('/inventaris/index2', 'Inventaris::index2');
-$routes->add('/barang_keluar/indexdetailmaster/(:num)', 'Barang_Keluar::indexDetailMaster/$1');
-$routes->add('/barang_pinjam/indexdetailmaster/(:num)', 'Barang_Pinjam::indexDetailMaster/$1');
+$routes->add('/barang_keluar/indexdetailmaster/(:any)', 'Barang_Keluar::indexDetailMaster/$1');
+$routes->add('/barang_pinjam/indexdetailmaster/(:any)', 'Barang_Pinjam::indexDetailMaster/$1');
 
 $routes->add('/laporan_keluar/printk', 'Laporan_Keluar::printk');
 $routes->add('/laporan_masuk/printm', 'Laporan_Masuk::printm');
@@ -116,10 +116,10 @@ $routes->add('/laporan_stok/prints', 'Laporan_Stok::prints');
 $routes->get('/user', 'User::index');
 $routes->get('/user/create', 'User::create');
 $routes->post('/user/store', 'User::store');
-$routes->get('/user/edit/(:num)', 'User::edit/$1');
-$routes->post('/user/update/(:num)', 'User::update/$1');
-$routes->get('/user/delete/(:num)', 'User::delete/$1');
-$routes->match(['get', 'post'], '/user/updatePassword/(:num)', 'User::updatePassword/$1');
+$routes->get('/user/edit/(:any)', 'User::edit/$1');
+$routes->post('/user/update/(:any)', 'User::update/$1');
+$routes->get('/user/delete/(:any)', 'User::delete/$1');
+$routes->match(['get', 'post'], '/user/updatePassword/(:any)', 'User::updatePassword/$1');
 
 $routes->get('/user/changePassword', 'UserController::changePasswordForm');
 $routes->post('/user/updatePassword', 'UserController::updatePassword');

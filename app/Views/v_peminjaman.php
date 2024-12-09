@@ -104,7 +104,7 @@
                     <thead>
                         <tr>
                             <th>ID Barang</th>
-                            <th>Nama</th>
+                            <th>Nama Barang</th>
                             <th>Stok</th>
                             <th>Detail</th>
                         </tr>
