@@ -123,7 +123,12 @@ class Stok extends BaseController
     public function updateBarang()
     {
         if (!$this->validate([
-            'id_barang' => 'required',
+            'id_inventaris' => [
+                'rules'  => 'required|is_not_unique[inventaris.id_inventaris]',
+                'errors' => [
+                    'is_unique' => 'ID inventaris telah terdaftar',
+                ],
+            ],
             'nama' => 'required',
             'stok' => 'required',
             'harga_beli' => 'required',

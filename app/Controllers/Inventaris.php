@@ -100,12 +100,6 @@ class Inventaris extends BaseController
                     'is_unique' => 'ID inventaris telah terdaftar',
                 ],
             ],
-            'nama_inventaris' => [
-                'rules'  => 'required|is_unique[inventaris.nama_inventaris]',
-                'errors' => [
-                    'is_unique' => 'Nama inventaris telah terdaftar',
-                ],
-            ],
         ])) {
             return redirect()->back()->withInput();
         }
@@ -124,7 +118,7 @@ class Inventaris extends BaseController
             'stok' => $this->request->getVar('stok'),
             'harga_beli' => $this->request->getVar('harga_beli'),
         ];
-        if ($this->inventarisModel->update($this->request->getVar('ide_inventaris'), $data)) {
+        if ($this->inventarisModel->update($this->request->getVar('id_inventaris'), $data)) {
             if (file_exists(ROOTPATH . 'public/uploads/' . $dataLama['foto'])) {
                 unlink($dataLama['foto']);
             }
