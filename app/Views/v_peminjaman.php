@@ -61,8 +61,8 @@
                     <table class="table table-bordered" id="dataTabless" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Id inventaris</th>
-                                <th>Nama</th>
+                                <th>Id Alat</th>
+                                <th>Nama Alat</th>
                                 <th>stok</th>
                                 <th>jumlah</th>
                                 <th>Detail</th>
@@ -94,7 +94,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cari Barang</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cari Alat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,16 +103,14 @@
                 <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Barang</th>
-                            <th>Nama Barang</th>
+                            <th>ID Alat</th>
+                            <th>Nama Alat</th>
                             <th>Stok</th>
                             <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-
-
                         if (!empty($inventaris)) : ?>
                             <?php foreach ($inventaris as $item) : ?>
                                 <tr>

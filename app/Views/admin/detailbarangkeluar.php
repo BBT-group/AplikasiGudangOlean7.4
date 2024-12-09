@@ -48,7 +48,7 @@
                                             <th>No</th>
                                             <th>ID Barang</th>
                                             <th>Nama Barang</th>
-                                            <th>Stok Masuk</th>
+                                            <th>Stok Keluar</th>
                                             <th>Satuan</th>
                                         </tr>
                                     </thead>
