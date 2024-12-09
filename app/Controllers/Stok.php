@@ -115,7 +115,7 @@ class Stok extends BaseController
             'data' => $this->barangModel->getBarangById($id_inventaris),
             'satuan' => $this->satuanModel->findAll(),
             'kategori' => $this->kategoriModel->findAll(),
-            'validation' => validation_errors()
+            'validation' => validation_list_errors()
         ];
         echo view('v_header');
         return view('v_update_barang', $data);
@@ -129,9 +129,9 @@ class Stok extends BaseController
             'harga_beli' => 'required',
             'id_kategori' => 'required',
             'id_satuan' => 'required',
-            'foto' => 'uploaded[foto]',
+            'foto' => 'is_image[foto]',
         ])) {
-            return redirect()->to(base_url('stok/indexupdate'))->withInput();
+            return redirect()->back()->withInput();
         }
         $dataLama = $this->barangModel->getBarangById($this->request->getVar('id_barang'));
         $file = $this->request->getFile('foto');
@@ -152,7 +152,7 @@ class Stok extends BaseController
                 'id_kategori' => $newID['id_kategori'],
                 'id_satuan' => $idSat['id_satuan'],
             ];
-            if (!$this->barangModel->update($this->request->getVar('id_barang'), $data)) {
+            if ($this->barangModel->update($this->request->getVar('id_barang'), $data)) {
                 if (file_exists(ROOTPATH . 'public/uploads/' . $fotoLama)) {
                     unlink($fotoLama);
                 }
@@ -160,7 +160,7 @@ class Stok extends BaseController
                 session()->setFlashdata('update', 'Barang berhasil diupdate');
                 return redirect()->to(base_url('/stok'));
             } else {
-                return redirect()->to(base_url('stok/indexupdate'))->withInput();
+                return redirect()->back()->withInput();
             }
         } else {
             $newID = $this->kategoriModel->where('nama_kategori', $this->request->getVar('id_kategori'))->first();
@@ -169,15 +169,17 @@ class Stok extends BaseController
                 'id_barang' => $this->request->getVar('id_barang'),
                 'nama' => $this->request->getVar('nama'),
                 'foto' => $dataLama['foto'],
-
                 'stok' => $this->request->getVar('stok'),
                 'harga_beli' => $this->request->getVar('harga_beli'),
                 'id_satuan' => $idSat['id_satuan'],
                 'id_kategori' => $newID['id_kategori'],
             ];
-            $this->barangModel->update($this->request->getVar('id_barang'), $data);
-            session()->setFlashdata('update', 'Barang berhasil diupdate');
-            return redirect()->to('/stok');
+            if ($this->barangModel->update($this->request->getVar('id_barang'), $data)) {
+                session()->setFlashdata('update', 'Barang berhasil diupdate');
+                return redirect()->to(base_url('/stok'));
+            } else {
+                return redirect()->back()->withInput();
+            }
         }
     }
     public function deleteBarang($id_barang)

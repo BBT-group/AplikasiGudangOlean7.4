@@ -221,6 +221,8 @@ class Barang_Keluar extends BaseController
                     $db->transCommit();
 
                     session()->remove('datalist_keluar');
+                    session()->remove('penerima_keluar');
+                    session()->remove('keterangan_keluar');
                     session()->setFlashdata('message', 'Transaction successful.');
                     return redirect()->to(base_url('/barang_keluar'))->withInput();
                 }

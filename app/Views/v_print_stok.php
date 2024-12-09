@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <title>Laporan Stok Barang - Print</title>
     <link rel="stylesheet" href="<?= base_url('/css/print.css') ?>"> <!-- Add your custom print CSS here -->
 </head>
+
 <body>
     <div class="print-container">
         <h1 class="text-center">LAPORAN STOK BARANG GUDANG PT.OLEAN PERMATA</h1>
-        
+
         <table border="1" cellspacing="0" cellpadding="5" width="100%">
             <thead>
                 <tr>
@@ -24,7 +26,8 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1; foreach ($barang as $item) : ?>
+                <?php $no = 1;
+                foreach ($barang as $item) : ?>
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $item['id_barang'] ?></td>
@@ -43,4 +46,5 @@
         window.print(); // Automatically trigger the print dialog
     </script>
 </body>
+
 </html>

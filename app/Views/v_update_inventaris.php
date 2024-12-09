@@ -1,5 +1,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <?php
+                    echo $validation;
+                    ?>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -19,12 +22,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama_inventaris">Nama</label>
-                                                    <input type="text" class="form-control  <?= (array_key_exists('nama_inventaris', $validation)) ? 'is-invalid' : ''; ?>" id="nama_inventaris" name="nama_inventaris" required maxlength="45" value="<?= $alat['nama_inventaris'] ?>">
-                                                    <?php if (array_key_exists('nama_inventaris', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['nama_inventaris'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <input type="text" class="form-control  " id="nama_inventaris" name="nama_inventaris" required maxlength="45" value="<?= $alat['nama_inventaris'] ?>">
+
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Foto</label>

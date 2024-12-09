@@ -252,6 +252,8 @@ class Barang_Masuk extends BaseController
                     // Otherwise, commit the transaction
                     $db->transCommit();
                     session()->remove('datalist');
+                    session()->remove('supplier');
+                    session()->remove('keterangan_masuk');
                     session()->setFlashdata('message', 'Transaction successful.');
                     return redirect()->to(base_url('/barang_masuk'));
                 }

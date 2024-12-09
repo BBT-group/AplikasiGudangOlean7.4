@@ -42,8 +42,10 @@ class Laporan_Masuk extends BaseController
 
         if ($start_date && $end_date) {
             $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabungFilter($start_date, $end_date);
+            $data['inventarismasuk'] = $this->barangmasukModel->getBarangMasukGabungFilterInventaris($start_date, $end_date);
         } else {
             $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabung();
+            $data['inventarismasuk'] = $this->barangmasukModel->getBarangMasukGabungInventaris();
         }
 
         $data['start_date'] = $start_date;

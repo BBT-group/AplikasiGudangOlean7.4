@@ -1,5 +1,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <?php
+                    echo $validation;
+                    ?>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -20,12 +23,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama">Nama</label>
-                                                    <input type="text" class="form-control <?= (array_key_exists('nama', $validation)) ? 'is-invalid' : ''; ?>" id="nama" name="nama" required maxlength="45" value="<?= $data['nama'] ?>">
-                                                    <?php if (array_key_exists('nama', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['nama'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <input type="text" class="form-control " id="nama" name="nama" required maxlength="45" value="<?= $data['nama'] ?>">
                                                 </div>
                                                 <div class="form-group position-relative">
                                                     <label for="satuan-input">Satuan</label>

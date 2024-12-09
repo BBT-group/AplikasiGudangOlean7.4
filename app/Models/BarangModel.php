@@ -9,7 +9,6 @@ class BarangModel extends Model
 
     protected $table = 'barang';
     protected $primaryKey = 'id_barang';
-
     protected $allowedFields = ['id_barang', 'nama', 'foto', 'merk', 'stok', 'harga_beli', 'id_kategori', 'id_satuan'];
 
     public function getBarang()
@@ -29,7 +28,7 @@ class BarangModel extends Model
         return $this->select('barang.*, kategori.nama_kategori,satuan.nama_satuan')
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
             ->join('satuan', 'satuan.id_satuan = barang.id_satuan')
-            ->where('id_barang', $id_barang)->first();
+            ->where('id_barang', (string)$id_barang)->first();
     }
 
     public function getBarangByName($name)

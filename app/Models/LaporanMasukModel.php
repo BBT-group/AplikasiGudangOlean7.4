@@ -30,6 +30,15 @@ class LaporanMasukModel extends Model
             ->get()
             ->getResultArray();
     }
+    public function getBarangMasukGabungInventaris()
+    {
+        return $this->db->table($this->table)
+            ->select('barang_masuk.*, inventaris.harga_beli, inventaris.nama_inventaris, ms_barang_masuk.waktu')
+            ->join('inventaris', 'inventaris.id_inventaris = barang_masuk.id_inventaris')
+            ->join($this->tableMsBarangMasuk, 'ms_barang_masuk.id_ms_barang_masuk = barang_masuk.id_ms_barang_masuk')
+            ->get()
+            ->getResultArray();
+    }
 
     public function getBarangMasukGabungFilter($start_date, $end_date)
     {
@@ -38,6 +47,17 @@ class LaporanMasukModel extends Model
             ->join($this->tableBarang, 'barang.id_barang = barang_masuk.id_barang')
             ->join($this->tableMsBarangMasuk, 'ms_barang_masuk.id_ms_barang_masuk = barang_masuk.id_ms_barang_masuk')
             ->join($this->tableSatuan, 'satuan.id_satuan = barang.id_satuan')
+            ->where('DATE(ms_barang_masuk.waktu) >=', $start_date)
+            ->where('DATE(ms_barang_masuk.waktu) <=', $end_date)
+            ->get()
+            ->getResultArray();
+    }
+    public function getBarangMasukGabungFilterInventaris($start_date, $end_date)
+    {
+        return $this->db->table($this->table)
+            ->select('barang_masuk.*, inventaris.nama_inventaris,inventaris.harga_beli, ms_barang_masuk.waktu')
+            ->join('inventaris', 'inventaris.id_inventaris = barang_masuk.id_inventaris')
+            ->join($this->tableMsBarangMasuk, 'ms_barang_masuk.id_ms_barang_masuk = barang_masuk.id_ms_barang_masuk')
             ->where('DATE(ms_barang_masuk.waktu) >=', $start_date)
             ->where('DATE(ms_barang_masuk.waktu) <=', $end_date)
             ->get()

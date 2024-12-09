@@ -70,7 +70,7 @@
                                         foreach ($alatmasuk as $item) : ?>
                                             <tr>
                                                 <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_inventaris']) ?></td>
+                                                <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_barang_masuk']) ?></td>
                                                 <td class="p-1 pl-3"><?= $item['waktu'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
                                                 <td class="p-1 pl-3">alat</td>

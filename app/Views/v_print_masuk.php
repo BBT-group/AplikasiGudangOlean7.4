@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Laporan Barang Masuk - Print</title>
     <link rel="stylesheet" href="<?= base_url('/css/print.css') ?>"> <!-- Add your custom print CSS here -->
 </head>
+
 <body>
     <div class="print-container">
         <h1 class="text-center">LAPORAN MASUK STOK BARANG GUDANG PT.OLEAN PERMATA</h1>
@@ -26,8 +28,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1; foreach ($barangmasuk as $item) : ?>
-                    <?php $stok_awal = $item['stok'] - $item['jumlah']; ?>
+                <?php $no = 1;
+                foreach ($barangmasuk as $item) : ?>
+
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $item['id_barang'] ?></td>
@@ -35,9 +38,22 @@
                         <td><?= $item['nama'] ?></td>
                         <td><?= $item['nama_satuan'] ?></td>
                         <td><?= $item['harga_beli'] ?></td>
-                        <td><?= $stok_awal ?></td>
+                        <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                         <td><?= $item['jumlah'] ?></td>
-                        <td><?= $item['stok'] ?></td>
+                        <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php foreach ($inventarismasuk as $item) : ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $item['id_inventaris'] ?></td>
+                        <td><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
+                        <td><?= $item['nama_inventaris'] ?></td>
+                        <td>alat</td>
+                        <td><?= $item['harga_beli'] ?></td>
+                        <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
+                        <td><?= $item['jumlah'] ?></td>
+                        <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -48,4 +64,5 @@
         window.print(); // Automatically trigger the print dialog
     </script>
 </body>
+
 </html>

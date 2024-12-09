@@ -112,8 +112,6 @@ class Inventaris extends BaseController
         $file = $this->request->getFile('foto');
         $dataLama = $this->inventarisModel->getById($this->request->getVar('id_inventaris'))->first();
         if ($file->isValid() && !$file->hasMoved()) {
-            $fotoLama = $dataLama['foto'];
-            unlink($fotoLama);
             $newName = $file->getRandomName();
             $file->move(ROOTPATH . 'public/uploads/', $newName);
             $foto_path = 'uploads/' . $newName;
@@ -126,10 +124,16 @@ class Inventaris extends BaseController
             'stok' => $this->request->getVar('stok'),
             'harga_beli' => $this->request->getVar('harga_beli'),
         ];
-        if (!$this->inventarisModel->update($this->request->getVar('id_inventaris'), $data)) {
+        if ($this->inventarisModel->update($this->request->getVar('ide_inventaris'), $data)) {
+            if (file_exists(ROOTPATH . 'public/uploads/' . $dataLama['foto'])) {
+                unlink($dataLama['foto']);
+            }
+            $file->move(ROOTPATH . 'public/uploads', $newName);
+            session()->setFlashdata('update', 'Barang berhasil diupdate');
+            return redirect()->to(base_url('/inventaris'));
+        } else {
             return redirect()->back()->withInput();
         }
-        return redirect()->to(base_url('/inventaris'))->with('success', 'Alat berhasil diperbarui');
     }
 
     public function deleteAlat($id_inventaris)
