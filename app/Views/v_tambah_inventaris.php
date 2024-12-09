@@ -23,7 +23,7 @@
                                                                                                                                                         } ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nama_inventaris">Nama</label>
+                                                    <label for="nama_inventaris">Nama Alat</label>
                                                     <input type="text" class="form-control" id="nama_inventaris" name="nama_inventaris" required maxlength="45" value="<?= old('nama_inventaris') ?? '' ?>">
                                                 </div>
                                                 <div class="form-group">

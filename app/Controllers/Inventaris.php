@@ -107,7 +107,6 @@ class Inventaris extends BaseController
         $dataLama = $this->inventarisModel->getById($this->request->getVar('id_inventaris'))->first();
         if ($file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads/', $newName);
             $foto_path = 'uploads/' . $newName;
         } else {
             $foto_path =  $dataLama['foto'];

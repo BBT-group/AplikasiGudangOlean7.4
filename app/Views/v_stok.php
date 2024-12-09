@@ -21,7 +21,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>ID Barang</th>
-                                            <th>Nama</th>
+                                            <th>Nama Barang</th>
                                             <th>Stok</th>
                                             <th>Satuan</th>
                                             <th>Detail</th>

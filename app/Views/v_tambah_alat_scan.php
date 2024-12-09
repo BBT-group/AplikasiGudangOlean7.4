@@ -13,22 +13,17 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="id_inventaris">ID Alat</label>
-                                                    <input type="text" class="form-control" id="id_inventaris <?= (array_key_exists('id_inventaris', $validation)) ? 'is-invalid' : ''; ?>" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
-                                                                                                                                                                                                                                        echo old('id_inventaris');
-                                                                                                                                                                                                                                    } elseif (session()->get('id_temp') != null) {
-                                                                                                                                                                                                                                        echo session()->get('id_temp');
-                                                                                                                                                                                                                                    } else {
-                                                                                                                                                                                                                                        '';
-                                                                                                                                                                                                                                    } ?>">
-                                                    <?php if (array_key_exists('id_inventaris', $validation)): ?>
-                                                        <div class="invalid-feedback">
-                                                            <?= $validation['id_inventaris'] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <label for="id_inventaris">ID Alat (ketik atau scan barcode)</label>
+                                                    <input type="text" class="form-control" id="id_inventaris" name="id_inventaris" autofocus value="<?php if (old('id_inventaris') != null) {
+                                                                                                                                                            echo old('id_inventaris');
+                                                                                                                                                        } elseif (session()->get('id_temp') != null) {
+                                                                                                                                                            echo session()->get('id_temp');
+                                                                                                                                                        } else {
+                                                                                                                                                            '';
+                                                                                                                                                        } ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nama_inventaris">Nama</label>
+                                                    <label for="nama_inventaris">Nama Inventaris</label>
                                                     <input type="text" class="form-control" id="nama_inventaris" name="nama_inventaris" required maxlength="45" value="<?= old('nama_inventaris') ?? '' ?>">
                                                 </div>
                                                 <div class="form-group">
@@ -37,10 +32,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-1"><a class="btn btn-danger btn-user btn-block" href="<?php echo base_url('barang_masuk') ?>">Batal</a></div>
-                                            <div class="col-md-11"><button type="submit" class="btn btn-primary">Submit</button></div>
-                                        </div>
+                                        <button class="btn btn-secondary" onclick="history.back()">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -59,8 +52,6 @@
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fas fa-angle-up"></i>
                 </a>
-
-                <!-- Logout Modal-->
 
                 <!-- Bootstrap core JavaScript-->
                 <script src="/jquery/jquery.js"></script>

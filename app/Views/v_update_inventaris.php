@@ -21,7 +21,7 @@
                                                     <input type="text" class="form-control" id="harga_beli" name="harga_beli" value="<?= $alat['harga_beli'] ?>" hidden>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nama_inventaris">Nama</label>
+                                                    <label for="nama_inventaris">Nama Alat</label>
                                                     <input type="text" class="form-control  " id="nama_inventaris" name="nama_inventaris" required maxlength="45" value="<?= $alat['nama_inventaris'] ?>">
 
                                                 </div>

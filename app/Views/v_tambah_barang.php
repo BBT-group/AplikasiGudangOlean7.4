@@ -26,7 +26,7 @@
                                                                                                                                                             } ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nama">Nama</label>
+                                                    <label for="nama">Nama Barang</label>
                                                     <input type="text" class="form-control" id="nama" name="nama" required maxlength="45" value="<?= old('nama') ?? '' ?>">
                                                 </div>
                                                 <div class="form-group position-relative">

@@ -22,7 +22,7 @@
                                                     <input type="text" class="form-control" id="harga_beli" name="harga_beli" value="<?= $data['harga_beli'] ?>" hidden>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nama">Nama</label>
+                                                    <label for="nama">Nama Barang</label>
                                                     <input type="text" class="form-control " id="nama" name="nama" required maxlength="45" value="<?= $data['nama'] ?>">
                                                 </div>
                                                 <div class="form-group position-relative">

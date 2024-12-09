@@ -22,7 +22,7 @@
                         <tr>
                             <th>No</th>
                             <th>ID Inventaris</th>
-                            <th>Nama</th>
+                            <th>Nama Inventaris</th>
                             <th>Stok</th>
                             <th>Detail</th>
                         </tr>
