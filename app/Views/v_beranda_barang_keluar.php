@@ -15,7 +15,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Riwayat Barang Keluar</h6>
                         </div>
                         <div class="card-body p-2">
-                            <form method="get" action="<?= base_url('barang_keluar/beranda') ?>">
+                            <form method="post" action="<?= base_url('barang_keluar') ?>">
                                 <div class="form-group row mb-1">
                                     <label for="start_date" class="col-sm-1 col-form-label">Start Date</label>
                                     <div class="col-sm-4">
