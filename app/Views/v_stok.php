@@ -20,10 +20,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Barang</th>
                                             <th>Nama Barang</th>
-                                            <th>Stok</th>
+                                            <th>Kategori</th>
                                             <th>Satuan</th>
+                                            <th>Stok</th>
                                             <th>Detail</th>
                                         </tr>
                                     </thead>
@@ -31,10 +31,11 @@
                                         <?php foreach ($barang  as $k => $item) : ?>
                                             <tr>
                                                 <td class="p-1 pl-3"><?= $k + 1 ?></td>
-                                                <td class="p-1 pl-3"><?= $item['id_barang'] ?></td>
+
                                                 <td class="p-1 pl-3"><?= $item['nama'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['stok'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['nama_kategori'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['stok'] ?></td>
                                                 <td class="p-1 pl-3" style="display: flexbox; text-align: center;">
                                                     <a href="<?= base_url('stok/indexdetail/' . $item['id_barang']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a>
                                                     <?php if (session()->role == 'admin') : ?>
