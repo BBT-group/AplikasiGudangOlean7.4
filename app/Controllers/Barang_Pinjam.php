@@ -402,4 +402,9 @@ class Barang_Pinjam extends BaseController
         ];
         echo view('v_print_detail_peminjaman', $data);
     }
+    public function deleteMaster($id)
+    {
+        $this->masterPeminjamanModel->delete($id);
+        return redirect()->to('barang_masuk');
+    }
 }

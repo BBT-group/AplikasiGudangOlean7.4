@@ -2,7 +2,7 @@
                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
                     <div class="row">
                         <div class="col-6 mb-1 ">
-                            <a href="<?= base_url('barang_masuk/index') ?>" class="btn btn-primary btn-sm">Masukan Barang</a>
+                            <a href="<?= base_url('barang_masuk/index') ?>" class="btn btn-primary btn-sm">Masukkan Barang</a>
                         </div>
 
                     </div>
@@ -58,7 +58,16 @@
                                                     <td class="p-1 pl-3"><?= sprintf('MBM%06d', $item['id_ms_barang_masuk']) ?></td>
                                                     <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['waktu'])) ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama'] ?></td>
-                                                    <td class="p-1 pl-3" style="text-align: center;"> <a href="<?= base_url('barang_masuk/indexdetailmaster/' . $item['id_ms_barang_masuk']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a></td>
+                                                    <td class="p-1 pl-3" style="display: flexbox; text-align: center;">
+                                                        <a href="<?= base_url('barang_masuk/indexdetailmaster/' . $item['id_ms_barang_masuk']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a>
+                                                        <?php if (session()->get('role') == 'admin'): ?>
+                                                            <a href="<?= base_url('barang_masuk/deletemaster/' . $item['id_ms_barang_masuk']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus" id="hapus"><i class="fas fa-trash"></i></a>
+                                                        <?php
+                                                        endif;
+                                                        ?>
+
+
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
@@ -94,6 +103,44 @@
                     <i class="fas fa-angle-up"></i>
                 </a>
 
+
+                <!-- Bootstrap core JavaScript-->
+                <script src="/jquery/jquery.js"></script>
+                <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+
+                <!-- Core plugin JavaScript-->
+                <script src="/jquery-easing/jquery.easing.js"></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src="/js/sb-admin-2.js"></script>
+
+                <!-- Page level plugins -->
+                <script src="/datatables/jquery.dataTables.js"></script>
+                <script src="/datatables/dataTables.bootstrap4.js"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="/js/demo/datatables-demo.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                <script>
+                    document.querySelectorAll('.btn-danger').forEach(function(button) {
+                        button.addEventListener('click', function(event) {
+                            event.preventDefault();
+                            const url = this.getAttribute('href');
+
+                            Swal.fire({
+                                title: "Menghapus master data akan menghapus semua riwayat transaksi yang bersangkutan. Apakah anda yakin ingin menghapus?",
+                                showCancelButton: true,
+                                confirmButtonText: "Hapus",
+                                cancelButtonText: "Batal"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = url;
+                                }
+                            });
+                        });
+                    });
+                </script>
                 <script>
                     $(document).ready(function() {
                         $('#clear-session-btn').click(function() {
@@ -113,6 +160,7 @@
                         });
                     });
                 </script>
+
                 <script>
                     $(document).ready(function() {
                         $('.update-field').on('input', function() {
@@ -212,30 +260,11 @@
 
                     }
                 </script>
-
-                <!-- Bootstrap core JavaScript-->
-                <script src="/jquery/jquery.js"></script>
-                <script src="/bootstrap/js/bootstrap.bundle.js"></script>
-
-                <!-- Core plugin JavaScript-->
-                <script src="/jquery-easing/jquery.easing.js"></script>
-
-                <!-- Custom scripts for all pages-->
-                <script src="/js/sb-admin-2.js"></script>
-
-                <!-- Page level plugins -->
-                <script src="/datatables/jquery.dataTables.js"></script>
-                <script src="/datatables/dataTables.bootstrap4.js"></script>
-
-                <!-- Page level custom scripts -->
-                <script src="/js/demo/datatables-demo.js"></script>
-
                 <script>
                     $(function() {
                         $('[data-toggle="tooltip"]').tooltip()
                     })
                 </script>
-
                 </body>
 
                 </html>

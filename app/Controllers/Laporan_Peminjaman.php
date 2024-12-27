@@ -65,9 +65,9 @@ class Laporan_Peminjaman extends BaseController
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set header file
-        $sheet->mergeCells('A1:G1');
+        $sheet->mergeCells('A1:H1');
         $sheet->setCellValue('A1', 'LAPORAN PEMINJAMAN ALAT GUDANG PT.OLEAN PERMATA');
-        $sheet->mergeCells('A2:G2');
+        $sheet->mergeCells('A2:H2');
         $sheet->setCellValue('A2', 'Periode ' . ($start_date ? $start_date : 'Semua') . ' - ' . ($end_date ? $end_date : 'Semua'));
 
         // Header kolom
@@ -78,6 +78,7 @@ class Laporan_Peminjaman extends BaseController
         $sheet->setCellValue('E3', 'Jumlah');
         $sheet->setCellValue('F3', 'Nama Penerima');
         $sheet->setCellValue('G3', 'Tanggal Kembali');
+        $sheet->setCellValue('H3', 'Keterangan');
 
         // Data
         $row = 4;
@@ -90,18 +91,19 @@ class Laporan_Peminjaman extends BaseController
             $sheet->setCellValue('E' . $row, $item['jumlah']);
             $sheet->setCellValue('F' . $row, $item['nama_penerima']);
             $sheet->setCellValue('G' . $row, $item['tanggal_kembali'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_kembali'])) : '-');
+            $sheet->setCellValue('F' . $row, $item['keterangan']);
             $row++;
         }
 
         // Styling header
-        $sheet->getStyle('A1:G2')->getFont()->setBold(true);
-        $sheet->getStyle('A1:G2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:H2')->getFont()->setBold(true);
+        $sheet->getStyle('A1:H2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // Mengubah warna background header
-        $sheet->getStyle('A1:G2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-        $sheet->getStyle('A1:G2')->getFill()->getStartColor()->setARGB('34a853'); // Warna hijau
-        $sheet->getStyle('A3:G3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-        $sheet->getStyle('A3:G3')->getFill()->getStartColor()->setARGB('b6d7a8'); 
+        $sheet->getStyle('A1:H2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A1:H2')->getFill()->getStartColor()->setARGB('34a853'); // Warna hijau
+        $sheet->getStyle('A3:H3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A3:H3')->getFill()->getStartColor()->setARGB('b6d7a8');
 
         // Apply border to the header and data
         $styleArray = [
@@ -113,9 +115,9 @@ class Laporan_Peminjaman extends BaseController
             ],
         ];
 
-        $sheet->getStyle('A1:G' . ($row - 1))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:H' . ($row - 1))->applyFromArray($styleArray);
 
-        foreach (range('A', 'G') as $columnID) {
+        foreach (range('A', 'H') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 

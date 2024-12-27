@@ -88,6 +88,18 @@
                         <span>Barang Masuk</span>
                     </a>
                 </li>
+                <li class="nav-item <?= uri_string() == 'barang_keluar' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?php echo base_url('barang_keluar') ?>">
+                        <i class="fas fa-fw fa-sign-in-alt"></i>
+                        <span>Barang Keluar</span>
+                    </a>
+                </li>
+                <li class="nav-item <?= uri_string() == 'barang_pinjam' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?php echo base_url('barang_pinjam') ?>">
+                        <i class="fas fa-fw fa-sign-in-alt"></i>
+                        <span>Barang Pinjam</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider">
                 <div class="sidebar-heading">Laporan</div>
                 <li class="nav-item <?= in_array(uri_string(), ['laporan_stok', 'laporan_inventaris']) ? 'active' : '' ?>">

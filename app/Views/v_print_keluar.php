@@ -25,6 +25,7 @@
                     <th>Stok Awal</th>
                     <th>Jumlah Keluar</th>
                     <th>Stok Akhir</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +40,8 @@
                         <td><?= $item['nama_penerima'] ?></td>
                         <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                         <td><?= $item['jumlah'] ?></td>
-                        <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                        <td><?= $item['stok_awal'] - $item['jumlah'] ?></td>
+                        <td><?= $item['keterangan'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

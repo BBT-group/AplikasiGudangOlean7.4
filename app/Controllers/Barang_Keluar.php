@@ -315,4 +315,9 @@ class Barang_Keluar extends BaseController
             return $this->response->setJSON(['status' => 'eror']);
         }
     }
+    public function deleteMaster($id)
+    {
+        $this->masterBarangKeluarModel->delete($id);
+        return redirect()->to('barang_masuk');
+    }
 }

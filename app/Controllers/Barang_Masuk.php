@@ -388,5 +388,9 @@ class Barang_Masuk extends BaseController
         return view('v_tambah_alat_barang', $data);
     }
 
-    public function cariMaster() {}
+    public function deleteMaster($id)
+    {
+        $this->masterBarangMasukModel->delete($id);
+        return redirect()->to('barang_masuk');
+    }
 }

@@ -34,6 +34,8 @@ $routes->add('/barang_masuk/clearsession', 'Barang_Masuk::clearSession');
 $routes->add('/barang_masuk/update', 'Barang_Masuk::updateStok');
 $routes->add('/barang_masuk/update2', 'Barang_Masuk::update');
 $routes->add('/barang_masuk/carii', 'Barang_Masuk::cariStok');
+$routes->add('/barang_masuk/deletemaster/(:any)', 'Barang_Masuk::deleteMaster/$1');
+
 $routes->add('/barang_masuk/hapusitem', 'Barang_Masuk::hapusBarangDatalistMasuk');
 
 $routes->add('/barang_keluar/index', 'Barang_Keluar::index');
@@ -44,6 +46,7 @@ $routes->add('/barang_keluar/update', 'Barang_Keluar::updateStok');
 $routes->add('/barang_keluar/update2', 'Barang_Keluar::update');
 $routes->add('/barang_keluar/carii', 'Barang_Keluar::cariStok');
 $routes->add('/barang_keluar/hapusitem', 'Barang_Keluar::hapusBarangDatalistKeluar');
+$routes->add('/barang_keluar/deletemaster/(:any)', 'Barang_keluar::deleteMaster/$1');
 
 $routes->add('/beranda', 'Beranda::index');
 $routes->add('/barang_masuk', 'Barang_Masuk::beranda');
@@ -100,6 +103,7 @@ $routes->add('/barang_pinjam/update', 'Barang_Pinjam::updateStok');
 $routes->add('/barang_pinjam/update2', 'Barang_Pinjam::update');
 $routes->add('/barang_pinjam/carii', 'Barang_Pinjam::cariStok');
 $routes->add('/barang_pinjam/hapusitem', 'Barang_Pinjam::hapusBarangDatalistPinjam');
+$routes->add('/barang_pinjam/deletemaster/(:any)', 'Barang_pinjam::deleteMaster/$1');
 
 $routes->add('/barang_masuk/indextambahbarang', 'Barang_Masuk::indexTambahBarang');
 $routes->add('/barang_masuk/indextambahalat', 'Barang_Masuk::indexTambahAlat');

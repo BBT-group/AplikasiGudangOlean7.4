@@ -25,6 +25,7 @@
                     <th>Stok Awal</th>
                     <th>Stok Masuk</th>
                     <th>Stok Akhir</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                         <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                         <td><?= $item['jumlah'] ?></td>
                         <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                        <td><?= $item['keterangan'] ?></td>
                     </tr>
                 <?php endforeach; ?>
                 <?php foreach ($inventarismasuk as $item) : ?>
@@ -54,6 +56,7 @@
                         <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                         <td><?= $item['jumlah'] ?></td>
                         <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                        <td><?= $item['keterangan'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

@@ -61,7 +61,15 @@
                                                         <td class="p-1 pl-3"><?= date('d-m-Y H:i:s', strtotime($item['tanggal_pinjam'])) ?></td>
                                                         <td class="p-1 pl-3"><?= $item['nama'] ?></td>
                                                         <td class="p-1 pl-3"><?= ($item['status'] == 1) ? 'Dipinjam' : 'Dikembalikan' ?></td>
-                                                        <td class="p-1 pl-3" style="text-align: center;"> <a href="<?= base_url('barang_pinjam/indexdetailmaster/' . $item['id_ms_peminjaman']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a></td>
+                                                        <td class="p-1 pl-3" style="text-align: center;">
+                                                            <a href="<?= base_url('barang_pinjam/indexdetailmaster/' . $item['id_ms_peminjaman']) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fas fa-clone"></i></a>
+                                                            <?php if (session()->get('role') == 'admin'): ?>
+                                                                <a href="<?= base_url('barang_pinjam/deletemaster/' . $item['id_ms_peminjaman']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus" id="hapus"><i class="fas fa-trash"></i></a>
+                                                            <?php
+                                                            endif;
+                                                            ?>
+
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
@@ -113,6 +121,27 @@
 
                     <!-- Page level custom scripts -->
                     <script src="/js/demo/datatables-demo.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                    <script>
+                        document.querySelectorAll('.btn-danger').forEach(function(button) {
+                            button.addEventListener('click', function(event) {
+                                event.preventDefault();
+                                const url = this.getAttribute('href');
+
+                                Swal.fire({
+                                    title: "Menghapus master data akan menghapus semua riwayat transaksi yang bersangkutan. Apakah anda yakin ingin menghapus?",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Hapus",
+                                    cancelButtonText: "Batal"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = url;
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                     <script>
                         window.onload = function() {
                             <?php if (session()->has('error')) : ?>
