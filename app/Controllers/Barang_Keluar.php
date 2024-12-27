@@ -318,6 +318,6 @@ class Barang_Keluar extends BaseController
     public function deleteMaster($id)
     {
         $this->masterBarangKeluarModel->delete($id);
-        return redirect()->to('barang_masuk');
+        return redirect()->to('barang_keluar');
     }
 }

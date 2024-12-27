@@ -405,6 +405,6 @@ class Barang_Pinjam extends BaseController
     public function deleteMaster($id)
     {
         $this->masterPeminjamanModel->delete($id);
-        return redirect()->to('barang_masuk');
+        return redirect()->to('barang_pinjam');
     }
 }
