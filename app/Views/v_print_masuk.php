@@ -11,7 +11,8 @@
 
 <body>
     <div class="print-container">
-        <h1 class="text-center">LAPORAN MASUK STOK BARANG GUDANG PT.OLEAN PERMATA</h1>
+        <h1 class="text-center">LAPORAN BARANG MASUK GUDANG </h1>
+        <h1 class="text-center">OLEAN GROUP</h1>
         <p class="text-center">Periode: <?= ($start_date ? $start_date : 'Semua') ?> - <?= ($end_date ? $end_date : 'Semua') ?></p>
         <table border="1" cellspacing="0" cellpadding="5" width="100%">
             <thead>

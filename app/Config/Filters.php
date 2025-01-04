@@ -108,10 +108,10 @@ class Filters extends BaseConfig
      */
     public array $filters = [
         'AdminFilter' => [
-            'before' => ['laporan_peminjaman', 'laporan_peminjaman/*', 'laporan_inventaris', 'laporan_inventaris/*', 'user', 'user/*', 'beranda', 'stok', 'stok/*', 'barang_masuk', 'barang_masuk/*', 'laporan_stok', 'laporan_stok/*', 'laporan_masuk', 'laporan_masuk/*', 'satuan', 'satuan/*', 'laporan_keluar', 'laporan_keluar/*', 'peminjaman', 'peminjaman/*', 'kategori', 'kategori/*', 'inventaris', 'inventaris/*']
+            'before' => ['laporan_peminjaman', 'laporan_peminjaman/*', 'laporan_inventaris', 'laporan_inventaris/*', 'user', 'user/*', 'beranda', 'stok', 'stok/*', 'barang_masuk', 'barang_masuk/*', 'laporan_stok', 'laporan_stok/*', 'laporan_masuk', 'laporan_masuk/*', 'satuan', 'satuan/*', 'laporan_keluar', 'laporan_keluar/*', 'peminjaman', 'peminjaman/*', 'kategori', 'kategori/*', 'inventaris', 'inventaris/*', 'penerima', 'penerima/*', 'supplier', 'supplier/*', 'barang_pinjam', 'barang_pinjam/*']
         ],
         'OperatorFilter' => [
-            'before' => ['laporan_peminjaman', 'beranda', 'stok', 'inventaris', 'barang_keluar', 'barang_keluar/*', 'laporan_keluar', 'laporan_keluar/*']
+            'before' => ['laporan_peminjaman', 'beranda', 'stok', 'inventaris', 'barang_keluar', 'barang_keluar/*', 'laporan_keluar', 'laporan_keluar/*', 'penerima', 'supplier', 'barang_pinjam', 'barang_pinjam/*']
         ]
     ];
 }

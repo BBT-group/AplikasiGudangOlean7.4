@@ -91,6 +91,20 @@ $routes->add('/kategori/indexupdate/(:any)', 'Kategori::indexUpdate/$1');
 $routes->add('/kategori/tambahkategori', 'Kategori::tambahKategori');
 $routes->add('/kategori/updatekategori', 'Kategori::updateKategori');
 
+$routes->add('/penerima/deletepenerima/(:any)', 'Penerima::deletePenerima/$1');
+$routes->add('/penerima', 'Penerima::index');
+$routes->add('/penerima/indextambah', 'Penerima::indexTambah');
+$routes->add('/penerima/indexupdate/(:any)', 'Penerima::indexUpdate/$1');
+$routes->add('/penerima/tambahpenerima', 'Penerima::tambahPenerima');
+$routes->add('/penerima/updatepenerima/(:any)', 'Penerima::updatePenerima/$1');
+
+$routes->add('/supplier/deletesupplier/(:any)', 'Supplier::deletesupplier/$1');
+$routes->add('/supplier', 'Supplier::index');
+$routes->add('/supplier/indextambah', 'Supplier::indexTambah');
+$routes->add('/supplier/indexupdate/(:any)', 'Supplier::indexUpdate/$1');
+$routes->add('/supplier/tambahsupplier', 'Supplier::tambahSupplier');
+$routes->add('/supplier/updatesupplier/(:any)', 'Supplier::updateSupplier/$1');
+
 
 $routes->add('/laporan_stok/exports', 'Laporan_Stok::exports');
 

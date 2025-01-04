@@ -38,7 +38,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Barang Keluar dari <?= $start_date ?> s/d <?= $end_date ?></h6>
                         </div>
                         <div class="card-body pt-2">
-                            <div class="table-responsive">
+                            <div class="table-responsive table-sm">
                                 <table class="table table-striped table-bordered" id="dataTables" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -48,9 +48,10 @@
                                             <th>Nama Barang</th>
                                             <th>Satuan</th>
                                             <th>Nama Penerima</th>
-                                            <th>Stok Awal</th>
-                                            <th>Jumlah Keluar</th>
-                                            <th>Stok Akhir</th>
+                                            <th style="width: 1%">Stok Awal</th>
+                                            <th style="width: 1%">Jumlah Keluar</th>
+                                            <th style="width: 1%">Stok Akhir</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,15 +59,16 @@
                                             <?php $no = 1;
                                             foreach ($barangkeluar as $item) : ?>
                                                 <tr>
-                                                    <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                    <td class="p-1 pl-3"><?= sprintf('BK%06d', $item['id_barang_keluar'])  ?></td>
-                                                    <td class="p-1 pl-3"><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['nama_barang'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['nama_penerima'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
-                                                    <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                                    <td class="p-1 pl-3"><?= $item['stok_awal'] - $item['jumlah'] ?></td>
+                                                    <td><?= $no++ ?></td>
+                                                    <td><?= sprintf('BK%06d', $item['id_barang_keluar'])  ?></td>
+                                                    <td><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
+                                                    <td><?= $item['nama_barang'] ?></td>
+                                                    <td><?= $item['nama_satuan'] ?></td>
+                                                    <td><?= $item['nama_penerima'] ?></td>
+                                                    <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
+                                                    <td><?= $item['jumlah'] ?></td>
+                                                    <td><?= $item['stok_awal'] - $item['jumlah'] ?></td>
+                                                    <td><?= $item['keterangan'] ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>

@@ -52,34 +52,48 @@
                 <div class="sidebar-brand-text mx-3">PT. OLEAN</div>
             </a>
             <hr class="sidebar-divider my-0">
-            <?php if (session()->role == 'admin') : ?>
-                <li class="nav-item <?= uri_string() == 'beranda' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?php echo base_url('beranda') ?>">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <hr class="sidebar-divider">
-                <div class="sidebar-heading">Master</div>
-                <li class="nav-item <?= in_array(uri_string(), ['stok', 'kategori', 'satuan']) ? 'active' : '' ?>">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-layer-group"></i>
-                        <span>Stok Barang</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse <?= in_array(uri_string(), ['stok', 'kategori', 'satuan']) ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item <?= uri_string() == 'stok' ? 'active' : '' ?>" href="<?php echo base_url('stok') ?>">Data Barang</a>
-                            <a class="collapse-item <?= uri_string() == 'kategori' ? 'active' : '' ?>" href="<?php echo base_url('kategori') ?>">Kategori</a>
-                            <a class="collapse-item <?= uri_string() == 'satuan' ? 'active' : '' ?>" href="<?php echo base_url('satuan') ?>">Satuan</a>
-                        </div>
+            <li class="nav-item <?= uri_string() == 'beranda' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?php echo base_url('beranda') ?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Master</div>
+            <li class="nav-item <?= in_array(uri_string(), ['stok', 'kategori', 'satuan']) ? 'active' : '' ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-layer-group"></i>
+                    <span>Stok Barang</span>
+                </a>
+                <div id="collapseTwo" class="collapse <?= in_array(uri_string(), ['stok', 'kategori', 'satuan']) ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item <?= uri_string() == 'stok' ? 'active' : '' ?>" href="<?php echo base_url('stok') ?>">Data Barang</a>
+                        <a class="collapse-item <?= uri_string() == 'kategori' ? 'active' : '' ?>" href="<?php echo base_url('kategori') ?>">Kategori</a>
+                        <a class="collapse-item <?= uri_string() == 'satuan' ? 'active' : '' ?>" href="<?php echo base_url('satuan') ?>">Satuan</a>
                     </div>
-                </li>
-                <li class="nav-item <?= uri_string() == 'inventaris' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?php echo base_url('inventaris') ?>">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Inventaris Alat</span>
-                    </a>
-                </li>
+                </div>
+            </li>
+            <li class="nav-item <?= uri_string() == 'inventaris' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?php echo base_url('inventaris') ?>">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Inventaris Alat</span>
+                </a>
+            </li>
+            <li class="nav-item <?= uri_string() == 'penerima' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?php echo base_url('penerima') ?>">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Penerima</span>
+                </a>
+            </li>
+            <li class="nav-item <?= uri_string() == 'supplier' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?php echo base_url('supplier') ?>">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Supplier</span>
+                </a>
+            </li>
+            <?php if (session()->role == 'admin') : ?>
+
+
                 <hr class="sidebar-divider">
                 <div class="sidebar-heading">Transaksi</div>
                 <li class="nav-item <?= uri_string() == 'barang_masuk' ? 'active' : '' ?>">
@@ -147,26 +161,7 @@
 
             <?php endif; ?>
             <?php if (session()->role == 'operator') : ?>
-                <li class="nav-item <?= uri_string() == 'beranda' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?php echo base_url('beranda') ?>">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <hr class="sidebar-divider">
-                <div class="sidebar-heading">Master</div>
-                <li class="nav-item <?= uri_string() == 'stok' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?php echo base_url('stok') ?>">
-                        <i class="fas fa-fw fa-layer-group"></i>
-                        <span>Data Barang</span>
-                    </a>
-                </li>
-                <li class="nav-item <?= uri_string() == 'inventaris' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?php echo base_url('inventaris') ?>">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Inventaris Alat</span>
-                    </a>
-                </li>
+
                 <hr class="sidebar-divider">
                 <div class="sidebar-heading">Transaksi</div>
                 <li class="nav-item <?= uri_string() == 'barang_keluar' ? 'active' : '' ?>">

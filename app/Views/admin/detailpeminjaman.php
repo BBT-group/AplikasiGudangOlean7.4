@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-12 p-0">
                                         <div class="form-group">
-                                            <label for="input2">Kebutuhan</label>
+                                            <label for="input2">Keterangan</label>
                                             <input type="text" class="form-control form-control-sm" value="<?= $header['keterangan'] ?>" readonly>
                                         </div>
                                     </div>

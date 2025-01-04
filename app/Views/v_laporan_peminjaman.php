@@ -1,5 +1,24 @@
                 <div class="container-fluid">
+                    <style>
+                        table {
+                            table-layout: auto;
+                            /* Allows column width to be based on content */
+                        }
 
+                        td {
+                            white-space: nowrap;
+                            /* Prevent wrapping by default */
+                            width: 1%;
+                            /* Forces the column to shrink to fit the content */
+                        }
+
+                        th {
+                            white-space: nowrap;
+                            /* Prevent wrapping by default */
+                            width: 1%;
+                            /* Forces the column to shrink to fit the content */
+                        }
+                    </style>
                     <!-- Page Heading -->
                     <!-- <h1 class="h3 mb-2 text-gray-800">Laporan peminjaman</h1> -->
 
@@ -42,13 +61,14 @@
                                 <table class="table table-striped table-bordered" id="dataTables" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>ID Peminjaman</th>
-                                            <th>Tanggal Pinjam</th>
-                                            <th>Nama Alat</th>
-                                            <th>Jumlah</th>
-                                            <th>Nama Penerima</th>
-                                            <th>Tanggal Kembali</th>
+                                            <th style="width: 1%">No</th>
+                                            <th style="width: 1%">ID Peminjaman</th>
+                                            <th style="width: 15%">Tanggal Pinjam</th>
+                                            <th style="width: 1%">Nama Alat</th>
+                                            <th style="width: 1%">Jumlah</th>
+                                            <th style="width: 1%">Nama Penerima</th>
+                                            <th style="width: 1%">Tanggal Kembali</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,6 +83,7 @@
                                                     <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['nama_penerima'] ?></td>
                                                     <td class="p-1 pl-3"><?= $item['tanggal_kembali'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_kembali'])) : '-' ?></td>
+                                                    <td class="p-1 pl-3"><?= $item['keterangan'] ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>

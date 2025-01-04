@@ -44,10 +44,11 @@
                                             <th>Tanggal</th>
                                             <th>Nama Barang</th>
                                             <th>Satuan</th>
-                                            <th>Harga Masuk</th>
-                                            <th>Stok Awal</th>
-                                            <th>Stok Masuk</th>
-                                            <th>Stok Akhir</th>
+                                            <th style="width: 1%">Harga Masuk</th>
+                                            <th style="width: 1%">Stok Awal</th>
+                                            <th style="width: 1%">Stok Masuk</th>
+                                            <th style="width: 1%">Stok Akhir</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,6 +64,7 @@
                                                 <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['keterangan'] ?></td>
                                             </tr>
                                         <?php endforeach; ?>
 
@@ -78,6 +80,7 @@
                                                 <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                                                 <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
                                                 <td class="p-1 pl-3"><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                                                <td class="p-1 pl-3"><?= $item['keterangan'] ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

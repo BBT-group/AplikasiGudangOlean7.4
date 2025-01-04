@@ -202,7 +202,8 @@ class Barang_Pinjam extends BaseController
                 }
                 $keterangan = $this->request->getVar('keterangan');
                 date_default_timezone_set('Asia/Jakarta');
-                $currentDateTime =  date("d-m-Y H:i:s");
+                $currentDateTime = date("Y-m-d H:i:s");
+
                 if (!$this->masterPeminjamanModel->insert(['tanggal_pinjam' => $currentDateTime, 'id_penerima' => $penerimaId, 'keterangan' => $keterangan])) {
                     throw new DatabaseException('Failed to insert post:gagal menambah master' . implode(', ', $this->masterPeminjamanModel->errors()));
                 }

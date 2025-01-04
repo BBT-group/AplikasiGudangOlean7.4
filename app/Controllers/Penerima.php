@@ -21,42 +21,52 @@ class Penerima extends BaseController
         $data = [
             'penerima' => $this->penerimaModel->findAll()
         ];
-        return view('', $data);
-    }
-
-    public function indexTambah()
-    {
-
-        return view('');
+        echo view('v_header');
+        return view('v_penerima', $data);
     }
 
     public function tambahPenerima()
     {
-        if (!$this->validate([
-            'penerima' => 'required|is_unique[penerima.id_penerima]'
-        ])) {
-            return redirect()->to(base_url('/barang_masuk/index'))->withInput();
-        }
-        $this->penerimaModel->insert(['nama' => $this->request->getVar('nama')]);
-        return redirect()->to('');
-    }
 
-    public function indexUpdate()
-    {
-        $data = [
-            'satuan' => $this->penerimaModel->where('id_penerima', $this->request->getVar('id_penerima'))->first()
-        ];
-        return view('', $data);
-    }
-
-    public function updatePenerima()
-    {
-        if (!$this->validate([
-            'penerima' => 'required|is_not_unique[penerima.id_penerima]'
-        ])) {
-            return redirect()->to(base_url('/barang_masuk/index'))->withInput();
+        if ($this->request->getMethod() == 'post') {
+            if (!$this->validate([
+                'nama' => 'required|is_unique[penerima.nama]'
+            ])) {
+                // ganti url
+                return redirect()->to(base_url('penerima/tambahpenerima'))->withInput();
+            }
+            $this->penerimaModel->insert([
+                'nama' => $this->request->getVar('nama')
+            ]);
+            return redirect()->to(base_url('/penerima'));
         }
-        $this->penerimaModel->update($this->request->getVar('id_penerima'), ['nama' => $this->request->getVar('nama')]);
-        return redirect()->to('');
+        $data['validation'] = validation_list_errors();
+        echo view('v_header');
+        return view('v_tambah_penerima', $data);
+    }
+    public function updatePenerima($id = null)
+
+    {
+        if ($this->request->getMethod() == 'post') {
+            if (!$this->validate([
+                'nama' => 'required|is_unique[penerima.nama]'
+            ])) {
+                // ganti url
+                return redirect()->to(base_url('penerima/updatepenerima'))->withInput();
+            }
+            $this->penerimaModel->update($id, [
+                'nama' => $this->request->getVar('nama')
+            ]);
+            return redirect()->to(base_url('/penerima'));
+        }
+        $data['validation'] = validation_list_errors();
+        echo view('v_header');
+        return view('v_tambah_penerima', $data);
+    }
+    public function deletePenerima($id)
+    {
+        $this->penerimaModel->delete($id);
+        session()->setFlashdata('success', 'Penerima berhasil dihapus');
+        return redirect()->to(base_url('penerima'));
     }
 }

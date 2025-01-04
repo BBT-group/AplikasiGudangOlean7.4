@@ -21,42 +21,52 @@ class Supplier extends BaseController
         $data = [
             'supplier' => $this->supplierModel->findAll()
         ];
-        return view('', $data);
+        echo view('v_header');
+        return view('v_supplier', $data);
     }
 
-    public function indexTambah()
+    public function tambahsupplier()
     {
 
-        return view('');
-    }
-
-    public function tambahSupplier()
-    {
-        if (!$this->validate([
-            'supplier' => 'required|is_unique[supplier.id_supplier]'
-        ])) {
-            return redirect()->to(base_url('/barang_masuk/index'))->withInput();
+        if ($this->request->getMethod() == 'post') {
+            if (!$this->validate([
+                'nama' => 'required|is_unique[supplier.nama]'
+            ])) {
+                // ganti url
+                return redirect()->to(base_url('supplier/tambahsupplier'))->withInput();
+            }
+            $this->supplierModel->insert([
+                'nama' => $this->request->getVar('nama')
+            ]);
+            return redirect()->to(base_url('/supplier'));
         }
-        $this->supplierModel->insert(['nama' => $this->request->getVar('nama')]);
-        return redirect()->to('');
+        $data['validation'] = validation_list_errors();
+        echo view('v_header');
+        return view('v_tambah_supplier', $data);
     }
+    public function updatesupplier($id = null)
 
-    public function indexUpdate()
     {
-        $data = [
-            'satuan' => $this->supplierModel->where('id_penerima', $this->request->getVar('id_penerima'))->first()
-        ];
-        return view('', $data);
-    }
-
-    public function updateSupplier()
-    {
-        if (!$this->validate([
-            'supplier' => 'required|is_not_unique[supplier.id_supplier]'
-        ])) {
-            return redirect()->to(base_url('/barang_masuk/index'))->withInput();
+        if ($this->request->getMethod() == 'post') {
+            if (!$this->validate([
+                'nama' => 'required|is_unique[supplier.nama]'
+            ])) {
+                // ganti url
+                return redirect()->to(base_url('supplier/updatesupplier'))->withInput();
+            }
+            $this->supplierModel->update($id, [
+                'nama' => $this->request->getVar('nama')
+            ]);
+            return redirect()->to(base_url('/supplier'));
         }
-        $this->supplierModel->update($this->request->getVar('id_penerima'), ['nama' => $this->request->getVar('nama')]);
-        return redirect()->to('');
+        $data['validation'] = validation_list_errors();
+        echo view('v_header');
+        return view('v_tambah_supplier', $data);
+    }
+    public function deletesupplier($id)
+    {
+        $this->supplierModel->delete($id);
+        session()->setFlashdata('success', 'supplier berhasil dihapus');
+        return redirect()->to(base_url('supplier'));
     }
 }

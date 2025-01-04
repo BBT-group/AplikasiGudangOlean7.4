@@ -23,22 +23,24 @@
                     <th>Tanggal Kembali</th>
                     <th>Nama Penerima</th>
                     <th>Status</th>
+                    <th>keterangan</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <?php $no = 0;
-                    foreach ($pinjam as $item) : ?>
+                <?php $no = 0;
+                foreach ($pinjam as $item) : ?>
+                    <tr>
                         <td><?= $no += 1 ?></td>
                         <td><?= $item['id_inventaris'] ?></td>
                         <td><?= $item['nama_inventaris'] ?></td>
                         <td><?= $item['jumlah'] ?></td>
-                        <td><?= $peminjaman['tanggal_pinjam'] ?></td>
-                        <td><?= $peminjaman['tanggal_kembali'] ?></td>
+                        <td><?= date('d-m-Y H:i:s', strtotime($peminjaman['tanggal_pinjam'])) ?></td>
+                        <td><?= date('d-m-Y H:i:s', strtotime($peminjaman['tanggal_kembali'])) ?></td>
                         <td><?= $peminjaman['nama'] ?></td>
-                        <td><?= $peminjaman['status'] == 0 ? 'Sudah Dikembalikan' : 'Belum Dikembalikan'; ?></td>
-                    <?php endforeach; ?>
-                </tr>
+                        <td><?= $peminjaman['status'] == 0 ? 'Dipinjam' : 'Kembali'; ?></td>
+                        <td><?= $peminjaman['keterangan'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 <!--  -->
             </tbody>
         </table>

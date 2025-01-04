@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Barang Masuk - Print</title>
     <link rel="stylesheet" href="<?= base_url('/css/print.css') ?>"> <!-- Add your custom print CSS here -->
 </head>
+
 <body>
     <div class="print-container">
         <h1 class="text-center">LAPORAN PEMINJAMAN ALAT GUDANG PT.OLEAN PERMATA</h1>
@@ -20,11 +22,13 @@
                     <th>Jumlah</th>
                     <th>Nama Penerima</th>
                     <th>Tanggal Kembali</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
-            <?php if (!empty($peminjaman)) : ?>
-                    <?php $no = 1; foreach ($peminjaman as $item) : ?>
+                <?php if (!empty($peminjaman)) : ?>
+                    <?php $no = 1;
+                    foreach ($peminjaman as $item) : ?>
                         <tr>
                             <td><?= $no++ ?></td>
                             <td><?= $item['id_peminjaman'] ?></td>
@@ -33,6 +37,7 @@
                             <td><?= $item['jumlah'] ?></td>
                             <td><?= $item['nama_penerima'] ?></td>
                             <td><?= $item['tanggal_kembali'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_kembali'])) : '-' ?></td>
+                            <td><?= $item['keterangan'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -44,4 +49,5 @@
         window.print(); // Automatically trigger the print dialog
     </script>
 </body>
+
 </html>
