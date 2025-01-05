@@ -21,6 +21,10 @@
                                     <div class="col-md-6">
                                         <a href="<?= base_url('/laporan_masuk') ?>" class="btn btn-secondary btn-sm mr-2">Reset</a>
                                         <button type="submit" class="btn btn-primary btn-sm mr-2">Tampilkan</button>
+                                        <select class="form-select" id="sort" name="sort">
+                                            <option value="DESC" <?= ($sort == 'DESC') ? 'selected' : '' ?>>Baru ke Lama</option>
+                                            <option value="ASC" <?= ($sort == 'ASC') ? 'selected' : '' ?>>Lama ke Baru</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6" style="text-align: end;">
                                         <a href="<?= base_url('/laporan_masuk/exportm?start_date=' . (isset($start_date) ? $start_date : '') . '&end_date=' . (isset($end_date) ? $end_date : '')) ?>" class="btn btn-success btn-sm"><i class="fa fa-file-excel"></i> Export to Excel</a>
@@ -35,7 +39,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Barang Masuk dari <?= $start_date ?> s/d <?= $end_date ?></h6>
                         </div>
                         <div class="card-body pt-2">
-                            <div class="table-responsive">
+                            <div class="table-responsive table-sm">
                                 <table class="table table-striped table-bordered" id="dataTables" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -55,34 +59,20 @@
                                         <?php $no = 1;
                                         foreach ($barangmasuk as $item) : ?>
                                             <tr>
-                                                <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_barang_masuk']) ?></td>
-                                                <td class="p-1 pl-3"><?= $item['waktu'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['nama'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['nama_satuan'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['harga_beli'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
-                                                <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['stok_awal'] + $item['jumlah'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['keterangan'] ?></td>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= sprintf('BM%06d', $item['id_barang_masuk']) ?></td>
+                                                <td><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
+                                                <td><?= $item['nama'] ?></td>
+                                                <td><?= $item['nama_satuan'] ?></td>
+                                                <td><?= $item['harga_beli'] ?></td>
+                                                <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
+                                                <td><?= $item['jumlah'] ?></td>
+                                                <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
+                                                <td><?= $item['keterangan'] ?></td>
                                             </tr>
                                         <?php endforeach; ?>
 
-                                        <?php
-                                        foreach ($alatmasuk as $item) : ?>
-                                            <tr>
-                                                <td class="p-1 pl-3"><?= $no++ ?></td>
-                                                <td class="p-1 pl-3"><?= sprintf('BM%06d', $item['id_barang_masuk']) ?></td>
-                                                <td class="p-1 pl-3"><?= $item['waktu'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['nama_inventaris'] ?></td>
-                                                <td class="p-1 pl-3">alat</td>
-                                                <td class="p-1 pl-3"><?= $item['harga_beli'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
-                                                <td class="p-1 pl-3"><?= $item['jumlah'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['stok_awal'] + $item['jumlah'] ?></td>
-                                                <td class="p-1 pl-3"><?= $item['keterangan'] ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -131,7 +121,14 @@
 
                 <!-- Page level custom scripts -->
                 <script src="/js/demo/datatables-demo.js"></script>
-
+                <script>
+                    $(document).ready(function() {
+                        $('#sort').change(function() {
+                            const sort = $(this).val();
+                            window.location.href = '?sort=' + sort;
+                        });
+                    });
+                </script>
                 <script>
                     $(function() {
                         $("#start_date").datepicker({

@@ -13,8 +13,11 @@ class MasterBarangMasukModel extends Model
 
     public function getAll()
     {
+
         return $this->select('ms_barang_masuk.*, supplier.nama ')
-            ->join('supplier', 'supplier.id_supplier = ms_barang_masuk.id_supplier');
+            ->orderBy('waktu', 'DESC')
+            ->join('supplier', 'supplier.id_supplier = ms_barang_masuk.id_supplier')
+            ->findAll();
     }
 
     public function getById($id)
@@ -30,6 +33,7 @@ class MasterBarangMasukModel extends Model
             ->join('barang', 'barang.id_barang = barang_masuk.id_barang')
             ->where('DATE(ms_barang_masuk.waktu) >=', $start_date)
             ->where('DATE(ms_barang_masuk.waktu) <=', $end_date)
+
             ->get()
             ->getResultArray();
     }

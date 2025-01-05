@@ -60,6 +60,7 @@ class Penerima extends BaseController
             return redirect()->to(base_url('/penerima'));
         }
         $data['validation'] = validation_list_errors();
+        $data['penerima'] = $this->penerimaModel->where('id_penerima', $id)->first();
         echo view('v_header');
         return view('v_tambah_penerima', $data);
     }

@@ -9,5 +9,5 @@ class SupplierModel extends Model
     protected $table = 'supplier';
     protected $primaryKey = 'id_supplier';
 
-    protected $allowedFields = ['nama'];
+    protected $allowedFields = ['nama', 'no_hp'];
 }

@@ -17,19 +17,35 @@ class Laporan_Masuk extends BaseController
 
     public function index()
     {
-        $start_date = $this->request->getGet('start_date');
-        $end_date = $this->request->getGet('end_date');
+        $sort = $this->request->getVar('sort') ?? 'DESC'; // Default sort DESC
+        $start_date = $this->request->getVar('start_date');
+        $end_date = $this->request->getVar('end_date');
+        $query = $this->barangmasukModel;
+
 
         if ($start_date && $end_date) {
-            $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabungFilter($start_date, $end_date);
-            $data['alatmasuk'] = $this->barangmasukModel->getAlatMasukGabungFilter($start_date, $end_date);
-        } else {
-            $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabung();
-            $data['alatmasuk'] = $this->barangmasukModel->getAlatMasukGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
-        $data['semua'] = $this->barangmasukModel->findAll();
+        $mergedData = array_merge($query->getBarangMasukGabung(), $query->getAlatMasukGabung());
+        if ($sort == 'DESC') {
+            usort($mergedData, function ($a, $b) {
+                $waktuA = strtotime($a['waktu']);
+                $waktuB = strtotime($b['waktu']);
+                return $waktuB - $waktuA; // Urutkan descending
+            });
+        } else {
+            usort($mergedData, function ($a, $b) {
+                $waktuA = strtotime($a['waktu']);
+                $waktuB = strtotime($b['waktu']);
+                return $waktuA - $waktuB; // Urutkan descending
+            });
+        }
+
+        $data['barangmasuk'] = $mergedData;
         $data['start_date'] = $start_date;
         $data['end_date'] = $end_date;
+        $data['sort'] = $sort;
 
         echo view('v_header');
         return view('v_laporan_masuk', $data);
@@ -39,17 +55,23 @@ class Laporan_Masuk extends BaseController
     {
         $start_date = $this->request->getGet('start_date');
         $end_date = $this->request->getGet('end_date');
+        $query = $this->barangmasukModel;
+
 
         if ($start_date && $end_date) {
-            $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabungFilter($start_date, $end_date);
-            $data['inventarismasuk'] = $this->barangmasukModel->getBarangMasukGabungFilterInventaris($start_date, $end_date);
-        } else {
-            $data['barangmasuk'] = $this->barangmasukModel->getBarangMasukGabung();
-            $data['inventarismasuk'] = $this->barangmasukModel->getBarangMasukGabungInventaris();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
-
+        $mergedData = array_merge($query->getBarangMasukGabung(), $query->getAlatMasukGabung());
+        usort($mergedData, function ($a, $b) {
+            $waktuA = strtotime($a['waktu']);
+            $waktuB = strtotime($b['waktu']);
+            return $waktuB - $waktuA; // Urutkan descending
+        });
+        $data['barangmasuk'] = $mergedData;
         $data['start_date'] = $start_date;
         $data['end_date'] = $end_date;
+
 
         echo view('v_print_masuk', $data);
     }
@@ -60,24 +82,32 @@ class Laporan_Masuk extends BaseController
         $start_date = $this->request->getGet('start_date');
         $end_date = $this->request->getGet('end_date');
 
+        $query = $this->barangmasukModel;
+
+
         if ($start_date && $end_date) {
-            $data = $this->barangmasukModel->getBarangMasukGabungFilter($start_date, $end_date);
-        } else {
-            $data = $this->barangmasukModel->getBarangMasukGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
+        $mergedData = array_merge($query->getBarangMasukGabung(), $query->getAlatMasukGabung());
+        usort($mergedData, function ($a, $b) {
+            $waktuA = strtotime($a['waktu']);
+            $waktuB = strtotime($b['waktu']);
+            return $waktuB - $waktuA; // Urutkan descending
+        });
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set header file
         $sheet->mergeCells('A1:J1');
-        $sheet->setCellValue('A1', 'LAPORAN MASUK STOK BARANG GUDANG PT.OLEAN PERMATA');
+        $sheet->setCellValue('A1', 'LAPORAN MASUK STOK GUDANG PT.OLEAN PERMATA');
         $sheet->mergeCells('A2:J2');
         $sheet->setCellValue('A2', 'Periode ' . ($start_date ? $start_date : 'Semua') . ' - ' . ($end_date ? $end_date : 'Semua'));
 
         // Header kolom
         $sheet->setCellValue('A3', 'No');
-        $sheet->setCellValue('B3', 'Id Ba');
+        $sheet->setCellValue('B3', 'Id Barang Masuk');
         $sheet->setCellValue('C3', 'Tanggal');
         $sheet->setCellValue('D3', 'Nama barang');
         $sheet->setCellValue('E3', 'Satuan');
@@ -90,11 +120,11 @@ class Laporan_Masuk extends BaseController
         // Data
         $row = 4;
         $no = 1;
-        foreach ($data as $item) {
+        foreach ($mergedData as $item) {
             // Menghitung stok awal
 
             $sheet->setCellValue('A' . $row, $no++);
-            $sheet->setCellValue('B' . $row, $item['id_ms_barang_masuk']);
+            $sheet->setCellValue('B' . $row, $item['id_barang_masuk']);
 
             $datetime = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(new \DateTime($item['waktu']));
             $sheet->setCellValue('C' . $row, $datetime);

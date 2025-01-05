@@ -40,7 +40,12 @@
                                     <div class="col-md-6">
                                         <a href="<?= base_url('/laporan_peminjaman') ?>" class="btn btn-secondary btn-sm mr-2">Reset</a>
                                         <button type="submit" class="btn btn-primary btn-sm mr-2">Tampilkan</button>
+                                        <select class="form-select" id="sort" name="sort">
+                                            <option value="DESC" <?= ($sort == 'DESC') ? 'selected' : '' ?>>Baru ke Lama</option>
+                                            <option value="ASC" <?= ($sort == 'ASC') ? 'selected' : '' ?>>Lama ke Baru</option>
+                                        </select>
                                     </div>
+
                                     <div class="col-md-6" style="text-align: end;">
 
                                         <?php if (session()->role == 'admin'): ?>
@@ -61,13 +66,13 @@
                                 <table class="table table-striped table-bordered" id="dataTables" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th style="width: 1%">No</th>
-                                            <th style="width: 1%">ID Peminjaman</th>
+                                            <th>No</th>
+                                            <th>ID Peminjaman</th>
                                             <th style="width: 15%">Tanggal Pinjam</th>
-                                            <th style="width: 1%">Nama Alat</th>
-                                            <th style="width: 1%">Jumlah</th>
-                                            <th style="width: 1%">Nama Penerima</th>
-                                            <th style="width: 1%">Tanggal Kembali</th>
+                                            <th>Nama Alat</th>
+                                            <th>Jumlah</th>
+                                            <th>Nama Penerima</th>
+                                            <th>Tanggal Kembali</th>
                                             <th>Keterangan</th>
                                         </tr>
                                     </thead>
@@ -135,7 +140,14 @@
 
                 <!-- Page level custom scripts -->
                 <script src="/js/demo/datatables-demo.js"></script>
-
+                <script>
+                    $(document).ready(function() {
+                        $('#sort').change(function() {
+                            const sort = $(this).val();
+                            window.location.href = '?sort=' + sort;
+                        });
+                    });
+                </script>
                 <script>
                     $(function() {
                         $("#start_date").datepicker({

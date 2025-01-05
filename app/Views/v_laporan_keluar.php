@@ -22,6 +22,10 @@
                                     <div class="col-md-6">
                                         <a href="<?= base_url('/laporan_keluar') ?>" class="btn btn-secondary btn-sm mr-2">Reset</a>
                                         <button type="submit" class="btn btn-primary btn-sm mr-2">Tampilkan</button>
+                                        <select class="form-select" id="sort" name="sort">
+                                            <option value="DESC" <?= ($sort == 'DESC') ? 'selected' : '' ?>>Baru ke Lama</option>
+                                            <option value="ASC" <?= ($sort == 'ASC') ? 'selected' : '' ?>>Lama ke Baru</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6" style="text-align: end;">
                                         <?php if (session()->role == 'admin'): ?>
@@ -120,7 +124,14 @@
 
                 <!-- Page level custom scripts -->
                 <script src="/js/demo/datatables-demo.js"></script>
-
+                <script>
+                    $(document).ready(function() {
+                        $('#sort').change(function() {
+                            const sort = $(this).val();
+                            window.location.href = '?sort=' + sort;
+                        });
+                    });
+                </script>
                 <script>
                     $(function() {
                         $("#start_date").datepicker({

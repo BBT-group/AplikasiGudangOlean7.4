@@ -29,13 +29,15 @@
                             <tr>
                                 <td class="p-1 pl-3"><?= 1 + $k ?></td>
                                 <td class="p-1 pl-3"><?= $pen['nama'] ?></td>
-                                <td class="p-1 pl-3" style="text-align: center;">
-                                    <?php if (session()->role == 'admin') : ?>
+                                <?php if (session()->role == 'admin') : ?>
+                                    <td class="p-1 pl-3" style="text-align: center;">
+
                                         <a href="<?= base_url('penerima/updatepenerima/' . $pen['id_penerima']) ?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="<?= base_url('penerima/deletepenerima/' . $pen['id_penerima']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
-                                    <?php endif; ?>
 
-                                </td>
+                                    </td>
+                                <?php endif; ?>
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

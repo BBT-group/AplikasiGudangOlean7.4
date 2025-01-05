@@ -14,6 +14,7 @@ class MasterBarangKeluarModel extends Model
     {
         return $this->select('ms_barang_keluar.*, penerima.nama ')
             ->join('penerima', 'penerima.id_penerima = ms_barang_keluar.id_penerima')
+            ->orderBy('waktu', 'DESC')
             ->findAll();
     }
     public function getById($id)

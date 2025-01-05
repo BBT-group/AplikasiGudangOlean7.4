@@ -10,11 +10,15 @@ class MasterPeminjamanModel extends Model
     protected $primaryKey = 'id_ms_peminjaman';
     protected $allowedFields = ['tanggal_pinjam', 'tanggal_kembali', 'id_penerima', 'status', 'bukti_peminjaman', 'keterangan'];
 
-    public function getAllWithNama()
+    public function getAll()
     {
         return $this->select('ms_peminjaman.*,penerima.nama')
-            ->join('penerima', 'penerima.id_penerima = ms_peminjaman.id_penerima');
+            ->orderBy('tanggal_pinjam', 'DESC')
+            ->join('penerima', 'penerima.id_penerima = ms_peminjaman.id_penerima')
+            ->findAll();
     }
+
+    public function getAllWithNama() {}
     public function getById($id)
     {
         return $this->select('ms_peminjaman.*,penerima.nama')
@@ -22,9 +26,10 @@ class MasterPeminjamanModel extends Model
             ->where('id_ms_peminjaman', $id)
             ->first();
     }
-    public function getChartData() {
+    public function getChartData()
+    {
         return $this->select('status, COUNT(*) as count')
-                    ->groupBy('status')
-                    ->findAll();
+            ->groupBy('status')
+            ->findAll();
     }
 }

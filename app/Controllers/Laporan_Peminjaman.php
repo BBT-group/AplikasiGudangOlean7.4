@@ -17,17 +17,23 @@ class Laporan_Peminjaman extends BaseController
 
     public function index(): string
     {
+        $sort = $this->request->getVar('sort') ?? 'DESC'; // Default sort DESC
         $start_date = $this->request->getGet('start_date');
         $end_date = $this->request->getGet('end_date');
+        $query = $this->peminjamanModel;
 
         if ($start_date && $end_date) {
-            $data['peminjaman'] = $this->peminjamanModel->getPeminjamanGabungFilter($start_date, $end_date);
-        } else {
-            $data['peminjaman'] = $this->peminjamanModel->getPeminjamanGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
+        $data = [
+            'peminjaman' => $query->getPeminjamanGabung($sort),
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'sort' => $sort
+        ];
 
-        $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+
 
         echo view('v_header');
         return view('v_laporan_peminjaman', $data);
@@ -84,6 +90,7 @@ class Laporan_Peminjaman extends BaseController
         $row = 4;
         $no = 1;
         foreach ($data as $item) {
+
             $sheet->setCellValue('A' . $row, $no++);
             $sheet->setCellValue('B' . $row, $item['id_peminjaman']);
             $sheet->setCellValue('C' . $row, $item['tanggal_pinjam'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_pinjam'])) : '-');
@@ -91,7 +98,7 @@ class Laporan_Peminjaman extends BaseController
             $sheet->setCellValue('E' . $row, $item['jumlah']);
             $sheet->setCellValue('F' . $row, $item['nama_penerima']);
             $sheet->setCellValue('G' . $row, $item['tanggal_kembali'] ? date('d/m/Y H:i:s', strtotime($item['tanggal_kembali'])) : '-');
-            $sheet->setCellValue('F' . $row, $item['keterangan']);
+            $sheet->setCellValue('H' . $row, $item['keterangan']);
             $row++;
         }
 

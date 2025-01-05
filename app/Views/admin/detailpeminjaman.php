@@ -11,13 +11,13 @@
                                     <div class="col-md-6 pl-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Peminjaman</label>
-                                            <input type="text" class="form-control form-control-sm" value="<?= $header['tanggal_pinjam'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= date('d/m/Y H:i:s', strtotime($header['tanggal_pinjam'])) ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pr-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Pengembalian</label>
-                                            <input type="text" class="form-control form-control-sm" value="<?= $header['tanggal_kembali'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= ($header['tanggal_kembali'] != null) ? date('d/m/Y H:i:s', strtotime($header['tanggal_kembali'])) : '-' ?>" readonly>
                                         </div>
                                     </div>
 

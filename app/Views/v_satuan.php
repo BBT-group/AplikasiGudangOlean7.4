@@ -11,14 +11,16 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Satuan</h6>
                         </div>
                         <div class="card-body pt-2">
-                            <div class="table-responsive">
+                            <div class="table-responsive table-sm">
 
                                 <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th class="col-0">No</th>
                                             <th class="col-10">Satuan</th>
-                                            <th class="col-2">Detail</th>
+                                            <?php if (session()->role == 'admin') : ?>
+                                                <th class="col-2">Detail</th>
+                                            <?php endif; ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -26,13 +28,15 @@
                                             <tr>
                                                 <td class="p-1 pl-3"><?= 1 + $k ?></td>
                                                 <td class="p-1 pl-3"><?= $sat['nama_satuan'] ?></td>
-                                                <td class="p-1 pl-3" style="text-align: center;">
-                                                    <?php if (session()->role == 'admin') : ?>
+                                                <?php if (session()->role == 'admin') : ?>
+                                                    <td class="p-1 pl-3" style="text-align: center;">
+
                                                         <a href="<?= base_url('satuan/indexupdate/' . $sat['id_satuan']) ?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fas fa-pencil-alt"></i></a>
                                                         <a href="<?= base_url('satuan/deletesatuan/' . $sat['id_satuan']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
-                                                    <?php endif; ?>
 
-                                                </td>
+
+                                                    </td>
+                                                <?php endif; ?>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

@@ -8,26 +8,30 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Laporan_Keluar extends BaseController
 {
-    protected $barangkeluarModel;
+    protected $laporanKeluarModel;
 
     public function __construct()
     {
-        $this->barangkeluarModel = new LaporanKeluarModel();
+        $this->laporanKeluarModel = new LaporanKeluarModel();
     }
 
     public function index(): string
     {
-        $start_date = $this->request->getGet('start_date');
-        $end_date = $this->request->getGet('end_date');
+        $sort = $this->request->getVar('sort') ?? 'DESC'; // Default sort DESC
+        $start_date = $this->request->getVar('start_date');
+        $end_date = $this->request->getVar('end_date');
+        $query = $this->laporanKeluarModel;
 
         if ($start_date && $end_date) {
-            $data['barangkeluar'] = $this->barangkeluarModel->getBarangKeluarGabungFilter($start_date, $end_date);
-        } else {
-            $data['barangkeluar'] = $this->barangkeluarModel->getBarangKeluarGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
-
-        $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data = [
+            'barangkeluar' => $query->getBarangKeluarGabung($sort),
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'sort' => $sort
+        ];
 
         echo view('v_header');
         return view('v_laporan_keluar', $data);
@@ -37,16 +41,17 @@ class Laporan_Keluar extends BaseController
     {
         $start_date = $this->request->getGet('start_date');
         $end_date = $this->request->getGet('end_date');
+        $query = $this->laporanKeluarModel;
 
         if ($start_date && $end_date) {
-            $data['barangkeluar'] = $this->barangkeluarModel->getBarangKeluarGabungFilter($start_date, $end_date);
-        } else {
-            $data['barangkeluar'] = $this->barangkeluarModel->getBarangKeluarGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
-
-        $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
-
+        $data = [
+            'barangkeluar' => $query->getBarangKeluarGabung(),
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        ];
         echo view('v_print_keluar', $data);
     }
 
@@ -54,13 +59,13 @@ class Laporan_Keluar extends BaseController
     {
         $start_date = $this->request->getGet('start_date');
         $end_date = $this->request->getGet('end_date');
+        $query = $this->laporanKeluarModel;
 
         if ($start_date && $end_date) {
-            $data = $this->barangkeluarModel->getBarangKeluarGabungFilter($start_date, $end_date);
-        } else {
-            $data = $this->barangkeluarModel->getBarangKeluarGabung();
+            $query = $query->where('waktu >=', $start_date . ' 00:00:00')
+                ->where('waktu <=', $end_date . ' 23:59:59');
         }
-
+        $data = $query->getBarangKeluarGabung();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 

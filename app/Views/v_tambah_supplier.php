@@ -21,6 +21,8 @@
                                 <div class="form-group">
                                     <label for="nama">Nama supplier</label>
                                     <input type="text" class="form-control" id="nama" name="nama" autofocus value="<?= isset($supplier) ? $supplier['nama'] : (old('nama') ?? '') ?>" required>
+                                    <label for="no">No HP</label>
+                                    <input type="number" class="form-control" id="no" name="no" autofocus value="<?= isset($supplier) ? $supplier['no'] : (old('no') ?? '') ?>" required>
                                 </div>
                             </div>
                         </div>

@@ -38,6 +38,7 @@ class Barang_Masuk extends BaseController
 
     public function index()
     {
+
         $keyword = $this->request->getVar('search');
         if ($keyword) {
             $barang = $this->barangModel->getBarangByName($keyword);
@@ -46,6 +47,8 @@ class Barang_Masuk extends BaseController
             $barang = $this->barangModel->getBarangWithKategori();
             $inventaris = $this->inventarisModel;
         }
+
+
         $data = [
             'barang' => session()->get('datalist'),
             'barangs' => $barang->findAll(),
@@ -76,15 +79,14 @@ class Barang_Masuk extends BaseController
     {
         $startDate = $this->request->getVar('start_date');
         $endDate = $this->request->getVar('end_date');
+        $query = $this->masterBarangMasukModel;
 
         if ($startDate && $endDate) {
-            $masuk = $this->masterBarangMasukModel->getBarangMasukGabungFilter($startDate, $endDate);
-        } else {
-            $masuk = $this->masterBarangMasukModel->getAll()->findAll();
+            $query = $query->where('waktu >=', $startDate . ' 00:00:00')
+                ->where('waktu <=', $endDate . ' 23:59:59');
         }
-
         $data = [
-            'masuk' => $masuk,
+            'masuk' => $query->getAll(),
             'start_date' => $startDate,
             'end_date' => $endDate,
         ];

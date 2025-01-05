@@ -18,6 +18,7 @@
                         <tr>
                             <th class="col-0">No</th>
                             <th class="col-10">Supplier</th>
+                            <th class="col-10">No HP</th>
                             <?php if (session()->role == 'admin') : ?>
                                 <th class="col-2">Detail</th>
                             <?php endif; ?>
@@ -28,13 +29,16 @@
                             <tr>
                                 <td class="p-1 pl-3"><?= 1 + $k ?></td>
                                 <td class="p-1 pl-3"><?= $pen['nama'] ?></td>
-                                <td class="p-1 pl-3" style="text-align: center;">
-                                    <?php if (session()->role == 'admin') : ?>
-                                        <a href="<?= base_url('supplier/updatesupplier/' . $pen['id_supplier']) ?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="<?= base_url('supplier/deletesupplier/' . $pen['id_supplier']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>i></a>
-                                    <?php endif; ?>
+                                <td class="p-1 pl-3"><?= $pen['no_hp'] ?></td>
+                                <?php if (session()->role == 'admin') : ?>
+                                    <td class="p-1 pl-3" style="text-align: center;">
 
-                                </td>
+                                        <a href="<?= base_url('supplier/updatesupplier/' . $pen['id_supplier']) ?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="<?= base_url('supplier/deletesupplier/' . $pen['id_supplier']) ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a></a>
+
+                                    </td>
+                                <?php endif; ?>
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

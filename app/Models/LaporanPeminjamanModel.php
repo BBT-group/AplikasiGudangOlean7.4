@@ -17,13 +17,14 @@ class LaporanPeminjamanModel extends Model
         return $this->findAll();
     }
 
-    public function getPeminjamanGabung()
+    public function getPeminjamanGabung($sort = 'DESC')
     {
         return $this->db->table($this->table)
             ->select('peminjaman.*, inventaris.nama_inventaris, penerima.nama as nama_penerima, ms_peminjaman.tanggal_pinjam, ms_peminjaman.tanggal_kembali,ms_peminjaman.keterangan')
             ->join($this->tableInventaris, 'inventaris.id_inventaris = peminjaman.id_inventaris')
             ->join($this->tableMsPeminjaman, 'ms_peminjaman.id_ms_peminjaman = peminjaman.id_ms_peminjaman')
             ->join($this->tablePenerima, 'penerima.id_penerima = ms_peminjaman.id_penerima')
+            ->orderBy('tanggal_pinjam', $sort)
             ->get()
             ->getResultArray();
     }

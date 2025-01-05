@@ -14,7 +14,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Stok Barang</h6>
                         </div>
                         <div class="card-body pt-2">
-                            <div class="table-responsive">
+                            <div class="table-responsive table-sm">
 
                                 <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>

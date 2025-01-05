@@ -18,17 +18,25 @@ class LaporanKeluarModel extends Model
     {
         return $this->findAll();
     }
-
-    public function getBarangKeluarGabung()
+    public function getAll()
     {
-        return $this->db->table($this->table)
-            ->select('barang_keluar.*, barang.nama as nama_barang,barang.stok, barang.harga_beli, penerima.nama as nama_penerima, ms_barang_keluar.waktu,satuan.nama_satuan,ms_barang_keluar.keterangan')
+        return $this->select('ms_barang_keluar.*, penerima.nama ')
+            ->join('penerima', 'penerima.id_penerima = ms_barang_keluar.id_penerima')
+            ->orderBy('waktu', 'DESC')
+            ->findAll();
+    }
+
+    public function getBarangKeluarGabung($sort = 'DESC')
+    {
+
+        return
+            $this->select('barang_keluar.*, barang.nama as nama_barang,barang.stok, barang.harga_beli, penerima.nama as nama_penerima, ms_barang_keluar.waktu,satuan.nama_satuan,ms_barang_keluar.keterangan')
             ->join($this->tableBarang, 'barang.id_barang = barang_keluar.id_barang')
             ->join($this->tableMsBarangKeluar, 'ms_barang_keluar.id_ms_barang_keluar = barang_keluar.id_ms_barang_keluar')
             ->join($this->tablePenerima, 'penerima.id_penerima = ms_barang_keluar.id_penerima')
             ->join($this->tableSatuan, 'satuan.id_satuan = barang.id_satuan')
-            ->get()
-            ->getResultArray();
+            ->orderBy('waktu', $sort)
+            ->findAll();
     }
 
     public function getBarangKeluarGabungFilter($start_date, $end_date)

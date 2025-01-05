@@ -82,27 +82,17 @@ class Barang_Pinjam extends BaseController
 
     public function beranda()
     {
-        // $keyword = $this->request->getVar('search');
-        // if ($keyword) {
-        //     $masuk = $this->masterBarangMasukModel->getBarangByName($keyword);
-        // } else {
-        //     $masuk = $this->masterBarangMasukModel;
-        // }
         $startDate = $this->request->getVar('start_date');
         $endDate = $this->request->getVar('end_date');
 
-        $query = $this->masterPeminjamanModel->getAllWithNama();
+        $query = $this->masterPeminjamanModel;
 
-        if ($startDate) {
-            $query = $query->where('tanggal_pinjam >=', $startDate);
+        if ($startDate && $endDate) {
+            $query = $query->where('tanggal_pinjam >=', $startDate . ' 00:00:00')
+                ->where('tanggal_pinjam <=', $endDate . ' 23:59:59');
         }
-
-        if ($endDate) {
-            $query = $query->where('tanggal_pinjam <=', $endDate);
-        }
-
         $data = [
-            'pinjam' => $query->findAll(),
+            'pinjam' => $query->getAll(),
             'start_date' => $startDate,
             'end_date' => $endDate
         ];
@@ -383,7 +373,9 @@ class Barang_Pinjam extends BaseController
             } else {
                 // Otherwise, commit the transaction
                 $db->transCommit();
-
+                session()->remove('datalist_pinjam');
+                session()->remove('penerima_pinjam');
+                session()->remove('keterangan_pinjam');
                 session()->setFlashdata('message', 'Transaction successful.');
                 // ganti url
                 return redirect()->to(base_url('/barang_pinjam'))->withInput();

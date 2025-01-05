@@ -81,13 +81,13 @@
             </li>
             <li class="nav-item <?= uri_string() == 'penerima' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?php echo base_url('penerima') ?>">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Penerima</span>
                 </a>
             </li>
             <li class="nav-item <?= uri_string() == 'supplier' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?php echo base_url('supplier') ?>">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Supplier</span>
                 </a>
             </li>

@@ -32,27 +32,12 @@
             <tbody>
                 <?php $no = 1;
                 foreach ($barangmasuk as $item) : ?>
-
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $item['id_barang'] ?></td>
                         <td><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
                         <td><?= $item['nama'] ?></td>
                         <td><?= $item['nama_satuan'] ?></td>
-                        <td><?= $item['harga_beli'] ?></td>
-                        <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
-                        <td><?= $item['jumlah'] ?></td>
-                        <td><?= $item['stok_awal'] + $item['jumlah'] ?></td>
-                        <td><?= $item['keterangan'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                <?php foreach ($inventarismasuk as $item) : ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $item['id_inventaris'] ?></td>
-                        <td><?= date('d/m/Y H:i:s', strtotime($item['waktu'])) ?></td>
-                        <td><?= $item['nama_inventaris'] ?></td>
-                        <td>alat</td>
                         <td><?= $item['harga_beli'] ?></td>
                         <td><?= $item['stok_awal'] ?></td> <!-- Mengisi stok awal -->
                         <td><?= $item['jumlah'] ?></td>

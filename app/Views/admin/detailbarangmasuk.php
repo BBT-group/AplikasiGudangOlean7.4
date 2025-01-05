@@ -11,7 +11,7 @@
                                     <div class="col-md-6 pl-0">
                                         <div class="form-group mb-1">
                                             <label for="input1">Tanggal dan Waktu Barang Masuk</label>
-                                            <input type="text" class="form-control form-control-sm" value="<?= $header['waktu'] ?>" readonly>
+                                            <input type="text" class="form-control form-control-sm" value="<?= date('d/m/Y H:i:s', strtotime($header['waktu'])) ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pr-0">
